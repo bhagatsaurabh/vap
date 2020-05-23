@@ -4,6 +4,112 @@
     background-color:#000;
 }
 
+@font-face {
+    src: url('../Fonts/PUNAVUOR.TTF');
+    font-family: 'Punavuor';
+}
+
+@keyframes logoDance {
+    0% {
+        text-shadow: 0 0 7px black;
+        color: black;
+        background-color: white;
+        box-shadow: none;
+    }
+    20% {
+        text-shadow: 0 0 1px black;
+        color: black;
+        background-color: white;
+        box-shadow: none;
+    }
+    30% {
+        text-shadow: 0 0 5px black;
+        color: black;
+        background-color: white;
+        box-shadow: none;
+    }
+    40% {
+        text-shadow: 0 0 1px black;
+        color: black;
+        background-color: white;
+        box-shadow: none;
+    }
+    50% {
+        text-shadow: 0 0 7px black;
+        color: black;
+        background-color: white;
+        box-shadow: none;
+    }
+    60% {
+        text-shadow: 0 0 1px black;
+        color: black;
+        background-color: white;
+        box-shadow: none;
+    }
+    70% {
+        text-shadow: 0 0 5px black;
+        color: black;
+        background-color: white;
+        box-shadow: none;
+    }
+    80% {
+        text-shadow: 0 0 1px black;
+        color: black;
+        background-color: white;
+        box-shadow: none;
+    }
+    85% {
+        background-color: black;
+        text-shadow: 0 0 7px white;
+        color: white;
+        box-shadow: 0 0 7px 1px black;
+    }
+    90% {
+        background-color: white;
+        text-shadow: 0 0 7px black;
+        color: black;
+        box-shadow: none;
+    }
+    95% {
+        background-color: black;
+        text-shadow: 0 0 7px white;
+        color: white;
+        box-shadow: 0 0 7px 1px black;
+    }
+    100% {
+        background-color: white;
+        text-shadow: 0 0 7px black;
+        color: black;
+        box-shadow: none;
+    }
+}
+
+#vapHeading {
+    font-family: 'Punavuor';
+    position: absolute;
+    right: 0;
+    height: 50%;
+    top: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: .9em;
+    margin-right: 4vw;
+    user-select: none;
+    text-shadow: 0 0 3px black;
+    animation-timing-function: linear;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    border-radius: 999px;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+#vapHeading:hover {
+    animation-name: logoDance;
+}
+
 #mainContainer {
     position: absolute;
     width: 100%;
