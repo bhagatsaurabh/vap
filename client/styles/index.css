@@ -34,12 +34,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    padding-top: 0.8%;
     text-align: center;
-    top: 8%;
+    top: 7%;
     left: -20%;
     width: 20%;
-    height: 92%;
-    background-color: #fff;
+    height: 91%;
+    background-color: rgb(214, 214, 214);
     box-shadow: #353535 0px 0px 10px 2px;
     z-index: 10;
     transition-property: left;
@@ -77,19 +78,13 @@
     background-image: url('../images/stop.png');
     opacity: .5;
 }
-
-.toolboxItem {
-    display: flex;
-    flex-direction: row;
-    width: 85%;
-    height: 5%;
-    margin-top: 3%;
-    background-color: #ccc;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial;
-    cursor: pointer;
+#replay {
+    background-image: url('../images/restart.png');
+    opacity: .5;
+}
+#record {
+    background-image: url('../images/microphone.png');
+    opacity: .5;
 }
 
 #gridContainer {
@@ -316,4 +311,68 @@
     transition-property: background-color;
     transition-duration: .2s;
     transition-timing-function: linear;
+}
+
+.toolboxItem {
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    height: 5%;
+    margin-top: 3%;
+    text-align: center;
+    padding-left: 15%;
+    justify-content: left;
+    align-items: center;
+    font-family: Arial;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: 8%;
+    background-position-x: left;
+    background-position-y: center;
+}
+
+#sourceIcon {
+    background-image: url('../images/audioSource.png');
+}
+#outputIcon {
+    background-image: url('../images/audioDestination.png');
+}
+#mergerIcon {
+    background-image: url('../images/audioMerger.png');
+}
+#convolveIcon {
+    background-image: url('../images/linearConvolver.png');
+}
+#noiseIcon {
+    background-image: url('../images/whiteNoise.png');
+}
+#bitcrushIcon {
+    background-image: url('../images/bitcrusher.png');
+}
+#moogIcon {
+    background-image: url('../images/moogFilter.png');
+}
+#pannerIcon {
+    background-image: url('../images/panner.png');
+}
+#freqIcon {
+    background-image: url('../images/frequencyAnalyser.png');
+}
+#waveIcon {
+    background-image: url('../images/waveformAnalyser.png');
+}
+#specIcon {
+    background-image: url('../images/spectrogramAnalyser.png');
+}
+#oscillIcon {
+    background-image: url('../images/oscillator.png');
+}
+#customIcon {
+    background-image: url('../images/customWave.png');
+}
+#micIcon {
+    background-image: url('../images/microphoneNode.png');
+}
+#drumIcon {
+    background-image: url('../images/drumSequencer.png');
 }

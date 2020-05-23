@@ -13,31 +13,33 @@
 <body>
     <div id="mainContainer">
         <div id="headerContainer">
-            <div class="headerOption" id="toolbox" onclick="toolboxClicked();"></div>
-            <div class="headerOption" id="play" onclick="playClicked();"></div>
-            <div class="headerOption" id="stop" onclick="stopClicked();"></div>
+            <div title="Toolbox" class="headerOption" id="toolbox" onclick="toolboxClicked();"></div>
+            <div title="Play" class="headerOption" id="play" onclick="playClicked();"></div>
+            <div title="Stop" class="headerOption" id="stop" onclick="stopClicked();"></div>
+            <div title="Restart" class="headerOption" id="replay" onclick="replayClicked();"></div>
+            <div title="Record" class="headerOption" id="record" onclick="recordClicked();"></div>
         </div>
         <div id="toolboxContainer">
-            <div class="toolboxItem" draggable="true">Audio Source</div>
-            <div class="toolboxItem" draggable="true">Audio Destination</div>
-            <div class="toolboxItem" draggable="true">Audio Merger</div>
-            <div class="toolboxItem" draggable="true">Linear Convolver</div>
-            <div class="toolboxItem" draggable="true">White Noise</div>
-            <div class="toolboxItem" draggable="true">Bitcrusher</div>
-            <div class="toolboxItem" draggable="true">Moog Filter</div>
-            <div class="toolboxItem" draggable="true">Panner</div>
-            <div class="toolboxItem" draggable="true">Frequency Analyser</div>
-            <div class="toolboxItem" draggable="true">Waveform Analyser</div>
-            <div class="toolboxItem" draggable="true">Spectrogram Analyser</div>
-            <div class="toolboxItem" draggable="true">Oscillator</div>
-            <div class="toolboxItem" draggable="true">Custom Wave</div>
-            <div class="toolboxItem" draggable="true">Microphone</div>
-            <div class="toolboxItem" draggable="true">Drum Sequencer</div>
+            <div title="Provides file to be played" class="toolboxItem" draggable="true" id="sourceIcon">Source</div>
+            <div title="The audio output" class="toolboxItem" draggable="true" id="outputIcon">Output</div>
+            <div title="Merges two or more audio sources" class="toolboxItem" draggable="true" id="mergerIcon">Merger</div>
+            <div title="Applies linear convolution to source" class="toolboxItem" draggable="true" id="convolveIcon">Convolver</div>
+            <div title="Provides plain white noise" class="toolboxItem" draggable="true" id="noiseIcon">Noise</div>
+            <div title="Applies bitcrusher effect" class="toolboxItem" draggable="true" id="bitcrushIcon">Bitcrusher</div>
+            <div title="Applies moog filtering effect" class="toolboxItem" draggable="true" id="moogIcon">Moog</div>
+            <div title="Pans audio to left or right channel" class="toolboxItem" draggable="true" id="pannerIcon">Panner</div>
+            <div title="Analyses input audio and shows frequency data" class="toolboxItem" draggable="true" id="freqIcon">Frequency</div>
+            <div title="Analyses input audio and shows waveform data" class="toolboxItem" draggable="true" id="waveIcon">Waveform</div>
+            <div title="Analyses input audio and shows spectrograph" class="toolboxItem" draggable="true" id="specIcon">Spectrogram</div>
+            <div title="Provides constant frequency audio" class="toolboxItem" draggable="true" id="oscillIcon">Oscillator</div>
+            <div title="Converts a drawn wave to audio source" class="toolboxItem" draggable="true" id="customIcon">Custom Wave</div>
+            <div title="Microphone as audio source" class="toolboxItem" draggable="true" id="micIcon">Microphone</div>
+            <div title="Provides drum sequence as audio source (Double click on node to open)" class="toolboxItem" draggable="true" id="drumIcon">Drum Sequencer</div>
         </div>
         <div id="drumSequencerContainer">
             <div id="dSControls">
                 <div class="dSControlItem" id="playStop" onclick="dSPlayStopClicked();"></div>
-                <div class="dSControlItem" id="bpmControl"><b>BPM: </b><input id="bpmInput" type="text" maxlength="3" value="90" oninput="bpmInputCheck(this);"/></div>
+                <div class="dSControlItem" id="bpmControl"><b>BPM: </b><input id="bpmInput" type="text" maxlength="3" value="60" oninput="bpmInputCheck(this);"/></div>
                 <div class="dSControlItem" id="closeControl" onclick="dSCloseClicked();"></div>
             </div>
             <div id="sequencer">
@@ -106,8 +108,9 @@
             <canvas id="mainCanvas"></canvas>
         </div>
     </div>
-    <script type="text/javascript" src="scripts/requestAnimationFrame.js"></script>
-    <script type="text/javascript" src="scripts/chroma.js"></script>
+    <script type="text/javascript" src="scripts/util.js"></script>
+    <script type="text/javascript" src="libs/recorder.js"></script>
+    <script type="text/javascript" src="libs/chroma.js"></script>
     <script type="text/javascript" src="scripts/index.js"></script>
     <script type="text/javascript" src="scripts/editor.js"> </script>
 </body>

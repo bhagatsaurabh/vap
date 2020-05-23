@@ -6,11 +6,16 @@ var context = canvas.getContext("2d");
 var aspect = canvas.width / canvas.height;
 var WIDTH = canvas.width;
 var HEIGHT = canvas.height;
+var recorder;
+var isRecording = false;
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioctx = new AudioContext();
+var finalOutput = audioctx.createGain();
+finalOutput.connect(audioctx.destination);
+
 var graphNodes = [];
 
 var freqAnalyserNumbers = [];
@@ -301,7 +306,7 @@ function constructGraph(nodes) {
                 break;
             }
             case "AudioDestination": {
-                graphNodes[i] = audioctx.destination;
+                graphNodes[i] = finalOutput;
                 break;
             }
             case "AudioMerger": {
@@ -452,6 +457,11 @@ function playGraph() {
             graphNodes[i].handlePlay();
         }
     }
+    if (recordingEnabled) {
+        recorder = new Recorder(finalOutput);
+        recorder.record();
+        isRecording = true;
+    }
 }
 
 function stopGraph() {
@@ -479,10 +489,34 @@ function stopGraph() {
         }
     }
     graphNodes = [];
-    audioctx.close();
-    audioctx = new AudioContext();
+
     context.clearRect(0, 0, WIDTH, HEIGHT);
     ultimateRedraw();
+
+    if (isRecording) {
+        recorder.stop();
+        recorder.exportWAV(function (blob) {
+            var url = URL.createObjectURL(blob);
+            var hf = document.createElement('a');
+            hf.href = url;
+            hf.download = 'output.wav';
+            hf.click();
+            recorder.clear();
+
+            audioctx.close();
+            audioctx = new AudioContext();
+            finalOutput = audioctx.createGain();
+            finalOutput.connect(audioctx.destination);
+            recorder = new Recorder(finalOutput);
+        });
+        isRecording = false;
+    } else {
+        audioctx.close();
+        audioctx = new AudioContext();
+        finalOutput = audioctx.createGain();
+        finalOutput.connect(audioctx.destination);
+    }
+
     //stop audio
     //clear graphNodes
     //clear buffers

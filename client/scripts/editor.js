@@ -1,8 +1,10 @@
-﻿var drumContext = new AudioContext() || webkitAudioContext();
-var toolboxContainer = document.getElementById("toolboxContainer");          // Reference to div element containing all draggable node div's
+﻿var recordingEnabled = false;
+var drumContext = new AudioContext() || webkitAudioContext();
+var toolboxContainer = document.getElementById("toolboxContainer");
 var drumSequencerContainer = document.getElementById("drumSequencerContainer");
 var dSPlayStop = document.getElementById("playStop");
 var bpmInput = document.getElementById("bpmInput");
+var recordElement = document.getElementById('record');
 var isDSPlaying = false;
 var currDSNode = null;
 var output = drumContext.createGain();
@@ -24,13 +26,13 @@ var samples = ["crash", "kick", "snare", "openhat", "tom", "clap", "perc", "shak
 var xhrs = [];
 var decodedSamples = {};
 var selectionOptions = document.getElementById("selectionOptions");
-var selectionCells = [null, null, null, null, null, null, null, null];
-for (var i = 0; i < selectionCells.length; i++){
-    selectionCells[i] = document.getElementById("selectionCell" + (i+1));
+var selectionCells = [];
+for (var i = 0; i < 8; i++){
+    selectionCells.push(document.getElementById("selectionCell" + (i+1)));
 }
-var activationCells = [null, null, null, null, null, null, null, null];
-for (var i = 0; i < activationCells.length; i++){
-    activationCells[i] = document.getElementById("a" + (i+1));
+var activationCells = [];
+for (var i = 0; i < 8; i++){
+    activationCells.push(document.getElementById("a" + (i+1)));
 }
 var isSelectionOpened = false, isPlaying = false;
 var currSelection = null;
@@ -50,7 +52,7 @@ var LOOP_LENGTH = 16;
 var rhythmIndex = 0;
 var timeoutId;
 var testBuffer = null;
-var tempo = 90;
+var tempo = 60;
 var TEMPO_MAX = 200;
 var TEMPO_MIN = 40;
 var TEMPO_STEP = 4;
@@ -129,17 +131,6 @@ function playClicked() {
 function playNote(buffer, noteTime) {
     var voice = drumContext.createBufferSource();
     voice.buffer = buffer;
-
-    var currentLastNode = output;
-    /*if (lowPassFilterNode.active) {
-      lowPassFilterNode.connect(currentLastNode);
-      currentLastNode = lowPassFilterNode;
-    }
-    if (convolver.active) {
-      convolver.buffer = reverbImpulseResponse.buffer;
-      convolver.connect(currentLastNode);
-      currentLastNode = convolver;
-    }*/
     voice.connect(output);
     voice.start(noteTime);
 }
@@ -179,28 +170,26 @@ function drawPlayhead(xindex) {
     }
 }
 
-function bpmInputCheck(x) {
-    if (x.value == "") {
-        tempo = 90;
-        if (currDSNode != null) currDSNode.tempo = tempo;
+function bpmInputCheck(input) {
+    if (input.value == "") {
+        tempo = 60;
     }
-    else if (isNaN(parseInt(x.value))) {
-        x.value = "90";
-        tempo = 90;
-        if (currDSNode != null) currDSNode.tempo = tempo;
+    else if (isNaN(parseInt(input.value))) {
+        input.value = "60";
+        tempo = 60;
     }
     else {
-        if (parseInt(x.value) > 240) {
-            x.value = "240";
+        if (parseInt(input.value) > 240) {
+            input.value = "240";
             tempo = 240;
-            if (currDSNode != null) currDSNode.tempo = tempo;
+        } else if (parseInt(input.value) < 10) {
+            tempo = 10;
         }
         else {
-            tempo = parseInt(x.value);
-            console.log(tempo);
-            if (currDSNode != null) currDSNode.tempo = tempo;
+            tempo = parseInt(input.value);
         }
     }
+    if (currDSNode != null) currDSNode.bpm = tempo;
 }
 
 function advanceNote() {
@@ -211,11 +200,6 @@ function advanceNote() {
     }
     //0.25 because each square is a 16th note
     noteTime += 0.25 * secondsPerBeat;
-    // if (rhythmIndex % 2) {
-    //     noteTime += (0.25 + kMaxSwing * theBeat.swingFactor) * secondsPerBeat;
-    // } else {
-    //     noteTime += (0.25 - kMaxSwing * theBeat.swingFactor) * secondsPerBeat;
-    // }
 }
 
 function handlePlay(event) {
@@ -236,6 +220,7 @@ function handleStop(event) {
 
 var playOption = document.getElementById("play");                            // Reference to div containing Play icon
 var stopOption = document.getElementById("stop");                            // Reference to div containing Stop icon
+var replayOption = document.getElementById("replay");                        // Reference to div containing replay icon
 var speakerIcon = document.createElement("img");                             // <img> used for loading speaker icon
 speakerIcon.crossOrigin = "Anonymous";
 speakerIcon.src = "images/speaker.png";
@@ -784,7 +769,7 @@ var DrumSequencerNode = function (x, y, width, height, order) {
                  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
     this.channels = ["kick", "snare", "openhat", "hihat", "clap", "tom", "shaker", "perc"];
     this.channelTracks = [decodedSamples["kick"], decodedSamples["snare"], decodedSamples["openhat"], decodedSamples["hihat"], decodedSamples["clap"], decodedSamples["tom"], decodedSamples["shaker"], decodedSamples["perc"]];
-    this.bpm = 90;
+    this.bpm = 60;
     this.guid = getNewGUID();
     this.originalWidth = width;
     this.scaleRatio = 1;
@@ -2541,6 +2526,7 @@ function playClicked() {
         isPlaying = !isPlaying;
         playOption.style.opacity = ".5";
         stopOption.style.opacity = "1";
+        replayOption.style.opacity = "1";
 
         constructGraph(nodes);
     }
@@ -2551,9 +2537,15 @@ function stopClicked() {
         isPlaying = !isPlaying;
         playOption.style.opacity = "1";
         stopOption.style.opacity = ".5";
+        replayOption.style.opacity = ".5";
 
         stopGraph();
     }
+}
+
+function replayClicked() {
+    stopClicked();
+    playClicked();
 }
 
 document.addEventListener("dragstart", function (event) {   
@@ -2585,26 +2577,26 @@ canvas.addEventListener("drop", function () {
     */
     //experimental
 
-    if (draggedItemText == "Audio Source") {
+    if (draggedItemText == "Source") {
         var newAudioSource = new AudioSourceNode(pos.x, pos.y, WIDTH * 0.15 * globalScaleRatio, WIDTH * 0.1 * 0.4 * globalScaleRatio, nodes.length);
         nodes.push(newAudioSource);
     }
-    else if (draggedItemText == "Audio Destination") {
+    else if (draggedItemText == "Output") {
         for (var i = 0; i < nodes.length; i++) {
             if (nodes[i].type == "AudioDestination") return;
         }
         var newAudioDestination = new AudioDestinationNode(pos.x, pos.y, WIDTH * 0.03 * globalScaleRatio, nodes.length);
         nodes.push(newAudioDestination);
     }
-    else if (draggedItemText == "Audio Merger") {
+    else if (draggedItemText == "Merger") {
         var newAudioMerger = new AudioMergerNode(pos.x, pos.y, WIDTH * 0.15 * globalScaleRatio, nodes.length);
         nodes.push(newAudioMerger);
     }
-    else if (draggedItemText == "Linear Convolver") {
+    else if (draggedItemText == "Convolver") {
         var newLinearConvolver = new LinearConvolveNode(pos.x, pos.y, WIDTH * 0.15 * globalScaleRatio, nodes.length);
         nodes.push(newLinearConvolver);
     }
-    else if (draggedItemText == "White Noise") {
+    else if (draggedItemText == "Noise") {
         var newWhiteNoise = new WhiteNoiseNode(pos.x, pos.y, WIDTH * 0.075 * globalScaleRatio, WIDTH * 0.1 * 0.3 * globalScaleRatio, nodes.length);
         nodes.push(newWhiteNoise);
     }
@@ -2612,7 +2604,7 @@ canvas.addEventListener("drop", function () {
         var newBitcrusher = new BitcrusherNode(pos.x, pos.y, WIDTH * 0.2 * globalScaleRatio, nodes.length);
         nodes.push(newBitcrusher);
     }
-    else if (draggedItemText == "Moog Filter") {
+    else if (draggedItemText == "Moog") {
         var newMoogfilter = new MoogfilterNode(pos.x, pos.y, WIDTH * 0.2 * globalScaleRatio, nodes.length);
         nodes.push(newMoogfilter);
     }
@@ -2620,15 +2612,15 @@ canvas.addEventListener("drop", function () {
         var newPanner = new PannerNode(pos.x, pos.y, WIDTH * 0.2 * globalScaleRatio, nodes.length);
         nodes.push(newPanner);
     }
-    else if (draggedItemText == "Frequency Analyser") {
+    else if (draggedItemText == "Frequency") {
         var newFAnalyser = new FrequencyAnalyserNode(pos.x, pos.y, WIDTH * 0.25 * globalScaleRatio, nodes.length);
         nodes.push(newFAnalyser);
     }
-    else if (draggedItemText == "Waveform Analyser") {
+    else if (draggedItemText == "Waveform") {
         var newWAnalyser = new WaveformAnalyserNode(pos.x, pos.y, WIDTH * 0.25 * globalScaleRatio, nodes.length);
         nodes.push(newWAnalyser);
     }
-    else if (draggedItemText == "Spectrogram Analyser") {
+    else if (draggedItemText == "Spectrogram") {
         var newSAnalyser = new SpectrogramAnalyserNode(pos.x, pos.y, WIDTH * 0.25 * globalScaleRatio, nodes.length);
         nodes.push(newSAnalyser);
     }
@@ -2648,7 +2640,6 @@ canvas.addEventListener("drop", function () {
         var newDSequencer = new DrumSequencerNode(pos.x, pos.y, WIDTH * 0.08 * globalScaleRatio, WIDTH * 0.04 * globalScaleRatio, nodes.length);
         nodes.push(newDSequencer);
     }
-    console.log(draggedItemText);
 }, true);
 
 canvas.addEventListener("click", function () { }, true);
@@ -3002,4 +2993,13 @@ function dSCloseClicked() {
             handleStop();
         }
     }
+}
+
+function recordClicked() {
+    if (!recordingEnabled) {
+        recordElement.style.backgroundColor = '#eb6b34';
+    } else {
+        recordElement.style.backgroundColor = 'unset';
+    }
+    recordingEnabled = !recordingEnabled;
 }
