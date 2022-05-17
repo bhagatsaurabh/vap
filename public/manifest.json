@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "vAP",
+  "name": "Visual Audio Processor",
   "icons": [
     {
       "src": "favicon.ico",
