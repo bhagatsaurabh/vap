@@ -1,0 +1,32 @@
+main.home-main {
+  position: relative;
+  height: 100vh;
+  background-color: var(--brand);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cover-image {
+  max-width: 65vw;
+}
+
+.cover-line {
+  color: #dddddd;
+  font-size: 1.8rem;
+  font-weight: lighter;
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  .cover-image {
+    max-width: 60vw;
+  }
+}
+
+@media (min-width: 1000px) {
+  .cover-image {
+    max-width: 40vw;
+  }
+}

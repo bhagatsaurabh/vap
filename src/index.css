@@ -1,3 +1,8 @@
+html {
+  min-width: 359px;
+  min-height: 500px;
+}
+
 html,
 body {
   padding: 0;
@@ -20,8 +25,9 @@ code {
 :root {
   --brand: #3f3f3f;
   --bg-arrow: #cccccc;
-  --text: #2c3e50;
-  --navbar-height: 3.8rem;
+  --text: #c1c1c1;
+  --text-lightest: #656565;
+  --header-height: 3.8rem;
   --theme-transition-bg: background-color .2s linear;
   --theme-transition-text: color .2s linear;
   --theme-transition-border: border .2s linear;

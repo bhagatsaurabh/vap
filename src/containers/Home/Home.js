@@ -1,19 +1,21 @@
+import vapCover from "../../assets/images/cover-transparent.png";
 import "./Home.css";
-import { helpIcon, logoDarkSmall } from "../../assets/icons";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import StartButton from "../../components/common/StartButton/StartButton";
 
 function Home() {
   return (
     <>
-      <header>
-        <div className="header-left">
-          <img src={logoDarkSmall.default} alt="VAP header logo" />
+      <Header />
+      <main className="home-main">
+        <div className="home-cover">
+          <img className="cover-image" src={vapCover} alt="VAP Logo Cover" />
+          <p className="cover-line">Visual Audio Processor</p>
+          <StartButton>Start</StartButton>
         </div>
-        <div className="header-right">
-          <img src={helpIcon.default} alt="Help" />
-        </div>
-      </header>
-      <main></main>
-      <footer></footer>
+      </main>
+      <Footer />
     </>
   );
 }
