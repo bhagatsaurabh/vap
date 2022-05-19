@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Audiowide;
+  src: url('./assets/fonts/Audiowide.woff');
+}
+
 html {
   min-width: 359px;
   min-height: 500px;

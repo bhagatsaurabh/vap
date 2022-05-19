@@ -9,6 +9,10 @@ header.home-header {
   min-width: calc(359px - 2rem);
 }
 
+header .header-left img {
+  box-shadow: 0 0 30px 0 #000;
+}
+
 header.home-header img {
   width: 2rem;
   vertical-align: bottom;

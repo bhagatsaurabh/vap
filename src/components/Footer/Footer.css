@@ -7,6 +7,7 @@ footer.home-footer {
   align-items: center;
   padding: 0 1rem;
   min-width: calc(359px - 2rem);
+  user-select: none;
 }
 
 footer.home-footer {
@@ -17,6 +18,10 @@ footer.home-footer {
 footer .footer-left img {
   width: 1.8rem;
   vertical-align: bottom;
+}
+
+footer .footer-left a {
+  margin-right: 1rem;
 }
 
 footer .footer-right {
@@ -32,6 +37,5 @@ footer.home-footer button {
 }
 
 .github-icon {
-  margin-right: 1rem;
   opacity: .5;
 }
