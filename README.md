@@ -1,3 +1,0 @@
-## Notice: Project re-design in-progress !
-
-##### Check back later ;) (23rd May 2022 ?) ...

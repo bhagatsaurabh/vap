@@ -1,11 +1,27 @@
-@font-face {
-  font-family: Audiowide;
-  src: url('./assets/fonts/Audiowide.woff');
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  --brand: #3f3f3f;
+  --bg-arrow: #cccccc;
+  --text: #c1c1c1;
+  --text-lightest: #656565;
+  --header-height: 3.8rem;
+  --theme-transition-bg: background-color 0.2s linear;
+  --theme-transition-text: color 0.2s linear;
+  --theme-transition-border: border 0.2s linear;
+  --theme-transition-all: var(--theme-transition-bg),
+    var(--theme-transition-text), var(--theme-transition-border);
 }
 
-html {
-  min-width: 359px;
-  min-height: 500px;
+@font-face {
+  font-family: Audiowide;
+  src: url("./assets/fonts/Audiowide.woff");
 }
 
 html,
@@ -15,26 +31,13 @@ body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  min-width: 320px;
+  min-height: 100vh;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.ml-1 {
+  margin-left: 1rem;
 }
 
-:root {
-  --brand: #3f3f3f;
-  --bg-arrow: #cccccc;
-  --text: #c1c1c1;
-  --text-lightest: #656565;
-  --header-height: 3.8rem;
-  --theme-transition-bg: background-color .2s linear;
-  --theme-transition-text: color .2s linear;
-  --theme-transition-border: border .2s linear;
-  --theme-transition-all: var(--theme-transition-bg), var(--theme-transition-text), var(--theme-transition-border);
+@media (prefers-color-scheme: light) {
 }
