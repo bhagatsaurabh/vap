@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
-import { useAfterMount } from "../../utils/custom-hooks";
-import { Animation } from "../../utils/animated-cover";
 
 import "./AnimatedCover.css";
+import { useAfterMount } from "../../utils/custom-hooks";
+import { Animation } from "../../utils/animated-cover";
 
 function AnimatedCover() {
   const canvasEl = useRef(null);
@@ -12,7 +12,11 @@ function AnimatedCover() {
     () => {
       context.current = canvasEl.current.getContext("2d");
       const animation = new Animation(canvasEl.current);
-      window.addEventListener("resize", resize.bind(this, canvasEl.current, animation), false);
+      window.addEventListener(
+        "resize",
+        resize.bind(this, canvasEl.current, animation),
+        false
+      );
       resize(canvasEl.current, animation);
       const frameId = requestAnimationFrame(
         render.bind(this, context.current, canvasEl.current, animation)

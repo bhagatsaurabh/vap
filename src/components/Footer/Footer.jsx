@@ -1,13 +1,21 @@
-import { githubIcon } from "../../assets/icons";
 import "./Footer.css";
+import { githubIcon } from "../../assets/icons";
 
 function Footer() {
   return (
     <footer className="home-footer">
       <div className="footer-left">
-        <a href="https://github.com/saurabh-prosoft/vap" target="_blank" rel="noreferrer">
+        <a
+          href="https://github.com/saurabh-prosoft/vap"
+          target="_blank"
+          rel="noreferrer"
+        >
           <button>
-            <img className="github-icon" src={githubIcon.default} alt="Github" />
+            <img
+              className="github-icon"
+              src={githubIcon.default}
+              alt="Github"
+            />
           </button>
         </a>
       </div>

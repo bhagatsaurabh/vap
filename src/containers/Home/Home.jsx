@@ -1,5 +1,5 @@
-import vapLight from "../../assets/images/logo-light-transparent.png";
 import "./Home.css";
+import vapLight from "../../assets/images/logo-light-transparent.png";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import StartButton from "../../components/common/StartButton/StartButton";

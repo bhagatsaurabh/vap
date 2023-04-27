@@ -11,7 +11,7 @@ main.home-main {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: url('../../assets/images/noise.svg');
+  background: url("../../assets/images/noise.svg");
   z-index: -1;
   filter: blur(1px);
 }
