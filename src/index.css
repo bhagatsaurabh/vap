@@ -38,3 +38,7 @@ code {
   --theme-transition-border: border .2s linear;
   --theme-transition-all: var(--theme-transition-bg), var(--theme-transition-text), var(--theme-transition-border);
 }
+
+.ml-1 {
+  margin-left: 1rem;
+}
