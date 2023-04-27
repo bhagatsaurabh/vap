@@ -1,6 +1,6 @@
+import "./Header.css";
 import { logoIcon } from "../../assets/icons";
 import HelpButton from "../common/HelpButton/HelpButton";
-import "./Header.css";
 
 function Header() {
   return (

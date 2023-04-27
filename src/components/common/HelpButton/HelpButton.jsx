@@ -1,5 +1,5 @@
-import { helpIcon } from "../../../assets/icons";
 import "./HelpButton.css";
+import { helpIcon } from "../../../assets/icons";
 
 function HelpButton() {
   return (
