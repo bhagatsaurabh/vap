@@ -1,0 +1,17 @@
+button.home-start {
+  background-color: transparent;
+  border: 2px solid #dddddd;
+  padding: .5rem 2rem;
+  color: #dddddd;
+  cursor: pointer;
+  font-size: 1.2rem;
+  box-shadow: 0 0 30px 0 #000;
+  margin-top: 2rem;
+  transition: background-color .15s linear, color .15s linear, border .15s linear;
+}
+
+button.home-start:hover {
+  background-color: #dadada79;
+  color: rgb(50, 50, 50);
+  border: 2px solid rgb(50, 50, 50);
+}
