@@ -1,30 +1,20 @@
-import "./Footer.css";
-import { githubIcon } from "../../assets/icons";
+import Button from "../common/Button/Button";
+import styles from "./Footer.module.css";
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer className="home-footer">
-      <div className="footer-left">
-        <a
-          href="https://github.com/saurabh-prosoft/vap"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button>
-            <img
-              className="github-icon"
-              src={githubIcon.default}
-              alt="Github"
-            />
-          </button>
+    <footer>
+      <div className={styles.left}>
+        <a href="https://github.com/saurabh-prosoft/vap" target="_blank" rel="noreferrer">
+          <Button icon="github" />
         </a>
       </div>
-      <div className="footer-right">
+      <div className={styles.right}>
         <span>Copyright &copy; 2018-present | </span>
-        <span style={{ whiteSpace: "nowrap" }}>Saurabh Bhagat</span>
+        <span className="ws-no-wrap">Saurabh Bhagat</span>
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

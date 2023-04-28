@@ -12,11 +12,13 @@
   --text: #c1c1c1;
   --text-lightest: #656565;
   --header-height: 3.8rem;
-  --theme-transition-bg: background-color 0.2s linear;
-  --theme-transition-text: color 0.2s linear;
-  --theme-transition-border: border 0.2s linear;
-  --theme-transition-all: var(--theme-transition-bg),
-    var(--theme-transition-text), var(--theme-transition-border);
+  --duration-effect: 0.2s;
+  --duration-effect-slow: 0.15s;
+  --theme-transition-bg: background-color var(--duration-effect) linear;
+  --theme-transition-text: color var(--duration-effect) linear;
+  --theme-transition-border: border var(--duration-effect) linear;
+  --theme-transition-all: var(--theme-transition-bg), var(--theme-transition-text),
+    var(--theme-transition-border);
 }
 
 @font-face {
@@ -37,6 +39,10 @@ body {
 
 .ml-1 {
   margin-left: 1rem;
+}
+
+.ws-no-wrap {
+  white-space: nowrap;
 }
 
 @media (prefers-color-scheme: light) {

@@ -1,4 +1,4 @@
-main.home-main {
+main {
   position: relative;
   height: 100vh;
   display: flex;
@@ -7,34 +7,25 @@ main.home-main {
   align-items: center;
 }
 
-.home-back-cover {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: url("../../assets/images/noise.svg");
-  z-index: -1;
-  filter: blur(1px);
-}
-
-.home-logo {
+main .brand {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.cover-image {
+main .brand img {
   max-width: 10vh;
   margin-right: 1rem;
 }
 
-.cover-name {
+main .brand span {
   margin: 0;
   font-family: "Audiowide";
   font-size: 4rem;
   color: #dddddd;
 }
 
-.cover-line {
+.cover p {
   color: #dddddd;
   font-size: 1.4rem;
   font-weight: lighter;
@@ -42,29 +33,29 @@ main.home-main {
 }
 
 @media (min-width: 768px) {
-  .cover-image {
+  main .brand img {
     max-width: 14vh;
   }
 
-  .cover-name {
+  main .brand span {
     font-size: 6rem;
   }
 
-  .cover-line {
+  .cover p {
     font-size: 1.6rem;
   }
 }
 
 @media (min-width: 1000px) {
-  .cover-image {
+  main .brand img {
     max-width: 18vh;
   }
 
-  .cover-name {
+  main .brand span {
     font-size: 8rem;
   }
 
-  .cover-line {
+  .cover p {
     font-size: 1.8rem;
   }
 }

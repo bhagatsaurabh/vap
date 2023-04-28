@@ -1,21 +1,16 @@
-import "./Header.css";
-import { logoIcon } from "../../assets/icons";
-import HelpButton from "../common/HelpButton/HelpButton";
+import styles from "./Header.module.css";
+import { logo } from "@/assets/icons";
 
-function Header() {
+const Header = () => {
   return (
-    <header className="home-header">
-      <div className="header-left">
-        <img src={logoIcon.default} alt="VAP header logo" />
-        <div className="header-name">
-          <span className="ml-1">vAP</span>
-        </div>
+    <header>
+      <div className={styles.left}>
+        <img src={logo} alt="vAP header logo" />
+        <span className="ml-1">vAP</span>
       </div>
-      <div className="header-right">
-        <HelpButton />
-      </div>
+      <div className={styles.right}></div>
     </header>
   );
-}
+};
 
 export default Header;
