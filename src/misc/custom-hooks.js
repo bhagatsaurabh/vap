@@ -12,5 +12,5 @@ export const useAfterMount = (callback, cleanup) => {
     mounted.current = true;
 
     return cleanup;
-  }, [callback, cleanup]);
+  }, []);
 };

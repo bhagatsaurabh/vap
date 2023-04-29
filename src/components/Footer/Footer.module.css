@@ -1,5 +1,5 @@
-footer.home-footer {
-  position: absolute;
+footer {
+  position: fixed;
   width: calc(100% - 2rem);
   z-index: 5;
   display: flex;
@@ -8,27 +8,24 @@ footer.home-footer {
   padding: 0 1rem;
   min-width: calc(359px - 2rem);
   user-select: none;
-}
-
-footer.home-footer {
   height: var(--header-height);
   bottom: 0;
 }
 
-footer .footer-left img {
+footer .left img {
   width: 1.8rem;
   vertical-align: bottom;
 }
 
-footer .footer-left a {
+footer .left a {
   margin-right: 1rem;
 }
 
-footer .footer-right {
+footer .right {
   color: var(--text-lightest);
 }
 
-footer.home-footer button {
+footer button {
   border: none;
   background-color: transparent;
   box-sizing: border-box;
@@ -36,6 +33,13 @@ footer.home-footer button {
   cursor: pointer;
 }
 
-.github-icon {
+footer button img {
   opacity: 0.5;
+  transition: opacity var(--duration-effect) linear;
+}
+
+@media (hover: hover) {
+  footer button img:hover {
+    opacity: 0.8;
+  }
 }

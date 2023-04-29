@@ -1,0 +1,55 @@
+button {
+  background-color: transparent;
+  border: none;
+  border-radius: 999px;
+  padding: 0.5rem 1.5rem;
+  transition: all 0.1s linear;
+}
+
+button.light {
+  color: #383838;
+  text-shadow: 0px 0px 5px rgb(255, 255, 255);
+  box-shadow: 4px 4px 10px 0px rgb(226, 226, 226);
+}
+button.dark {
+  color: rgb(248, 248, 248);
+  text-shadow: 0px 0px 5px #000000;
+  box-shadow: 4px 4px 10px 0px rgb(27, 27, 27);
+}
+
+button.light:disabled {
+  color: #6a6a6a;
+}
+button.dark:disabled {
+  color: #909090;
+}
+
+button.light:active {
+  box-shadow: 0px 0px 0px 0px rgb(226, 226, 226), 4px 4px 10px 0px rgb(226, 226, 226) inset;
+}
+button.dark:active {
+  box-shadow: 0px 0px 0px 0px rgb(27, 27, 27), 4px 4px 10px 0px rgb(27, 27, 27) inset;
+}
+
+@media (hover: hover) {
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  button.light:hover {
+    background-color: rgba(128, 128, 128, 0.5);
+  }
+  button.dark:hover {
+    background-color: rgba(128, 128, 128, 0.5);
+  }
+
+  button.light:disabled:hover {
+    box-shadow: 2px 2px 5px 0px #d4d4d4;
+  }
+  button.dark:disabled:hover {
+    box-shadow: 2px 2px 5px 0px #2c2c2c;
+  }
+}

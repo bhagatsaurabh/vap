@@ -1,0 +1,88 @@
+main {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+main {
+  scrollbar-width: none;
+}
+main::-webkit-scrollbar {
+  display: none;
+}
+
+main .brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main .brand img {
+  max-width: 10vh;
+  margin-right: 1rem;
+}
+
+main .brand span {
+  margin: 0;
+  font-family: "Audiowide";
+  font-size: 4rem;
+  color: #dddddd;
+}
+
+.cover p {
+  color: #dddddd;
+  font-size: 1.4rem;
+  font-weight: lighter;
+  margin-top: 0;
+}
+
+main section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+main section:not(:first-of-type) {
+  position: sticky;
+  top: 0;
+}
+
+.placeholder {
+  width: 80vw;
+  height: 80vw;
+  background-color: lightgray;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  main .brand img {
+    max-width: 14vh;
+  }
+
+  main .brand span {
+    font-size: 6rem;
+  }
+
+  .cover p {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  main .brand img {
+    max-width: 18vh;
+  }
+
+  main .brand span {
+    font-size: 8rem;
+  }
+
+  .cover p {
+    font-size: 1.8rem;
+  }
+}

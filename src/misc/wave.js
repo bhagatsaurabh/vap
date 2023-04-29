@@ -1,5 +1,5 @@
 import { WaveParticle } from "./wave-particle";
-import { denormalize, getRandom, normalize, project } from "./utils";
+import { denormalize, rand, normalize, project } from "./utils";
 import { Particle } from "./particle";
 
 export class Wave {
@@ -23,7 +23,7 @@ export class Wave {
 
     this.cX = 0;
     this.cY = Math.round((Math.random() - 0.5) * h);
-    this.noOfPoints = getRandom(20 + this.index * 5, 40 + this.index * 5);
+    this.noOfPoints = rand(20 + this.index * 5, 40 + this.index * 5);
 
     this.pointGap = w / (this.noOfPoints - 1);
 
@@ -44,7 +44,7 @@ export class Wave {
           x,
           this.cY,
           this.z,
-          a > 1 ? getRandom(16, 64) : getRandom(8, 32),
+          a > 1 ? rand(16, 64) : rand(8, 32),
           denormalize(normalize(this.z, 0, this.w / 2), 0.02, 0.005)
         )
       );
@@ -55,14 +55,14 @@ export class Wave {
       const rotSpeed = denormalize(normalize(this.z, 0, this.w / 2), 0.02, 0.005);
       this.particles.push(
         new Particle(
-          getRandom(-this.w / 2, 1.5 * this.w),
-          getRandom(this.cY - 5, this.cY + 5),
+          rand(-this.w / 2, 1.5 * this.w),
+          rand(this.cY - 5, this.cY + 5),
           this.z,
-          getRandom(0.2, 1),
+          rand(0.2, 1),
           this.color,
-          a > 1 ? getRandom(16, 64) : getRandom(8, 32),
+          a > 1 ? rand(16, 64) : rand(8, 32),
           rotSpeed,
-          getRandom(rotSpeed * 10, rotSpeed * 100)
+          rand(rotSpeed * 10, rotSpeed * 100)
         )
       );
     }

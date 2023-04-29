@@ -1,4 +1,4 @@
-import { getRandom } from "./utils";
+import { rand } from "./utils";
 import { Wave } from "./wave";
 
 export class Animation {
@@ -17,10 +17,10 @@ export class Animation {
       this.waves.push(
         new Wave(
           i,
-          getRandom(20 + i * 5, 40 + i * 5),
+          rand(20 + i * 5, 40 + i * 5),
           `rgba(255, 255, 255, ${Math.abs(1 - ((zGap * i * 2) / canvas.width) * 2)})`,
           zGap * i,
-          getRandom(0.01, 0.03)
+          rand(0.01, 0.03)
         )
       );
     }
