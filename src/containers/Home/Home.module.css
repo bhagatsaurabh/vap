@@ -1,10 +1,15 @@
 main {
   position: relative;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+main {
+  scrollbar-width: none;
+}
+main::-webkit-scrollbar {
+  display: none;
 }
 
 main .brand {
@@ -30,6 +35,28 @@ main .brand span {
   font-size: 1.4rem;
   font-weight: lighter;
   margin-top: 0;
+}
+
+main section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+main section:not(:first-of-type) {
+  position: sticky;
+  top: 0;
+}
+
+.placeholder {
+  width: 80vw;
+  height: 80vw;
+  background-color: lightgray;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media (min-width: 768px) {

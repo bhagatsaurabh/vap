@@ -1,0 +1,136 @@
+.scrollhint {
+  position: relative;
+  margin-top: 1.5rem;
+}
+.scrollhint.hide {
+  opacity: 0;
+}
+
+.scrollhint::before {
+  content: "";
+  width: 0.5rem;
+  display: block;
+  height: 0.5rem;
+  border-radius: 1rem;
+  background-color: white;
+  position: absolute;
+  top: -1rem;
+  left: calc(50% - 0.25rem);
+
+  animation-name: swipe;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+.scrollhint::after {
+  content: "";
+  display: block;
+  z-index: -1;
+  width: 0.5rem;
+  border-radius: 0.5rem;
+  left: calc(50% - 0.25rem);
+  height: 2rem;
+  position: absolute;
+  top: -1rem;
+  background: linear-gradient(180deg, #fff, #bbb, #777, #545454);
+
+  animation-name: stripe;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes swipe {
+  0% {
+    opacity: 0;
+    top: 1rem;
+  }
+  20% {
+    opacity: 0.8;
+    top: 1rem;
+  }
+  80% {
+    opacity: 0.8;
+    top: -0.5rem;
+  }
+  100% {
+    opacity: 0;
+    top: -0.5rem;
+  }
+}
+
+@keyframes stripe {
+  0% {
+    height: 0.5rem;
+    opacity: 0;
+    top: 1rem;
+  }
+  20% {
+    height: 0.5rem;
+    opacity: 0.8;
+    top: 1rem;
+  }
+  80% {
+    opacity: 0.8;
+    height: 2rem;
+    top: -0.5rem;
+  }
+  100% {
+    opacity: 0;
+    height: 0.5rem;
+    top: -0.5rem;
+  }
+}
+
+@media (hover: hover) {
+  .scrollhint {
+    position: unset;
+    width: 1.5rem;
+    height: 2.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid white;
+    border-radius: 1rem 1rem 1.5rem 1.5rem;
+    margin-top: 1.5rem;
+    background-color: unset;
+  }
+
+  .scrollhint::before {
+    content: "";
+    display: block;
+    background-color: white;
+    width: 4px;
+    top: 4px;
+    left: calc(50% - 2px);
+    height: 0rem;
+    position: relative;
+    margin: unset;
+
+    animation-name: scroll;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  .scrollhint::after {
+    display: none;
+  }
+
+  @keyframes scroll {
+    0% {
+      height: 0rem;
+      top: 4px;
+    }
+    40% {
+      height: 0.7rem;
+      top: 4px;
+    }
+    80% {
+      height: 0rem;
+      top: calc(0.7rem + 4px);
+    }
+    100% {
+      height: 0rem;
+      top: calc(0.7rem + 4px);
+    }
+  }
+}

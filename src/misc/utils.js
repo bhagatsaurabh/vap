@@ -34,3 +34,17 @@ export const resizeAnimation = (canvas, animation) => {
 
   animation.resize(canvas.width, canvas.height);
 };
+
+export const flip = (input) => {
+  return [input[1], input[0]];
+};
+
+export const clamp = (value, min, max) => {
+  return Math.min(Math.max(value, min), max);
+};
+
+export const roundTo = (value, decimalPlaces) => {
+  decimalPlaces = Math.max(decimalPlaces, 1);
+  const base = 10 * decimalPlaces;
+  return Math.round((value + Number.EPSILON) * base) / base;
+};
