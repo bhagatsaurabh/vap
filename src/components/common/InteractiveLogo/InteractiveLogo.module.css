@@ -1,6 +1,7 @@
 .interactive-logo {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .interactive-logo img {
@@ -15,8 +16,8 @@
 .interactive-logo span {
   font-family: Audiowide;
   color: #ddd;
-  position: relative;
-  left: -55%;
+  position: absolute;
+  left: -50%;
   opacity: 0;
   transition: left var(--duration-effect-slow) linear, opacity 0.15s linear;
   pointer-events: none;
@@ -24,7 +25,7 @@
 
 @media (hover: hover) {
   .interactive-logo:hover span {
-    left: 0%;
+    left: 100%;
     opacity: 1;
   }
 }

@@ -1,0 +1,12 @@
+.main {
+  position: relative;
+  width: 100vw;
+  background-color: #414041;
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  top: var(--header-height);
+  padding-bottom: var(--footer-height);
+}
+
+.main div {
+  font-size: 4rem;
+}

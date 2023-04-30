@@ -1,12 +1,23 @@
-header {
-  position: fixed;
+.header {
+  position: relative;
   width: calc(100% - 2rem);
-  z-index: 5;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
-  min-width: calc(359px - 2rem);
-  top: 0;
   height: var(--header-height);
+  transition: box-shadow 0.1s linear, border-bottom 0.1s linear;
+  background-color: #414041;
+  border-bottom: 1px solid;
+}
+.header.transparent {
+  background-color: transparent;
+}
+.header.shadow {
+  box-shadow: 0px 0px 25px 0px #000;
+  border-bottom: 0px solid;
+}
+.header.fixed {
+  position: fixed;
 }
