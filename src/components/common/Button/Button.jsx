@@ -14,6 +14,7 @@ const Button = ({
   accent,
   className,
   children,
+  fit,
 }) => {
   const bSize = size || 1;
   const bAccent = styles[accent] ?? styles["light"];
@@ -23,6 +24,9 @@ const Button = ({
   }
   if (disabled) {
     classes.push("disabled");
+  }
+  if (fit) {
+    classes.push(styles.fit);
   }
 
   let content = [];

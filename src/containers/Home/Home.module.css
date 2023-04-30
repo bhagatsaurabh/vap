@@ -12,24 +12,6 @@ main::-webkit-scrollbar {
   display: none;
 }
 
-main .brand {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-main .brand img {
-  max-width: 10vh;
-  margin-right: 1rem;
-}
-
-main .brand span {
-  margin: 0;
-  font-family: "Audiowide";
-  font-size: 4rem;
-  color: #dddddd;
-}
-
 .cover p {
   color: #dddddd;
   font-size: 1.4rem;
@@ -85,7 +67,6 @@ main .floating {
   z-index: 10;
   transition: transform 0.15s ease-in-out;
 }
-
 main .floating.show {
   transform: translateX(0.8rem);
 }
@@ -101,23 +82,8 @@ main .floating-brand {
 main .floating-brand.show {
   top: 0rem;
 }
-main .floating-brand .brand img {
-  width: 2rem;
-}
-main .floating-brand .brand span {
-  font-family: "Audiowide";
-  font-size: 2rem;
-}
 
 @media (min-width: 768px) {
-  main .brand img {
-    max-width: 14vh;
-  }
-
-  main .brand span {
-    font-size: 6rem;
-  }
-
   .cover p {
     font-size: 1.6rem;
   }
@@ -151,14 +117,6 @@ main .floating-brand .brand span {
 }
 
 @media (min-width: 1024px) {
-  main .brand img {
-    max-width: 18vh;
-  }
-
-  main .brand span {
-    font-size: 8rem;
-  }
-
   .cover p {
     font-size: 1.8rem;
   }

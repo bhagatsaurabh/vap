@@ -1,20 +1,21 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 import styles from "./Home.module.css";
-import vapLight from "@/assets/images/logo-light-transparent.png";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import AnimatedCover from "@/components/AnimatedCover/AnimatedCover";
 import Button from "@/components/common/Button/Button";
 import ScrollHint from "@/components/ScrollHint/ScrollHint";
 import { clamp, debounce, normalize, roundTo } from "@/misc/utils";
-import { logo } from "@/assets/icons";
 import Feature from "@/components/Feature/Feature";
-import { Link } from "react-router-dom";
 import showcase1 from "@/assets/images/showcase-1.gif";
 import showcase2 from "@/assets/images/showcase-2.gif";
 import showcase3 from "@/assets/images/showcase-3.gif";
 import ScrollToTop from "@/components/common/ScrollToTop/ScrollToTop";
+import InteractiveLogo from "@/components/common/InteractiveLogo/InteractiveLogo";
+import Brand from "@/components/common/Brand/Brand";
+import Footnote from "@/components/Footnote/Footnote";
 
 const Home = () => {
   const sections = useRef([]);
@@ -72,36 +73,23 @@ const Home = () => {
 
   return (
     <>
-      <Header
-        left={
-          <>
-            <img src={logo} alt="vAP header logo" />
-            <span className="ml-1">vAP</span>
-          </>
-        }
-      />
+      <Header left={<InteractiveLogo />} />
       <main ref={mainEl}>
-        <div className={floatClasses.join(" ")}>
+        <aside className={floatClasses.join(" ")}>
           <ScrollToTop anchor={provideAnchor} show={showFloat} />
           <Link to="/flows">
             <Button icon="flow" iconLeft accent="dark" size={1.2}>
               My Flows
             </Button>
           </Link>
-        </div>
-        <div className={floatBrandClasses.join(" ")}>
-          <div className={styles.brand}>
-            <img src={vapLight} alt="vAP Logo" />
-            <span>vAP</span>
-          </div>
-        </div>
+        </aside>
+        <aside className={floatBrandClasses.join(" ")}>
+          <Brand size={2} fixed />
+        </aside>
         <AnimatedCover />
         <section>
           <div ref={coverEl} className={styles.cover}>
-            <div className={styles.brand}>
-              <img src={vapLight} alt="vAP Logo" />
-              <span>vAP</span>
-            </div>
+            <Brand size={8} />
             <p>Visual Audio Processor</p>
             <Link to="/flows">
               <Button icon="flow" iconLeft accent="dark" size={1.2}>
@@ -151,16 +139,11 @@ const Home = () => {
       </main>
       <Footer
         left={
-          <a href="https://github.com/saurabh-prosoft/vap" target="_blank" rel="noreferrer">
-            <Button className="fs-0" icon="github" size={2} iconLeft accent="dark" />
+          <a className="o-0p6" href="https://github.com/saurabh-prosoft/vap" target="_blank">
+            <Button className="fs-0" icon="github" size={2} iconLeft accent="dark" fit />
           </a>
         }
-        right={
-          <>
-            <span>Copyright &copy; 2018-present | </span>
-            <span className="ws-no-wrap">Saurabh Bhagat</span>
-          </>
-        }
+        right={<Footnote />}
       />
     </>
   );

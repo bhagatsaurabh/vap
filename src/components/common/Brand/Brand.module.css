@@ -1,0 +1,26 @@
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 70vw;
+  column-gap: 1rem;
+}
+
+.brand img {
+  max-width: 20vw;
+}
+
+.brand span {
+  margin: 0;
+  font-family: "Audiowide";
+  font-size: 4rem;
+  color: #dddddd;
+}
+
+@media (min-width: 768px) {
+  .brand span {
+  }
+}
+
+@media (min-width: 1024px) {
+}
