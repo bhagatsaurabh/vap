@@ -58,6 +58,18 @@ body {
 .fs-0 {
   font-size: 0 !important;
 }
+.fs-2 {
+  font-size: 2rem;
+}
+.ff-audiowide {
+  font-family: Audiowide;
+}
+.ta-left {
+  text-align: left;
+}
+.ta-right {
+  text-align: right;
+}
 
 @media (prefers-color-scheme: light) {
 }

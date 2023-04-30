@@ -2,4 +2,29 @@
   width: 90vw;
   text-align: center;
   position: relative;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .feature {
+    width: 90vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .divider {
+    height: 80%;
+    width: 4px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color: #dddddd;
+    border-radius: 4px;
+    opacity: 0.8;
+  }
+}
+
+@media (min-width: 1024px) {
+  .feature {
+    width: 70vw;
+  }
 }

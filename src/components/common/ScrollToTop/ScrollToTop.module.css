@@ -1,0 +1,12 @@
+.scroll-to-top {
+  position: fixed;
+  bottom: 5rem;
+  right: 0;
+  transform: translateX(100%);
+  z-index: 10;
+  transition: transform 0.15s ease-in-out;
+}
+
+.scroll-to-top.show {
+  transform: translateX(0);
+}
