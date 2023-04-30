@@ -1,7 +1,7 @@
-footer {
-  position: fixed;
+.footer {
+  position: relative;
   width: calc(100% - 2rem);
-  z-index: 5;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,5 +9,12 @@ footer {
   min-width: calc(359px - 2rem);
   user-select: none;
   height: var(--footer-height);
+  background-color: #414041;
+}
+.footer.transparent {
+  background-color: transparent;
+}
+.footer.fixed {
+  position: fixed;
   bottom: 0;
 }

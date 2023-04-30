@@ -73,8 +73,8 @@ const Home = () => {
 
   return (
     <>
-      <Header left={<InteractiveLogo />} />
-      <main ref={mainEl}>
+      <Header left={<InteractiveLogo />} fixed transparent />
+      <main className={styles.main} ref={mainEl}>
         <aside className={floatClasses.join(" ")}>
           <ScrollToTop anchor={provideAnchor} show={showFloat} />
           <Link to="/flows">
@@ -138,6 +138,8 @@ const Home = () => {
         </section>
       </main>
       <Footer
+        fixed
+        transparent
         left={
           <a className="o-0p6" href="https://github.com/saurabh-prosoft/vap" target="_blank">
             <Button className="fs-0" icon="github" size={2} iconLeft accent="dark" fit />

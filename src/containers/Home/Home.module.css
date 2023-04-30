@@ -1,14 +1,14 @@
-main {
+.main {
   position: relative;
   height: 100vh;
   width: 100vw;
   overflow-x: hidden;
 }
 
-main {
+.main {
   scrollbar-width: none;
 }
-main::-webkit-scrollbar {
+.main::-webkit-scrollbar {
   display: none;
 }
 
@@ -19,7 +19,7 @@ main::-webkit-scrollbar {
   margin-top: 0;
 }
 
-main section {
+.main section {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,7 +28,7 @@ main section {
   width: 100vw;
 }
 
-main section:not(:first-of-type) {
+.main section:not(:first-of-type) {
   position: sticky;
   top: 0;
 }
@@ -40,7 +40,7 @@ main section:not(:first-of-type) {
   border-radius: 1.5rem;
 }
 
-main section .ftext {
+.main section .ftext {
   position: absolute;
   top: -4rem;
   color: #dddddd;
@@ -50,7 +50,7 @@ main section .ftext {
   white-space: nowrap;
 }
 
-main section .fdesc {
+.main section .fdesc {
   position: absolute;
   top: calc(100% + 2rem);
   color: #dddddd;
@@ -59,7 +59,7 @@ main section .fdesc {
   text-shadow: 0px 0px 5px #000;
 }
 
-main .floating {
+.main .floating {
   position: fixed;
   bottom: 5rem;
   right: 0;
@@ -67,11 +67,11 @@ main .floating {
   z-index: 10;
   transition: transform 0.15s ease-in-out;
 }
-main .floating.show {
+.main .floating.show {
   transform: translateX(0.8rem);
 }
 
-main .floating-brand {
+.main .floating-brand {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
@@ -79,7 +79,7 @@ main .floating-brand {
   top: -4rem;
   transition: top 0.15s ease-in-out;
 }
-main .floating-brand.show {
+.main .floating-brand.show {
   top: 0rem;
 }
 
@@ -92,7 +92,7 @@ main .floating-brand.show {
     width: 70%;
   }
 
-  main section .ftext {
+  .main section .ftext {
     position: relative;
     left: unset;
     top: unset;
@@ -100,7 +100,7 @@ main .floating-brand.show {
     display: inline-block;
   }
 
-  main section .fdesc {
+  .main section .fdesc {
     position: relative;
     left: unset;
     top: unset;
@@ -108,10 +108,10 @@ main .floating-brand.show {
     display: inline-block;
   }
 
-  main section .content.left {
+  .main section .content.left {
     text-align: left;
   }
-  main section .content.right {
+  .main section .content.right {
     text-align: right;
   }
 }
