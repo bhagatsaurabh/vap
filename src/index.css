@@ -12,6 +12,7 @@
   --text: #c1c1c1;
   --text-lightest: #656565;
   --header-height: 3.8rem;
+  --footer-height: 3.8rem;
   --duration-effect: 0.2s;
   --duration-effect-slow: 0.15s;
   --theme-transition-bg: background-color var(--duration-effect) linear;
@@ -70,6 +71,6 @@ body {
 .ta-right {
   text-align: right;
 }
-
-@media (prefers-color-scheme: light) {
+.o-0p6 {
+  opacity: 0.6;
 }

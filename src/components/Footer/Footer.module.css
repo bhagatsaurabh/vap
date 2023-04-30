@@ -8,38 +8,6 @@ footer {
   padding: 0 1rem;
   min-width: calc(359px - 2rem);
   user-select: none;
-  height: var(--header-height);
+  height: var(--footer-height);
   bottom: 0;
-}
-
-footer .left img {
-  width: 1.8rem;
-  vertical-align: bottom;
-}
-
-footer .left a {
-  margin-right: 1rem;
-}
-
-footer .right {
-  color: var(--text-lightest);
-}
-
-footer button {
-  border: none;
-  background-color: transparent;
-  box-sizing: border-box;
-  padding: 0;
-  cursor: pointer;
-}
-
-footer button img {
-  opacity: 0.5;
-  transition: opacity var(--duration-effect) linear;
-}
-
-@media (hover: hover) {
-  footer button img:hover {
-    opacity: 0.8;
-  }
 }

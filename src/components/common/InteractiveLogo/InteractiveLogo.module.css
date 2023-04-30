@@ -1,0 +1,30 @@
+.interactive-logo {
+  display: flex;
+  align-items: center;
+}
+
+.interactive-logo img {
+  box-shadow: 0 0 30px 0 #000;
+}
+
+.interactive-logo img {
+  width: 2rem;
+  vertical-align: bottom;
+}
+
+.interactive-logo span {
+  font-family: Audiowide;
+  color: #ddd;
+  position: relative;
+  left: -55%;
+  opacity: 0;
+  transition: left var(--duration-effect-slow) linear, opacity 0.15s linear;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .interactive-logo:hover span {
+    left: 0%;
+    opacity: 1;
+  }
+}
