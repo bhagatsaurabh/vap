@@ -5,11 +5,28 @@ import InteractiveLogo from "@/components/common/InteractiveLogo/InteractiveLogo
 import Brand from "@/components/common/Brand/Brand";
 import Button from "@/components/common/Button/Button";
 import Footnote from "@/components/Footnote/Footnote";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { initDatabase } from "@/store/actions/db";
+import Spinner from "@/components/common/Spinner/Spinner";
+import { fn } from "@/misc/utils";
 
 const Flows = () => {
-  const mainEl = useRef(null);
-  const provideRef = () => mainEl.current;
+  const refEl = useRef(null);
+  const provideRef = () => refEl.current;
+  const dispatch = useDispatch();
+  const [openingDB, setOpeningDB] = useState(false);
+
+  useEffect(() => {
+    setOpeningDB(true);
+    fn(async () => {
+      try {
+        await dispatch(initDatabase());
+      } finally {
+        setOpeningDB(false);
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -26,18 +43,21 @@ const Flows = () => {
         reference={provideRef}
       />
       <main className={styles.main}>
-        <div ref={mainEl}>My Flows</div>
-        <div>My Flows</div>
-        <div>My Flows</div>
-        <div>My Flows</div>
-        <div>My Flows</div>
-        <div>My Flows</div>
-        <div>My Flows</div>
-        <div>My Flows</div>
-        <div>My Flows</div>
-        <div>My Flows</div>
-        <div>My Flows</div>
-        <div>My Flows</div>
+        <section ref={refEl} className={styles.title}>
+          <div className="d-flex flex-center">
+            <h1 className={["mr-2", styles["title-name"]].join(" ")}>My Flows</h1>
+            {openingDB && <Spinner accent="dark" size={2} />}
+          </div>
+          <div className={styles.controls}>
+            <Button disabled={openingDB} icon="create" accent="dark" iconLeft size={1}>
+              Create
+            </Button>
+            <Button disabled={openingDB} icon="import" accent="dark" iconLeft size={1}>
+              Import
+            </Button>
+          </div>
+        </section>
+        <section></section>
       </main>
       <Footer left={<Footnote />} />
     </>

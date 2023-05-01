@@ -9,10 +9,11 @@
   height: var(--header-height);
   transition: box-shadow 0.1s linear, border-bottom 0.1s linear;
   background-color: #414041;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid #909090;
 }
 .header.transparent {
   background-color: transparent;
+  border: none !important;
 }
 .header.shadow {
   box-shadow: 0px 0px 25px 0px #000;

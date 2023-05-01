@@ -22,9 +22,11 @@ button.dark {
 
 button.light:disabled {
   color: #6a6a6a;
+  box-shadow: 2px 2px 5px 0px rgb(226, 226, 226);
 }
 button.dark:disabled {
   color: #909090;
+  box-shadow: 2px 2px 5px 0px rgb(27, 27, 27);
 }
 
 button.light:active {
