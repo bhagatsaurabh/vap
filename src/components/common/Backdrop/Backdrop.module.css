@@ -1,0 +1,26 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  opacity: 1;
+  background-color: #8383834d;
+  backdrop-filter: blur(5px);
+}
+
+.backdrop.enter {
+  opacity: 0;
+}
+.backdrop.enterActive {
+  transition: opacity 0.15s linear;
+  opacity: 1;
+}
+.backdrop.exit {
+  opacity: 1;
+}
+.backdrop.exitActive {
+  transition: opacity 0.15s linear;
+  opacity: 0;
+}

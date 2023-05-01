@@ -1,9 +1,10 @@
 import { RouterProvider } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import router from "./router";
 import "@/App.css";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { closeDatabase } from "./misc/db";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const App = () => {
     return () => {
       match768.removeEventListener("change", listener);
       match1024.removeEventListener("change", listener);
+      closeDatabase();
     };
   }, []);
 

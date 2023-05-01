@@ -1,0 +1,97 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  right: calc(-100% - 1rem);
+  width: 100vw;
+  z-index: 101;
+  background-color: #414041;
+  box-shadow: 0px 0px 25px 0px #000;
+  color: #ddd;
+  max-height: 80vh;
+}
+
+.modal.enter {
+  right: calc(-100% - 1rem);
+}
+.modal.enterActive {
+  transition: right 0.15s ease-in-out;
+  right: 0;
+}
+.modal.enterDone {
+  right: 0;
+}
+.modal.exit {
+  left: 0;
+}
+.modal.exitActive {
+  transition: left 0.15s ease-in-out;
+  left: calc(-100% - 1rem);
+}
+
+.modal .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  padding-bottom: 0;
+}
+
+.modal .title h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 100;
+  text-align: left;
+  margin-right: 1rem;
+}
+
+.modal .content {
+  position: relative;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .modal {
+    right: 50%;
+    transform: translateX(50%) translateY(-50%);
+    width: unset;
+    min-width: 40vw;
+    max-width: 70vw;
+    opacity: 0;
+    border-radius: 1rem;
+  }
+
+  .modal.enter {
+    right: 50%;
+    transform: translateX(50%) translateY(-50%) scale(0.9);
+    opacity: 0;
+  }
+  .modal.enterActive {
+    right: 50%;
+    transition: transform 0.15s linear, opacity 0.15s linear;
+    transform: translateX(50%) translateY(-50%) scale(1);
+    opacity: 1;
+  }
+  .modal.enterDone {
+    right: 50%;
+    transform: translateX(50%) translateY(-50%) scale(1);
+    opacity: 1;
+  }
+  .modal.exit {
+    left: unset;
+    transform: translateX(50%) translateY(-50%) scale(1);
+    opacity: 1;
+  }
+  .modal.exitActive {
+    left: unset;
+    transition: transform 0.15s linear, opacity 0.15s linear;
+    transform: translateX(50%) translateY(-50%) scale(0.9);
+    opacity: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .modal {
+    max-width: 60vw;
+  }
+}

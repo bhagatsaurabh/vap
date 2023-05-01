@@ -8,11 +8,14 @@
   padding: 0 1rem;
   min-width: calc(359px - 2rem);
   user-select: none;
-  height: var(--footer-height);
+  height: calc(var(--footer-height) - 1px);
   background-color: #414041;
+  border-top: 1px solid #909090;
 }
 .footer.transparent {
   background-color: transparent;
+  border: none !important;
+  height: var(--footer-height);
 }
 .footer.fixed {
   position: fixed;

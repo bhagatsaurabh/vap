@@ -1,3 +1,7 @@
+export const Constants = {
+  KEYCODE_TAB: 9,
+};
+
 export const rand = (min, max) => {
   const buf = new Uint32Array(1);
   window.crypto.getRandomValues(buf);
@@ -47,4 +51,33 @@ export const roundTo = (value, decimalPlaces) => {
   decimalPlaces = Math.max(decimalPlaces, 1);
   const base = 10 * decimalPlaces;
   return Math.round((value + Number.EPSILON) * base) / base;
+};
+
+export const fn = (cb) => cb();
+
+export const trapBetween = (root) => {
+  if (!root) return { first: null, last: null };
+
+  const treeWalker = document.createTreeWalker(
+    root,
+    NodeFilter.SHOW_ELEMENT,
+    {
+      acceptNode: (node) => {
+        return node.tabIndex >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+      },
+    },
+    false
+  );
+
+  let currNode = null,
+    firstTabbableNode = treeWalker.nextNode(),
+    lastTabbableNode = null;
+
+  while ((currNode = treeWalker.nextNode()) !== null) {
+    lastTabbableNode = currNode;
+  }
+
+  if (!lastTabbableNode) lastTabbableNode = firstTabbableNode;
+
+  return { first: firstTabbableNode, last: lastTabbableNode };
 };

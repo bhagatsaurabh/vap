@@ -5,3 +5,6 @@ export { default as flow } from "./flow.png";
 export { default as warning } from "./warning.png";
 export { default as spinner } from "./spinner.png";
 export { default as top } from "./top.png";
+export { default as create } from "./create.png";
+export { default as import } from "./import.png";
+export { default as close } from "./close.png";

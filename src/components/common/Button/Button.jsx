@@ -35,16 +35,18 @@ const Button = ({
     content.push(children);
     iconClasses.push(iconLeft ? "mr-1" : "ml-1");
   }
-  content.push(
-    !busy ? (
-      <Icon className={iconClasses.join(" ")} size={bSize} accent={accent} name={icon} />
-    ) : (
-      <Spinner className={iconClasses.join(" ")} size={bSize} accent={accent} />
-    )
-  );
+  if (icon) {
+    content.push(
+      !busy ? (
+        <Icon className={iconClasses.join(" ")} size={bSize} accent={accent} name={icon} />
+      ) : (
+        <Spinner className={iconClasses.join(" ")} size={bSize} accent={accent} />
+      )
+    );
 
-  if (iconLeft && !iconRight) {
-    content = flip(content);
+    if (iconLeft && !iconRight) {
+      content = flip(content);
+    }
   }
 
   return (
