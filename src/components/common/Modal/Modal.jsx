@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useNavigationType } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
@@ -7,7 +7,14 @@ import styles from "./Modal.module.css";
 import Button from "../Button/Button";
 import { Constants, trapBetween } from "@/misc/utils";
 
-const Modal = ({ show, title, children, onDismiss, onAction, controls }) => {
+const Modal = ({ title, children, onDismiss, onAction, controls }) => {
+  const [_show, set_Show] = useState(false);
+  const [queuedAction, setQueuedAction] = useState(null);
+
+  useEffect(() => {
+    set_Show(true);
+  }, []);
+
   const pControls = controls ?? [];
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,19 +23,23 @@ const Modal = ({ show, title, children, onDismiss, onAction, controls }) => {
   const bound = useRef(null);
 
   const handleDismiss = () => {
-    if (show) {
+    if (_show) {
       navigate(-1);
-      onDismiss();
+      set_Show(false);
     }
   };
   const handleAction = (text) => {
-    onAction(text);
-    handleDismiss();
+    if (queuedAction === null) {
+      setQueuedAction(text);
+      handleDismiss();
+    }
+  };
+  const handleExited = () => {
+    queuedAction && onAction(queuedAction);
+    onDismiss();
   };
 
   const trapFocus = useCallback((event) => {
-    // if (!show) window.removeEventListener("keydown", trapFocus);
-
     if (!node.current.contains(document.activeElement)) {
       bound.current.first.focus();
       event.preventDefault();
@@ -51,37 +62,37 @@ const Modal = ({ show, title, children, onDismiss, onAction, controls }) => {
   }, []);
 
   useEffect(() => {
-    if (show) {
-      if (!location.hash || (location.hash && action === "POP")) {
-        onDismiss();
-      }
+    if (_show && action === "POP") {
+      set_Show(false);
     }
   }, [location]);
 
   useEffect(() => {
-    if (show) {
+    if (_show) {
+      const slug = `#pop-${title.toLowerCase().replace(" ", "-")}`;
+      if (location.hash !== slug) {
+        navigate(slug, { state: { popUp: true } });
+      } else if (history.state.idx === 0) {
+        navigate(`${slug}-%F0%9F%98%A1`, { state: { popUp: true } });
+      }
+
       document.activeElement?.blur();
       bound.current = trapBetween(node.current);
       window.addEventListener("keydown", trapFocus);
     } else {
       window.removeEventListener("keydown", trapFocus);
     }
-
-    if (show && location.hash !== `#pop-${title.toLowerCase().replace(" ", "-")}`) {
-      navigate(`#pop-${title.toLowerCase().replace(" ", "-")}`);
-    } else if (show && history.state.idx === 0) {
-      navigate(`#pop-${title.toLowerCase().replace(" ", "-")}-%F0%9F%98%A1`);
-    }
-  }, [show]);
+  }, [_show]);
 
   return (
     <>
-      <Backdrop show={show} onDismiss={handleDismiss} />
+      <Backdrop show={_show} onDismiss={handleDismiss} />
       <CSSTransition
+        onExited={handleExited}
         mountOnEnter
         unmountOnExit
         nodeRef={node}
-        in={show}
+        in={_show}
         timeout={150}
         classNames={{ ...styles }}
       >

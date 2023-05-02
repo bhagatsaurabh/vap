@@ -25,6 +25,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(initDatabase.rejected, (state, action) => {
       state.error = errors.DB_OPEN_FAILED({ details: action.error.message });
+      state.status = null;
     })
     .addDefaultCase(() => {});
 });

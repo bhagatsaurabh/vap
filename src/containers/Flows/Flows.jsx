@@ -22,37 +22,32 @@ const Flows = () => {
   const status = useSelector((state) => state.database.status);
   const error = useSelector((state) => state.database.error);
 
-  useEffect(() => {
-    setOpeningDB(true);
-    fn(async () => {
-      try {
-        await dispatch(initDatabase());
-      } finally {
-        setOpeningDB(false);
-      }
-    });
-  }, []);
-
-  const handleAction = (type) => {
-    if (type === "Close") dispatch({ type: "database/clear-error" });
-    else if (type === "Retry") {
-      // Retry
-      console.log("Retry");
+  const handleOpenDB = async () => {
+    try {
+      setOpeningDB(true);
+      await dispatch(initDatabase());
+    } finally {
+      setOpeningDB(false);
     }
   };
 
+  useEffect(() => {
+    handleOpenDB();
+  }, []);
+
   return (
     <>
-      <Modal
-        show={error !== null}
-        title={error?.title}
-        onDismiss={() => dispatch({ type: "database/clear-error" })}
-        controls={["Retry", "Close"]}
-        onAction={handleAction}
-      >
-        {error?.message}
-        <Collapsible summary="More Details">{error?.details}</Collapsible>
-      </Modal>
+      {error && (
+        <Modal
+          title={error.title}
+          onDismiss={() => dispatch({ type: "database/clear-error" })}
+          controls={["Retry", "Close"]}
+          onAction={(action) => action === "Retry" && handleOpenDB()}
+        >
+          {error.message}
+          <Collapsible summary="More Details">{error.details}</Collapsible>
+        </Modal>
+      )}
       <Header
         left={<InteractiveLogo />}
         center={<Brand size={2} fixed />}
