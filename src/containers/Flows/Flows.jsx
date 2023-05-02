@@ -1,3 +1,6 @@
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import Header from "@/components/Header/Header";
 import styles from "./Flows.module.css";
 import Footer from "@/components/Footer/Footer";
@@ -5,31 +8,46 @@ import InteractiveLogo from "@/components/common/InteractiveLogo/InteractiveLogo
 import Brand from "@/components/common/Brand/Brand";
 import Button from "@/components/common/Button/Button";
 import Footnote from "@/components/Footnote/Footnote";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
 import { initDatabase } from "@/store/actions/db";
 import Spinner from "@/components/common/Spinner/Spinner";
 import { fn } from "@/misc/utils";
+import Collapsible from "@/components/common/Collapsible/Collapsible";
+import Modal from "@/components/common/Modal/Modal";
 
 const Flows = () => {
   const refEl = useRef(null);
   const provideRef = () => refEl.current;
   const dispatch = useDispatch();
   const [openingDB, setOpeningDB] = useState(false);
+  const status = useSelector((state) => state.database.status);
+  const error = useSelector((state) => state.database.error);
+
+  const handleOpenDB = async () => {
+    try {
+      setOpeningDB(true);
+      await dispatch(initDatabase());
+    } finally {
+      setOpeningDB(false);
+    }
+  };
 
   useEffect(() => {
-    setOpeningDB(true);
-    fn(async () => {
-      try {
-        await dispatch(initDatabase());
-      } finally {
-        setOpeningDB(false);
-      }
-    });
+    handleOpenDB();
   }, []);
 
   return (
     <>
+      {error && (
+        <Modal
+          title={error.title}
+          onDismiss={() => dispatch({ type: "database/clear-error" })}
+          controls={["Retry", "Close"]}
+          onAction={(action) => action === "Retry" && handleOpenDB()}
+        >
+          {error.message}
+          <Collapsible summary="More Details">{error.details}</Collapsible>
+        </Modal>
+      )}
       <Header
         left={<InteractiveLogo />}
         center={<Brand size={2} fixed />}

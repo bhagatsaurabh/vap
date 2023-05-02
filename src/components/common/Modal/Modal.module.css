@@ -50,6 +50,25 @@
   padding: 1rem;
 }
 
+.content .desc {
+  width: 100%;
+  text-align: left;
+  font-weight: 100;
+  white-space: pre-line;
+}
+
+.content .controls {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.content .controls button:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
 @media (min-width: 768px) {
   .modal {
     right: 50%;

@@ -2,10 +2,11 @@ let db = null;
 
 const openDatabase = async () =>
   new Promise((resolve, reject) => {
-    const request = indexedDB.open("vapdb", 1);
+    const request = indexedDB.open("vapdb", 0);
 
     request.addEventListener("upgradeneeded", (e) => {
       const database = e.target.result;
+
       if (!database.objectStoreNames.contains("previews")) {
         database.createObjectStore("previews");
       }
@@ -21,10 +22,10 @@ const openDatabase = async () =>
       resolve(db);
     });
     request.addEventListener("error", (e) => {
-      reject(new Error(e.target.errorCode));
+      reject(e.target.error);
     });
     request.addEventListener("blocked", (e) => {
-      reject(new Error(e.target.errorCode));
+      reject(e.target.error);
     });
   });
 
