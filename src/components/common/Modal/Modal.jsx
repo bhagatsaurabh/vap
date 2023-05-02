@@ -7,18 +7,23 @@ import styles from "./Modal.module.css";
 import Button from "../Button/Button";
 import { Constants, trapBetween } from "@/misc/utils";
 
-const Modal = ({ show, title, children, onDismiss }) => {
+const Modal = ({ show, title, children, onDismiss, onAction, controls }) => {
+  const pControls = controls ?? [];
   const navigate = useNavigate();
   const location = useLocation();
   const node = useRef(null);
   const action = useNavigationType();
   const bound = useRef(null);
 
-  const dismissHandler = () => {
+  const handleDismiss = () => {
     if (show) {
       navigate(-1);
       onDismiss();
     }
+  };
+  const handleAction = (text) => {
+    onAction(text);
+    handleDismiss();
   };
 
   const trapFocus = useCallback((event) => {
@@ -63,17 +68,15 @@ const Modal = ({ show, title, children, onDismiss }) => {
     }
 
     if (show && location.hash !== `#pop-${title.toLowerCase().replace(" ", "-")}`) {
-      navigate(`#pop-${title.toLowerCase().replace(" ", "-")}`, { state: { popUp: true } });
+      navigate(`#pop-${title.toLowerCase().replace(" ", "-")}`);
     } else if (show && history.state.idx === 0) {
-      navigate(`#pop-${title.toLowerCase().replace(" ", "-")}-%F0%9F%98%A1`, {
-        state: { popUp: true },
-      });
+      navigate(`#pop-${title.toLowerCase().replace(" ", "-")}-%F0%9F%98%A1`);
     }
   }, [show]);
 
   return (
     <>
-      <Backdrop show={show} onDismiss={dismissHandler} />
+      <Backdrop show={show} onDismiss={handleDismiss} />
       <CSSTransition
         mountOnEnter
         unmountOnExit
@@ -91,11 +94,20 @@ const Modal = ({ show, title, children, onDismiss }) => {
               icon="close"
               iconLeft
               fit
-              onClick={dismissHandler}
+              onClick={handleDismiss}
               size={1.5}
             />
           </section>
-          <section className={styles.content}>{children}</section>
+          <section className={styles.content}>
+            <div className={styles.desc}>{children}</div>
+            <div className={styles.controls}>
+              {pControls.map((text) => (
+                <Button key={text} accent="dark" size={1} onClick={() => handleAction(text)}>
+                  {text}
+                </Button>
+              ))}
+            </div>
+          </section>
         </div>
       </CSSTransition>
     </>
