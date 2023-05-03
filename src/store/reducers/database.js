@@ -4,6 +4,7 @@ import { initDatabase } from "../actions/db";
 import { errors } from "@/misc/errors";
 
 const setStatus = createAction("database/status");
+const setError = createAction("database/error");
 const clearError = createAction("database/clear-error");
 
 const initialState = {
@@ -16,6 +17,9 @@ const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setStatus, (state, action) => {
       state.status = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     })
     .addCase(clearError, (state) => {
       state.error = null;

@@ -53,7 +53,7 @@ export const roundTo = (value, decimalPlaces) => {
   return Math.round((value + Number.EPSILON) * base) / base;
 };
 
-export const fn = (cb) => cb();
+export const noop = () => {};
 
 export const trapBetween = (root) => {
   if (!root) return { first: null, last: null };

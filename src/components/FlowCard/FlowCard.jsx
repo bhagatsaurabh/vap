@@ -1,6 +1,8 @@
 import styles from "./FlowCard.module.css";
 
-const FlowCard = () => {
+const FlowCard = ({ preview }) => {
+  console.log(preview?.id, preview?.name, preview?.img);
+
   return (
     <div className={styles.flowcard}>
       <img />

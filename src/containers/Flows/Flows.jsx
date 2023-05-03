@@ -10,16 +10,16 @@ import Button from "@/components/common/Button/Button";
 import Footnote from "@/components/Footnote/Footnote";
 import { initDatabase } from "@/store/actions/db";
 import Spinner from "@/components/common/Spinner/Spinner";
-import { fn } from "@/misc/utils";
 import Collapsible from "@/components/common/Collapsible/Collapsible";
 import Modal from "@/components/common/Modal/Modal";
+import FlowList from "@/components/FlowList/FlowList";
 
 const Flows = () => {
   const refEl = useRef(null);
   const provideRef = () => refEl.current;
   const dispatch = useDispatch();
   const [openingDB, setOpeningDB] = useState(false);
-  const status = useSelector((state) => state.database.status);
+  const [showDialog, setShowDialog] = useState(false);
   const error = useSelector((state) => state.database.error);
 
   const handleOpenDB = async () => {
@@ -28,6 +28,13 @@ const Flows = () => {
       await dispatch(initDatabase());
     } finally {
       setOpeningDB(false);
+    }
+  };
+  const handleCreate = (id) => {
+    if (id === 0) {
+      // Blank
+    } else {
+      // Fetch Template,
     }
   };
 
@@ -46,6 +53,16 @@ const Flows = () => {
         >
           {error.message}
           <Collapsible summary="More Details">{error.details}</Collapsible>
+        </Modal>
+      )}
+      {showDialog && (
+        <Modal
+          title="Create"
+          onDismiss={() => {}}
+          controls={["Blank Flow", "Close"]}
+          onAction={(action) => action === "Blank Flow" && handleCreate(0)}
+        >
+          <CreateDialog />
         </Modal>
       )}
       <Header
@@ -67,7 +84,14 @@ const Flows = () => {
             {openingDB && <Spinner accent="dark" size={2} />}
           </div>
           <div className={styles.controls}>
-            <Button disabled={openingDB} icon="create" accent="dark" iconLeft size={1}>
+            <Button
+              onClick={() => setShowDialog(true)}
+              disabled={openingDB}
+              icon="create"
+              accent="dark"
+              iconLeft
+              size={1}
+            >
               Create
             </Button>
             <Button disabled={openingDB} icon="import" accent="dark" iconLeft size={1}>
@@ -75,7 +99,9 @@ const Flows = () => {
             </Button>
           </div>
         </section>
-        <section></section>
+        <section className={styles.content}>
+          <FlowList />
+        </section>
       </main>
       <Footer left={<Footnote />} />
     </>

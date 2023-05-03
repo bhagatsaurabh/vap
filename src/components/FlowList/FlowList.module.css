@@ -1,2 +1,24 @@
 .flowlist {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  color: #ddd;
+}
+
+.flowlist .empty {
+  width: 100%;
+  padding: 1rem 0rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.5;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+.flowlist .empty span {
+  font-size: 2rem;
+  margin-left: 0.5rem;
 }
