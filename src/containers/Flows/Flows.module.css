@@ -6,6 +6,8 @@
   top: var(--header-height);
   padding-bottom: calc(var(--footer-height) + 2rem);
   color: #ddd;
+  display: flex;
+  flex-direction: column;
 }
 
 .main .title {
@@ -14,6 +16,14 @@
   align-items: start;
   flex-direction: column;
   padding: 0.5rem 1rem;
+  flex-shrink: 0;
+}
+
+.main .content {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  flex: 1;
 }
 
 .main .title-name {

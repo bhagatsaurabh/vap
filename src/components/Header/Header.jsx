@@ -12,23 +12,19 @@ const Header = ({ left, right, center, transparent, fixed, dynamic, reference })
   transparent && classes.push(styles.transparent);
 
   useEffect(() => {
-    if (dynamic) {
-      reference && observer.current?.observe(reference());
+    const ref = reference?.();
+    if (dynamic && ref) {
+      observer.current = new IntersectionObserver(([entry]) => setShadow(!entry.isIntersecting), {
+        root: null,
+        threshold: 0,
+      });
+      observer.current.observe(ref);
     } else {
-      reference && observer.current?.unobserve(reference());
+      ref && observer.current?.unobserve(ref);
     }
   }, [dynamic]);
 
-  useEffect(() => {
-    observer.current = new IntersectionObserver(([entry]) => setShadow(!entry.isIntersecting), {
-      root: null,
-      threshold: 0,
-    });
-
-    return () => {
-      observer.current?.disconnect();
-    };
-  }, []);
+  useEffect(() => () => observer.current?.disconnect(), []);
 
   return (
     <header ref={headerEl} className={classes.join(" ")}>

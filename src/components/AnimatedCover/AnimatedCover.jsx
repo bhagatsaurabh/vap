@@ -1,7 +1,6 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import "./AnimatedCover.css";
-import { useAfterMount } from "@/misc/custom-hooks";
 import { Animation } from "@/misc/animated-cover";
 import { debounce, resizeAnimation } from "@/misc/utils";
 
@@ -9,27 +8,23 @@ let frameId = 0;
 
 const AnimatedCover = () => {
   const canvasEl = useRef(null);
-  const context = useRef(null);
 
-  useAfterMount(
-    () => {
-      context.current = canvasEl.current.getContext("2d");
-      const animation = new Animation(canvasEl.current);
-      window.addEventListener(
-        "resize",
-        debounce(resizeAnimation.bind(this, canvasEl.current, animation), 100),
-        false
-      );
-      resizeAnimation(canvasEl.current, animation);
-      frameId = requestAnimationFrame(
-        render.bind(this, context.current, canvasEl.current, animation)
-      );
-    },
-    () => {
-      window.removeEventListener("resize", resizeAnimation);
+  useEffect(() => {
+    const canvas = canvasEl.current;
+    const context = canvas.getContext("2d");
+    const animation = new Animation(canvas);
+
+    const resizeListener = debounce(resizeAnimation.bind(this, canvas, animation), 100);
+    window.addEventListener("resize", resizeListener, false);
+    resizeAnimation(canvas, animation);
+
+    frameId = requestAnimationFrame(render.bind(this, context, canvas, animation));
+
+    return () => {
+      window.removeEventListener("resize", resizeListener);
       cancelAnimationFrame(frameId);
-    }
-  );
+    };
+  }, []);
 
   return (
     <>

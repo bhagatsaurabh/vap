@@ -8,3 +8,4 @@ export { default as top } from "./top.png";
 export { default as create } from "./create.png";
 export { default as import } from "./import.png";
 export { default as close } from "./close.png";
+export { default as empty } from "./empty-folder.png";
