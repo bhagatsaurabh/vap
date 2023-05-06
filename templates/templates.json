@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Template One",
+    "img": "",
+    "url": ""
+  },
+  {
+    "id": 2,
+    "name": "Template Two",
+    "img": "",
+    "url": ""
+  },
+  {
+    "id": 3,
+    "name": "Template Three",
+    "img": "",
+    "url": ""
+  },
+  {
+    "id": 4,
+    "name": "Template Four",
+    "img": "",
+    "url": ""
+  },
+  {
+    "id": 5,
+    "name": "Template Five",
+    "img": "",
+    "url": ""
+  },
+  {
+    "id": 6,
+    "name": "Template Six",
+    "img": "",
+    "url": ""
+  }
+]
