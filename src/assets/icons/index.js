@@ -9,3 +9,7 @@ export { default as create } from "./create.png";
 export { default as import } from "./import.png";
 export { default as close } from "./close.png";
 export { default as empty } from "./empty-folder.png";
+export { default as error } from "./error.png";
+export { default as warn } from "./warn.png";
+export { default as info } from "./info.png";
+export { default as success } from "./success.png";

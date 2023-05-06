@@ -13,6 +13,7 @@ import Spinner from "@/components/common/Spinner/Spinner";
 import Collapsible from "@/components/common/Collapsible/Collapsible";
 import Modal from "@/components/common/Modal/Modal";
 import FlowList from "@/components/FlowList/FlowList";
+import CreateDialog from "@/components/CreateDialog/CreateDialog";
 
 const Flows = () => {
   const refEl = useRef(null);
@@ -28,13 +29,6 @@ const Flows = () => {
       await dispatch(initDatabase());
     } finally {
       setOpeningDB(false);
-    }
-  };
-  const handleCreate = (id) => {
-    if (id === 0) {
-      // Blank
-    } else {
-      // Fetch Template,
     }
   };
 
@@ -58,9 +52,11 @@ const Flows = () => {
       {showDialog && (
         <Modal
           title="Create"
-          onDismiss={() => {}}
-          controls={["Blank Flow", "Close"]}
-          onAction={(action) => action === "Blank Flow" && handleCreate(0)}
+          onDismiss={() => setShowDialog(false)}
+          controls={["Close"]}
+          onAction={() => {}}
+          className="mh-75 mw-75"
+          overflow
         >
           <CreateDialog />
         </Modal>

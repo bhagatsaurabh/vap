@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     element: <Flows />,
   },
   {
-    path: "/editor/:id",
+    path: "/flows/:id",
     element: <Editor />,
   },
 ]);

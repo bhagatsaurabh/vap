@@ -1,0 +1,21 @@
+.template {
+  color: #ddd;
+  border: none;
+  box-shadow: 0px 0px 10px 0px #000;
+  border-radius: 0;
+  width: 9rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.template img {
+  width: 100%;
+}
+
+.template h4 {
+  margin: 0.5rem 0 0 0;
+  font-weight: 100;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

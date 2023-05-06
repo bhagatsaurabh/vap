@@ -84,3 +84,15 @@ body {
   justify-content: center;
   align-items: center;
 }
+.p-absolute-centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.mh-75 {
+  min-height: 75%;
+}
+.mw-75 {
+  min-width: 75%;
+}

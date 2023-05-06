@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import router from "./router";
 import "@/App.css";
 import { closeDatabase } from "./misc/db";
+import Toast from "./components/common/Toast/Toast";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const App = () => {
 
   return (
     <div className="app">
+      <Toast />
       <RouterProvider router={router} />
     </div>
   );
