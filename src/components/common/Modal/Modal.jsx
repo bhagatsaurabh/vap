@@ -7,7 +7,7 @@ import styles from "./Modal.module.css";
 import Button from "../Button/Button";
 import { Constants, trapBetween } from "@/misc/utils";
 
-const Modal = ({ title, children, onDismiss, onAction, controls }) => {
+const Modal = ({ title, children, onDismiss, onAction, controls, className, overflow }) => {
   const [_show, set_Show] = useState(false);
   const [queuedAction, setQueuedAction] = useState(null);
 
@@ -96,7 +96,7 @@ const Modal = ({ title, children, onDismiss, onAction, controls }) => {
         timeout={150}
         classNames={{ ...styles }}
       >
-        <div ref={node} role="dialog" className={styles.modal}>
+        <div ref={node} role="dialog" className={[styles.modal, className ?? ""].join(" ")}>
           <section className={styles.title}>
             <h2>{title}</h2>
             <Button
@@ -110,7 +110,7 @@ const Modal = ({ title, children, onDismiss, onAction, controls }) => {
             />
           </section>
           <section className={styles.content}>
-            <div className={styles.desc}>{children}</div>
+            <div className={[styles.desc, overflow ? styles.shadow : ""].join(" ")}>{children}</div>
             <div className={styles.controls}>
               {pControls.map((text) => (
                 <Button key={text} accent="dark" size={1} onClick={() => handleAction(text)}>
