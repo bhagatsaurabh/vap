@@ -2,37 +2,37 @@
   {
     "id": 1,
     "name": "Template One",
-    "img": "",
+    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
     "url": ""
   },
   {
     "id": 2,
     "name": "Template Two",
-    "img": "",
+    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
     "url": ""
   },
   {
     "id": 3,
     "name": "Template Three",
-    "img": "",
+    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
     "url": ""
   },
   {
     "id": 4,
     "name": "Template Four",
-    "img": "",
+    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
     "url": ""
   },
   {
     "id": 5,
     "name": "Template Five",
-    "img": "",
+    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
     "url": ""
   },
   {
     "id": 6,
     "name": "Template Six",
-    "img": "",
+    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
     "url": ""
   }
 ]
