@@ -96,3 +96,7 @@ body {
 .mw-75 {
   min-width: 75%;
 }
+.a-reset {
+  color: inherit;
+  text-decoration: inherit;
+}

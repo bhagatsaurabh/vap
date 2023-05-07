@@ -9,6 +9,10 @@ img.spinner {
 img.spinner.dark {
   filter: invert(1);
 }
+.spinner-text {
+  margin: 0.5rem 0 0 0;
+  font-weight: 100;
+}
 
 @keyframes spin {
   0% {

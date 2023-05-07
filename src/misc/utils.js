@@ -1,5 +1,6 @@
 export const Constants = {
   KEYCODE_TAB: 9,
+  ESCAPE: 27,
 };
 
 export const rand = (min, max) => {

@@ -4,6 +4,8 @@
   justify-content: start;
   flex-wrap: wrap;
   color: #ddd;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 .flowlist .empty {
@@ -21,4 +23,16 @@
 .flowlist .empty span {
   font-size: 2rem;
   margin-left: 0.5rem;
+}
+
+.spinner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

@@ -7,12 +7,14 @@ import styles from "./CreateDialog.module.css";
 import { getTemplates } from "@/store/actions/templates";
 import Spinner from "../common/Spinner/Spinner";
 import empty from "@/assets/images/empty.png";
+import { saveFlow } from "@/store/actions/db";
 
 const CreateDialog = () => {
   const [loadingTemps, setLoadingTemps] = useState(false);
   const dispatch = useDispatch();
   const templates = useSelector((state) => state.templates);
   const navigate = useNavigate();
+  const dbStatus = useSelector((state) => state.database.status);
 
   const fetchTemplates = async () => {
     setLoadingTemps(true);
@@ -24,9 +26,25 @@ const CreateDialog = () => {
     fetchTemplates();
   }, []);
 
-  const handleCreate = (template) => {
+  const handleCreate = async (template, blobUrl) => {
     if (template.id === 0) {
-      navigate(`/flows/temp`, { state: null });
+      if (dbStatus !== "open") {
+        // 1. Empty Flow, Database Down, Internet Up/Down (Irrelevant)
+        navigate(`/flows/temp`, { state: null });
+      } else {
+        // 2. Empty Flow, Database Up, Internet Up/Down (Irrelevant)
+        // Save new empty flow in database and switch to Editor
+        const result = await dispatch(saveFlow({ flow: null }));
+        if (result.payload) {
+          navigate(`/flows/${result.payload}`);
+        }
+      }
+    } else {
+      // 5. Template Flow, Database Down, Internet Down
+      // 6. Template Flow, Database Down, Internet Up
+      // 7. Template Flow, Database Up, Internet Down
+      // 8. Template Flow, Database Up, Internet Up
+      console.log(blobUrl);
     }
   };
 
