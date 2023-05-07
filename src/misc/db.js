@@ -69,4 +69,79 @@ const getPreviews = async () =>
     }
   });
 
-export { openDatabase, closeDatabase, getPreviews };
+const putPreview = async (id, preview) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const request = db
+        .transaction("previews", "readwrite")
+        .objectStore("previews")
+        .put(preview, id);
+      request.onsuccess = () => {
+        resolve();
+      };
+      request.onerror = (event) => {
+        reject(event.target.error);
+      };
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const putFlow = async (id, flow) => {
+  if (!flow) {
+    await putPreview(id, { id, name: "Untitled", img: null });
+  }
+
+  return new Promise((resolve, reject) => {
+    try {
+      const request = db.transaction("flows", "readwrite").objectStore("flows").put(flow, id);
+      request.onsuccess = () => {
+        resolve();
+      };
+      request.onerror = (event) => {
+        reject(event.target.error);
+      };
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const getFlow = async (id) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const request = db.transaction("flows").objectStore("flows").get(id);
+      request.onsuccess = (event) => {
+        resolve(event.target.result);
+      };
+      request.onerror = (event) => {
+        reject(event.target.error);
+      };
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const deleteFlow = async (id) => {
+  return new Promise((resolve, reject) => {
+    try {
+      let request = db.transaction("previews").objectStore("previews").delete(id);
+      request.onsuccess = () => resolve();
+      request.onerror = (event) => {
+        reject(event.target.error);
+      };
+
+      request = db.transaction("flows").objectStore("flows").delete(id);
+      request.onsuccess = () => resolve();
+      request.onerror = (event) => {
+        reject(event.target.error);
+      };
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export { openDatabase, closeDatabase, getPreviews, putPreview, putFlow, getFlow, deleteFlow };

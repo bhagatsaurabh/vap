@@ -1,2 +1,57 @@
 .flowcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 5px 10px 0px #1c1c1c;
+  padding: 0.5rem;
+  color: #ddd;
+}
+
+.flowcard > img {
+  width: 9rem;
+  box-shadow: 2px 2px 5px 0px inset #1c1c1c;
+  padding: 0.5rem;
+}
+
+.flowcard h3 {
+  font-weight: 100;
+  margin: 0.5rem 0 0 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 9rem;
+}
+
+.flowcard .options {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+@media (hover: hover) {
+  .flowcard:hover {
+    box-shadow: 2px 2px 5px 0px #1c1c1c;
+  }
+
+  .flowcard .options {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #313131b7;
+    transition: opacity 0.1s linear;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  .flowcard:hover .options {
+    pointer-events: all;
+    opacity: 1;
+  }
 }

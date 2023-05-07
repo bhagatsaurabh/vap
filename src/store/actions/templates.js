@@ -14,4 +14,17 @@ const getTemplates = createAsyncThunk("templates/fetch", async (_, { dispatch })
   }
 });
 
-export { getTemplates };
+const getTemplate = createAsyncThunk("templates/fetch-one", async (url, { dispatch }) => {
+  try {
+    const response = await fetch(url);
+    return await response.blob();
+  } catch {
+    dispatch({
+      type: "toast/set",
+      payload: { type: "error", message: "Failed to download template" },
+    });
+    return null;
+  }
+});
+
+export { getTemplates, getTemplate };

@@ -15,19 +15,15 @@ const Button = ({
   className,
   children,
   fit,
+  flat,
 }) => {
   const bSize = size || 1;
   const bAccent = styles[accent] ?? styles["light"];
   const classes = [bAccent];
-  if (className) {
-    classes.push(className);
-  }
-  if (disabled) {
-    classes.push("disabled");
-  }
-  if (fit) {
-    classes.push(styles.fit);
-  }
+  if (className) classes.push(className);
+  if (disabled) classes.push("disabled");
+  if (fit) classes.push(styles.fit);
+  if (flat) classes.push(styles.flat);
 
   let content = [];
   const iconClasses = ["va-text-bottom"];
