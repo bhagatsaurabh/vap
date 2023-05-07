@@ -3,36 +3,36 @@
     "id": 1,
     "name": "Template One",
     "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
-    "url": ""
+    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/test.vap"
   },
   {
     "id": 2,
     "name": "Template Two",
     "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
-    "url": ""
+    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/test.vap"
   },
   {
     "id": 3,
     "name": "Template Three",
     "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
-    "url": ""
+    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/test.vap"
   },
   {
     "id": 4,
     "name": "Template Four",
     "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
-    "url": ""
+    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/test.vap"
   },
   {
     "id": 5,
     "name": "Template Five",
     "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
-    "url": ""
+    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/test.vap"
   },
   {
     "id": 6,
     "name": "Template Six",
     "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
-    "url": ""
+    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/test.vap"
   }
 ]
