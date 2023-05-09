@@ -3,9 +3,12 @@ import { v4 as uuid } from "uuid";
 
 import { deleteFlow, getFlow, getPreviews, openDatabase, putFlow } from "@/misc/db";
 
-const initDatabase = createAsyncThunk("db/init", async (_, { dispatch }) => {
+const initDatabase = createAsyncThunk("db/init", async (_, { dispatch, getState }) => {
   dispatch({ type: "database/clear-error" });
-  return await openDatabase(dispatch);
+  const state = getState();
+  if (state.database.status !== "open") {
+    return await openDatabase(dispatch);
+  }
 });
 
 const fetchPreviews = createAsyncThunk("db/previews", async (_, { dispatch, getState }) => {
@@ -54,7 +57,11 @@ const saveFlow = createAsyncThunk("db/save-flow", async ({ id, flow, preview }, 
 const fetchFlow = createAsyncThunk("db/flow", async (id, { dispatch }) => {
   dispatch({ type: "database/clear-error" });
   try {
-    return await getFlow(id);
+    let flow = await getFlow(id);
+    if (flow) {
+      return URL.createObjectURL(flow);
+    }
+    return flow;
   } catch (error) {
     dispatch({
       type: "toast/set",
