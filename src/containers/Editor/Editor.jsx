@@ -3,7 +3,15 @@ import { useLocation, useParams } from "react-router-dom";
 import styles from "./Editor.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchFlow } from "@/store/actions/db";
+import { fetchFlow, initDatabase } from "@/store/actions/db";
+
+/*
+Flow Controls
+Editor Controls
+Context Menu
+Toolbox
+Stats
+*/
 
 const Editor = () => {
   const { id } = useParams();
@@ -12,15 +20,21 @@ const Editor = () => {
   const dispatch = useDispatch();
 
   const loadAndUnwrap = async () => {
-    const result = dispatch(fetchFlow(id));
+    await openDB();
+
+    const result = await dispatch(fetchFlow(id));
     console.log(result.payload);
+  };
+
+  const openDB = async () => {
+    await dispatch(initDatabase());
   };
 
   useEffect(() => {
     if (id !== "temp") loadAndUnwrap();
   }, []);
 
-  return <span>Editor {id}</span>;
+  return;
 };
 
 export default Editor;
