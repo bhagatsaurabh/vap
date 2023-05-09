@@ -32,13 +32,13 @@ const fetchPreviews = createAsyncThunk("db/previews", async (_, { dispatch, getS
   }
 });
 
-const saveFlow = createAsyncThunk("db/save-flow", async ({ id, flow }, { dispatch }) => {
+const saveFlow = createAsyncThunk("db/save-flow", async ({ id, flow, preview }, { dispatch }) => {
   dispatch({ type: "database/clear-error" });
   try {
     let flowId = id;
     if (!flowId) flowId = uuid();
 
-    await putFlow(flowId, flow);
+    await putFlow(flowId, flow, preview);
     dispatch({ type: "database/dirty", payload: true });
     return flowId;
   } catch (error) {
@@ -73,12 +73,13 @@ const removeFlow = createAsyncThunk("db/remove-flow", async ({ id, name }, { dis
       type: "toast/set",
       payload: { type: "success", message: `Flow ${name} successfully deleted` },
     });
+    return true;
   } catch (error) {
     dispatch({
       type: "toast/set",
       payload: { type: "error", message: "Failed to delete flow" },
     });
-    return null;
+    return false;
   }
 });
 
