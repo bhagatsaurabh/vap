@@ -7,6 +7,7 @@
   box-shadow: 5px 5px 10px 0px #1c1c1c;
   padding: 0.5rem;
   color: #ddd;
+  transition: box-shadow 0.1s linear;
 }
 
 .flowcard > img {

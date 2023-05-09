@@ -34,17 +34,27 @@ const CreateDialog = () => {
       } else {
         // 2. Empty Flow, Database Up, Internet Up/Down (Irrelevant)
         // Save new empty flow in database and switch to Editor
-        const result = await dispatch(saveFlow({ flow: null }));
+        const result = await dispatch(
+          saveFlow({ flow: null, preview: { name: "Untitled", img: null } })
+        );
         if (result.payload) {
           navigate(`/flows/${result.payload}`);
         }
       }
     } else {
-      // 5. Template Flow, Database Down, Internet Down
-      // 6. Template Flow, Database Down, Internet Up
-      // 7. Template Flow, Database Up, Internet Down
-      // 8. Template Flow, Database Up, Internet Up
-      console.log(blobUrl);
+      if (dbStatus !== "open") {
+        // 3. Template Flow, Internet Up, Database Down
+        navigate(`/flows/temp`, { state: blobUrl });
+      } else {
+        // 4. Template Flow, Internet Up, Database Up
+        // Save new template flow in database and switch to Editor
+        const result = await dispatch(
+          saveFlow({ flow: blobUrl, preview: { name: template.name, img: template.img } })
+        );
+        if (result.payload) {
+          navigate(`/flows/${result.payload}`);
+        }
+      }
     }
   };
 

@@ -100,3 +100,7 @@ body {
   color: inherit;
   text-decoration: inherit;
 }
+.px-1 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}

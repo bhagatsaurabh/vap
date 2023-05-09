@@ -88,9 +88,15 @@ const putPreview = async (id, preview) => {
   });
 };
 
-const putFlow = async (id, flow) => {
-  if (!flow) {
-    await putPreview(id, { id, name: "Untitled", img: null });
+const putFlow = async (id, flow, preview) => {
+  let img = null;
+  if (preview.img) {
+    img = await (await fetch(preview.img)).blob();
+  }
+  await putPreview(id, { id, name: preview.name, img });
+
+  if (flow) {
+    flow = await (await fetch(flow)).blob();
   }
 
   return new Promise((resolve, reject) => {
@@ -127,15 +133,15 @@ const getFlow = async (id) => {
 const deleteFlow = async (id) => {
   return new Promise((resolve, reject) => {
     try {
-      let request = db.transaction("previews").objectStore("previews").delete(id);
-      request.onsuccess = () => resolve();
-      request.onerror = (event) => {
-        reject(event.target.error);
+      let pRequest = db.transaction("previews", "readwrite").objectStore("previews").delete(id);
+      pRequest.onsuccess = () => {
+        let fRequest = db.transaction("flows", "readwrite").objectStore("flows").delete(id);
+        fRequest.onsuccess = () => resolve();
+        fRequest.onerror = (event) => {
+          reject(event.target.error);
+        };
       };
-
-      request = db.transaction("flows").objectStore("flows").delete(id);
-      request.onsuccess = () => resolve();
-      request.onerror = (event) => {
+      pRequest.onerror = (event) => {
         reject(event.target.error);
       };
     } catch (error) {

@@ -12,8 +12,8 @@ const Editor = () => {
   const dispatch = useDispatch();
 
   const loadAndUnwrap = async () => {
-    const flow = dispatch(fetchFlow(id));
-    console.log(flow);
+    const result = dispatch(fetchFlow(id));
+    console.log(result.payload);
   };
 
   useEffect(() => {

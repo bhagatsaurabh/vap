@@ -15,3 +15,4 @@ export { default as info } from "./info.png";
 export { default as success } from "./success.png";
 export { default as edit } from "./edit.png";
 export { default as delete } from "./delete.png";
+export { default as refresh } from "./refresh.png";

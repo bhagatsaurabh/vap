@@ -1,4 +1,4 @@
-import { flip } from "@/misc/utils";
+import { flip, noop } from "@/misc/utils";
 import Icon from "../Icon/Icon";
 import Spinner from "../Spinner/Spinner";
 import styles from "./Button.module.css";
@@ -50,7 +50,7 @@ const Button = ({
       disabled={disabled}
       className={classes.join(" ")}
       style={{ fontSize: `${bSize}rem` }}
-      onClick={onClick}
+      onClick={!disabled ? onClick : noop}
     >
       {...content}
     </button>

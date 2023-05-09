@@ -8,7 +8,7 @@ import InteractiveLogo from "@/components/common/InteractiveLogo/InteractiveLogo
 import Brand from "@/components/common/Brand/Brand";
 import Button from "@/components/common/Button/Button";
 import Footnote from "@/components/Footnote/Footnote";
-import { initDatabase } from "@/store/actions/db";
+import { fetchPreviews, initDatabase } from "@/store/actions/db";
 import Spinner from "@/components/common/Spinner/Spinner";
 import Collapsible from "@/components/common/Collapsible/Collapsible";
 import Modal from "@/components/common/Modal/Modal";
@@ -20,6 +20,7 @@ const Flows = () => {
   const provideRef = () => refEl.current;
   const dispatch = useDispatch();
   const [openingDB, setOpeningDB] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const error = useSelector((state) => state.database.error);
 
@@ -30,6 +31,12 @@ const Flows = () => {
     } finally {
       setOpeningDB(false);
     }
+  };
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await dispatch(fetchPreviews());
+    setRefreshing(false);
   };
 
   useEffect(() => {
@@ -93,6 +100,16 @@ const Flows = () => {
             <Button disabled={openingDB} icon="import" accent="dark" iconLeft size={1}>
               Import
             </Button>
+            <Button
+              busy={refreshing}
+              disabled={refreshing || openingDB}
+              onClick={handleRefresh}
+              size={1.2}
+              icon="refresh"
+              accent="dark"
+              flat
+              className="px-1"
+            />
           </div>
         </section>
         <section className={styles.content}>
