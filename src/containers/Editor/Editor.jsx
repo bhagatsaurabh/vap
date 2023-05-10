@@ -8,6 +8,7 @@ import Header from "@/components/Header/Header";
 import Brand from "@/components/common/Brand/Brand";
 import Button from "@/components/common/Button/Button";
 import EditorControls from "@/components/EditorControls/EditorControls";
+import Library from "@/components/Library/Library";
 
 /*
 Context Menu
@@ -68,6 +69,7 @@ const Editor = () => {
       />
       <main className={styles.main}>
         <EditorControls onPlay={handlePlay} onStop={handleStop} onReplay={handleReplay} />
+        <Library />
       </main>
     </>
   );

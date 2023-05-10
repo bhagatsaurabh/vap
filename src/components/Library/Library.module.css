@@ -1,0 +1,27 @@
+.library {
+  position: fixed;
+  top: 0;
+  left: -100vw;
+  height: 100vh;
+  width: 100vw;
+  overflow-y: auto;
+  transition: left 0.15s ease-in-out;
+  background-color: #fff;
+  overflow: visible;
+}
+.library.open {
+  left: 0;
+}
+
+.library .control {
+  position: absolute;
+  left: 100%;
+}
+
+.library .content {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  left: 0;
+  top: 0;
+}
