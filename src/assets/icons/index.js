@@ -16,3 +16,8 @@ export { default as success } from "./success.png";
 export { default as edit } from "./edit.png";
 export { default as delete } from "./delete.png";
 export { default as refresh } from "./refresh.png";
+export { default as save } from "./save.png";
+export { default as export } from "./export.png";
+export { default as replay } from "./replay.png";
+export { default as play } from "./play.png";
+export { default as stop } from "./stop.png";

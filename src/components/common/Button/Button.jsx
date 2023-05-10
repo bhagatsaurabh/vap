@@ -18,7 +18,7 @@ const Button = ({
   flat,
 }) => {
   const bSize = size || 1;
-  const bAccent = styles[accent] ?? styles["light"];
+  const bAccent = styles[accent] ?? styles["dark"];
   const classes = [bAccent];
   if (className) classes.push(className);
   if (disabled) classes.push("disabled");
@@ -34,9 +34,14 @@ const Button = ({
   if (icon) {
     content.push(
       !busy ? (
-        <Icon className={iconClasses.join(" ")} size={bSize} accent={accent} name={icon} />
+        <Icon
+          className={iconClasses.join(" ")}
+          size={bSize}
+          accent={accent ?? "dark"}
+          name={icon}
+        />
       ) : (
-        <Spinner className={iconClasses.join(" ")} size={bSize} accent={accent} />
+        <Spinner className={iconClasses.join(" ")} size={bSize} accent={accent ?? "dark"} />
       )
     );
 

@@ -22,3 +22,6 @@
 .header.fixed {
   position: fixed;
 }
+.header .right {
+  position: relative;
+}
