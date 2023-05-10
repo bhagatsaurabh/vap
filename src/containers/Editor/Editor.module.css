@@ -1,0 +1,32 @@
+.main {
+  position: relative;
+  width: 100%;
+  background-color: #414041;
+  height: 100vh;
+  color: #ddd;
+  box-sizing: border-box;
+}
+
+.flow-controls {
+  position: absolute;
+  top: -1rem;
+  right: 0;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: end;
+}
+
+.flow-control button {
+  backdrop-filter: blur(5px);
+}
+
+@media (min-width: 768px) {
+  .flow-controls {
+    position: relative;
+    flex-direction: row;
+    top: 0;
+  }
+}

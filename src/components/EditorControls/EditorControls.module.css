@@ -1,0 +1,17 @@
+.controls {
+  position: fixed;
+  bottom: 0;
+  width: max-content;
+  left: 50%;
+  padding: 0.5rem;
+  padding-bottom: 1rem;
+  transform: translateX(-50%);
+}
+
+.controls button {
+  backdrop-filter: blur(5px);
+}
+
+.controls button:not(:last-child) {
+  margin-right: 0.5rem;
+}
