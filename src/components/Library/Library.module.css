@@ -8,14 +8,37 @@
   transition: left 0.15s ease-in-out;
   background-color: #fff;
   overflow: visible;
+  z-index: 105;
+  background-color: #414041;
 }
 .library.open {
   left: 0;
 }
 
 .library .control {
+  color: #ddd;
   position: absolute;
   left: 100%;
+  top: 5rem;
+  font-size: 1.1rem;
+  padding: 0.5rem;
+  box-shadow: -6px 0px 0px 0px #414041, 4px 4px 8px 0px #111;
+  border-radius: unset;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  transition: box-shadow 0.1s linear, background-color 0.1s linear;
+  z-index: 1;
+}
+.library.open .control {
+  background-color: #414041;
+}
+.library .control:active {
+  box-shadow: -6px 0px 0px 0px #414041, 2px 2px 4px 0px #111;
+}
+.library .control p {
+  writing-mode: vertical-lr;
+  transform: rotateZ(180deg);
+  margin: 0;
 }
 
 .library .content {
@@ -24,4 +47,22 @@
   min-height: 100%;
   left: 0;
   top: 0;
+  box-shadow: 0px 0px 10px 0px #111;
+  z-index: 0;
+}
+
+@media (hover: hover) {
+  .library .control:hover {
+    background-color: #7070707e;
+  }
+}
+
+@media (min-width: 768px) {
+  .library {
+    width: 20rem;
+    left: -20rem;
+  }
+}
+
+@media (min-width: 1024px) {
 }
