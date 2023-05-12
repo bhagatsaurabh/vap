@@ -1,0 +1,42 @@
+.accordion {
+  transition: background-color 0.15s linear;
+  margin: 0 auto;
+  box-sizing: border-box;
+  color: #ddd;
+  margin-bottom: 1rem;
+}
+
+.accordion .header {
+  border-radius: unset;
+  padding: 0.75rem 0.5rem;
+  width: 100%;
+  color: #ddd;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  transition: box-shadow 0.15s linear, background-color 0.1s linear;
+  box-shadow: 0px 0px 0px 0px #111;
+}
+.accordion.open .header {
+  box-shadow: 0px 9px 8px -8px #111;
+  background-color: #313131;
+}
+
+.accordion .content {
+  transition: max-height 0.15s ease-in-out, box-shadow 0.15s linear, padding 0.15s linear;
+  max-height: 0;
+  overflow: hidden;
+  box-shadow: 0px 0px 0px 0px #111 inset;
+}
+.accordion.open .content {
+  max-height: 100vh;
+  box-shadow: 0px 0px 8px 0px #111 inset;
+  padding: 0.5rem 0;
+}
+
+@media (hover: hover) {
+  .accordion .header:hover {
+    background-color: #5a5a5a;
+  }
+}
