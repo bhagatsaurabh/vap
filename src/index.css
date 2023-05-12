@@ -20,6 +20,7 @@
   --theme-transition-border: border var(--duration-effect) linear;
   --theme-transition-all: var(--theme-transition-bg), var(--theme-transition-text),
     var(--theme-transition-border);
+  --scrollbar-width: 5px;
 }
 
 @font-face {
@@ -83,6 +84,12 @@ body {
 .flex-center {
   justify-content: center;
   align-items: center;
+}
+.flex-primary-left {
+  justify-content: left;
+}
+.jc-space-between {
+  justify-content: space-between;
 }
 .p-absolute-centered {
   position: absolute;

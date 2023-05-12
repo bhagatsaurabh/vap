@@ -10,6 +10,9 @@
   overflow: visible;
   z-index: 105;
   background-color: #414041;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 10px 0px #111;
 }
 .library.open {
   left: 0;
@@ -22,7 +25,7 @@
   top: 5rem;
   font-size: 1.1rem;
   padding: 0.5rem;
-  box-shadow: -6px 0px 0px 0px #414041, 4px 4px 8px 0px #111;
+  box-shadow: 0px 0px 8px 0px #111, 0px 0px 0px 0px #222, 0px 0px 0px 0px #222;
   border-radius: unset;
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -30,10 +33,11 @@
   z-index: 1;
 }
 .library.open .control {
+  box-shadow: 3px 0px 5px -2px #222, 3px -5px 5px -2px #222, 3px 5px 5px -2px #222;
   background-color: #414041;
 }
 .library .control:active {
-  box-shadow: -6px 0px 0px 0px #414041, 2px 2px 4px 0px #111;
+  box-shadow: 1px 0px 3px -2px #222, 1px -3px 3px -2px #222, 1px 3px 3px -2px #222;
 }
 .library .control p {
   writing-mode: vertical-lr;
@@ -41,14 +45,75 @@
   margin: 0;
 }
 
-.library .content {
-  position: absolute;
-  width: 100%;
-  min-height: 100%;
-  left: 0;
+.library .header {
+  position: sticky;
   top: 0;
-  box-shadow: 0px 0px 10px 0px #111;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: 0 1rem;
+}
+.header section {
+  position: relative;
+  display: flex;
+  padding: 1rem 0;
+  align-items: center;
+}
+.header section button {
+  margin-right: 1rem;
+  border: 1px solid #7e7e7e;
+}
+.header section h1 {
+  margin: 0;
+  line-height: 100%;
+}
+.header input {
+  border: none;
+  border-bottom: 1px solid #ddd;
+  background-color: transparent;
+  color: #ddd;
+  padding: 1rem 1rem 1rem 2rem;
+  box-sizing: border-box;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  outline: none;
+  transition: box-shadow 0.15s linear, border 0.15s linear;
+}
+.header input:focus {
+  box-shadow: 0px 0px 8px 0px #111 inset;
+  border-bottom: 1px solid transparent;
+}
+.header section:last-child img {
+  position: absolute;
+  width: 1rem;
+  left: 0.5rem;
+}
+
+.header section:last-child {
+  padding-top: 0;
+}
+
+.library .content {
+  position: relative;
+  width: calc(100% + var(--scrollbar-width));
   z-index: 0;
+  flex: 1;
+  padding: 0 1rem 1.5rem 1rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+.library .content::-webkit-scrollbar {
+  background-color: transparent;
+  width: var(--scrollbar-width);
+}
+.library .content::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.347);
+  width: var(--scrollbar-width);
+}
+.library .content::-webkit-scrollbar-thumb {
+  background-color: rgba(174, 174, 174, 0.73);
+  border-radius: 1rem;
 }
 
 @media (hover: hover) {

@@ -1,7 +1,7 @@
 import styles from "./Icon.module.css";
 import * as icons from "@/assets/icons";
 
-const Icon = ({ size, accent, name, className }) => {
+const Icon = ({ size, accent, name, className, onClick, focusable }) => {
   const iSize = size || 1;
   const icon = icons[name] ?? icons["warning"];
   const iAccent = styles[accent] ?? styles["dark"];
@@ -9,13 +9,18 @@ const Icon = ({ size, accent, name, className }) => {
   if (className) {
     classes.push(className);
   }
+  const handleClick = () => {
+    if (onClick) onClick();
+  };
 
   return (
     <img
+      onClick={handleClick}
       style={{ width: `${iSize}rem` }}
       src={icon}
       className={classes.join(" ")}
       alt={`${name}-icon`}
+      tabIndex={focusable ? 0 : null}
     />
   );
 };

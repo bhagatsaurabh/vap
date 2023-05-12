@@ -1,0 +1,127 @@
+[
+  {
+    "id": 1,
+    "name": "Sources",
+    "icon": "audioSource",
+    "nodes": [
+      {
+        "name": "File"
+      },
+      {
+        "name": "Noise"
+      },
+      {
+        "name": "Oscillator"
+      },
+      {
+        "name": "Metronome"
+      },
+      {
+        "name": "Microphone"
+      },
+      {
+        "name": "Drum Sequencer"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Outputs",
+    "icon": "audioOutput",
+    "nodes": [
+      {
+        "name": "Sound Output"
+      },
+      {
+        "name": "File"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Controllers",
+    "icon": "audioController",
+    "nodes": [
+      {
+        "name": "ADSR"
+      },
+      {
+        "name": "Channel Merger"
+      },
+      {
+        "name": "Channel Splitter"
+      },
+      {
+        "name": "Delay"
+      },
+      {
+        "name": "Stereo Panner"
+      },
+      {
+        "name": "Spatial Panner"
+      },
+      {
+        "name": "Envelope"
+      },
+      {
+        "name": "Gain"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Filters",
+    "icon": "audioFilter",
+    "nodes": [
+      {
+        "name": "Distorter"
+      },
+      {
+        "name": "Overdrive"
+      },
+      {
+        "name": "Biquad Filter"
+      },
+      {
+        "name": "Dynamics Compressor"
+      },
+      {
+        "name": "PingPong Delay"
+      },
+      {
+        "name": "Bitcrusher"
+      },
+      {
+        "name": "Equalizer"
+      },
+      {
+        "name": "Chorus"
+      },
+      {
+        "name": "Convolver"
+      },
+      {
+        "name": "Tremolo"
+      },
+      {
+        "name": "Moog"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Analyzers",
+    "icon": "audioAnalyzer",
+    "nodes": [
+      {
+        "name": "Frequency"
+      },
+      {
+        "name": "Spectrogram"
+      },
+      {
+        "name": "Waveform"
+      }
+    ]
+  }
+]
