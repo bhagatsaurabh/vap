@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 100;
+
   opacity: 1;
   background-color: #8383834d;
   backdrop-filter: blur(5px);
@@ -28,4 +28,16 @@
 .backdrop.exitActive {
   transition: opacity 0.15s linear;
   opacity: 0;
+}
+
+.backdrop.layer0 {
+  z-index: 100;
+}
+
+.backdrop.layer1 {
+  z-index: 105;
+}
+
+.backdrop.layer2 {
+  z-index: 110;
 }

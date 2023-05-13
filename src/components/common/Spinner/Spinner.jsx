@@ -2,7 +2,7 @@ import styles from "./Spinner.module.css";
 import { spinner } from "@/assets/icons";
 
 const Spinner = ({ size, accent, className, children }) => {
-  const sAccent = styles[accent] ?? styles["light"];
+  const sAccent = styles[accent] ?? styles["dark"];
   const classes = [sAccent, styles["spinner"]];
   if (className) {
     classes.push(className);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import styles from "./Library.module.css";
 import Backdrop from "../common/Backdrop/Backdrop";
@@ -9,15 +9,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCatalog } from "@/store/actions/catalog";
 import Accordion from "../common/Accordion/Accordion";
 import NodeList from "../common/NodeList/NodeList";
+import { fullUrl, splitUrl } from "@/misc/utils";
 
 const Library = () => {
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const action = useNavigationType();
   const location = useLocation();
   const dispatch = useDispatch();
-  const nodeGroups = useSelector((state) => state.catalog);
+  let nodeGroups = useSelector((state) => state.catalog);
+  const accordions = useRef([]);
+  const prevPath = useSelector((state) => state.navigation.prev);
 
   useEffect(() => {
     const path = location.pathname;
@@ -27,15 +31,24 @@ const Library = () => {
     dispatch(getCatalog());
   }, []);
   useEffect(() => {
-    if (open && action === "POP") {
+    const { hash } = splitUrl(prevPath);
+    if (
+      open &&
+      action === "POP" &&
+      !(hash && location.hash === "#library" && location.hash !== hash)
+    ) {
       setOpen(false);
     }
   }, [location]);
   useEffect(() => {
     if (show) {
+      dispatch({ type: "navigation/set-prev", payload: fullUrl(location) });
       navigate("#library", { state: { popUp: true }, replace: location.hash === "#library" });
     }
   }, [show]);
+  useEffect(() => {
+    accordions.current.forEach((accordion) => accordion?.[query ? "open" : "close"]());
+  }, [query]);
 
   const handleOpen = () => {
     if (!open) {
@@ -47,6 +60,7 @@ const Library = () => {
   };
   const handleDismiss = () => {
     if (show) {
+      dispatch({ type: "navigation/set-prev", payload: fullUrl(location) });
       navigate(-1);
       setOpen(false);
     }
@@ -56,6 +70,20 @@ const Library = () => {
       setShow(false);
     }
   };
+  const handleInput = (e) => {
+    setQuery(e.target.value);
+  };
+
+  if (query) {
+    nodeGroups = nodeGroups
+      .map((group) => {
+        const filteredNodes = group.nodes.filter((node) =>
+          node.name.toLowerCase().includes(query.toLowerCase())
+        );
+        return { ...group, nodes: filteredNodes };
+      })
+      .filter((group) => group.nodes.length);
+  }
 
   const classes = [styles.library];
   if (open) classes.push(styles.open);
@@ -82,11 +110,11 @@ const Library = () => {
               </section>
               <section>
                 <Icon name="search" size={1} className="fs-0" />
-                <input type="text" placeholder="Search" spellCheck="false" />
+                <input onInput={handleInput} type="text" placeholder="Search" spellCheck="false" />
               </section>
             </header>
             <section className={styles.content}>
-              {nodeGroups.map((group) => (
+              {nodeGroups.map((group, idx) => (
                 <Accordion
                   key={group.name}
                   title={
@@ -95,8 +123,9 @@ const Library = () => {
                       <span>{group.name}</span>
                     </div>
                   }
+                  ref={(e) => (accordions.current[idx] = e)}
                 >
-                  <NodeList nodes={group.nodes} />
+                  <NodeList name={group.name} nodes={group.nodes} />
                 </Accordion>
               ))}
             </section>

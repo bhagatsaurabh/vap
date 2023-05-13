@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 
 import styles from "./Accordion.module.css";
 
-const Accordion = ({ title, children, className }) => {
+const Accordion = forwardRef(({ title, children, className }, ref) => {
   const [open, setOpen] = useState(false);
   const contentEl = useRef(null);
   const [height, setHeight] = useState(0);
@@ -24,6 +24,15 @@ const Accordion = ({ title, children, className }) => {
     }
   };
 
+  useImperativeHandle(ref, () => ({
+    open() {
+      if (!open) handleClick();
+    },
+    close() {
+      if (open) handleClick();
+    },
+  }));
+
   const classes = [styles.accordion];
   if (className) classes.push(className);
   if (open) classes.push(styles.open);
@@ -43,6 +52,6 @@ const Accordion = ({ title, children, className }) => {
       </div>
     </section>
   );
-};
+});
 
 export default Accordion;

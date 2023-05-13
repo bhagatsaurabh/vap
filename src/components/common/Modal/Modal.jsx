@@ -5,11 +5,14 @@ import { CSSTransition } from "react-transition-group";
 import Backdrop from "../Backdrop/Backdrop";
 import styles from "./Modal.module.css";
 import Button from "../Button/Button";
-import { Constants, trapBetween } from "@/misc/utils";
+import { Constants, fullUrl, trapBetween } from "@/misc/utils";
+import { useDispatch } from "react-redux";
 
-const Modal = ({ title, children, onDismiss, onAction, controls, className, overflow }) => {
+const Modal = ({ title, children, onDismiss, onAction, controls, className, overflow, layer }) => {
   const [_show, set_Show] = useState(false);
   const [queuedAction, setQueuedAction] = useState(null);
+  const dispatch = useDispatch();
+  const layerLevel = layer ?? 0;
 
   useEffect(() => {
     set_Show(true);
@@ -25,6 +28,7 @@ const Modal = ({ title, children, onDismiss, onAction, controls, className, over
   const handleDismiss = () => {
     if (_show) {
       navigate(-1);
+      dispatch({ type: "navigation/set-prev", payload: fullUrl(location) });
       set_Show(false);
     }
   };
@@ -69,8 +73,10 @@ const Modal = ({ title, children, onDismiss, onAction, controls, className, over
     if (_show) {
       const slug = `#pop-${title.toLowerCase().replace(" ", "-")}`;
       if (location.hash !== slug) {
+        dispatch({ type: "navigation/set-prev", payload: fullUrl(location) });
         navigate(slug, { state: { popUp: true } });
       } else if (history.state.idx === 0) {
+        dispatch({ type: "navigation/set-prev", payload: fullUrl(location) });
         navigate(`${slug}-%F0%9F%98%A1`, { state: { popUp: true } });
       }
 
@@ -84,7 +90,7 @@ const Modal = ({ title, children, onDismiss, onAction, controls, className, over
 
   return (
     <>
-      <Backdrop show={_show} onDismiss={handleDismiss} />
+      <Backdrop show={_show} onDismiss={handleDismiss} layer={layerLevel} />
       <CSSTransition
         onExited={handleExited}
         mountOnEnter
@@ -94,7 +100,11 @@ const Modal = ({ title, children, onDismiss, onAction, controls, className, over
         timeout={150}
         classNames={{ ...styles }}
       >
-        <div ref={node} role="dialog" className={[styles.modal, className ?? ""].join(" ")}>
+        <div
+          ref={node}
+          role="dialog"
+          className={[styles.modal, styles[`layer${layerLevel}`], className ?? ""].join(" ")}
+        >
           <section className={styles.title}>
             <h2>{title}</h2>
             <Button

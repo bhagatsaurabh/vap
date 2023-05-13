@@ -5,6 +5,7 @@ import database from "./reducers/database";
 import toast from "./reducers/toast";
 import templates from "./reducers/templates";
 import catalog from "./reducers/catalog";
+import navigation from "./reducers/navigation";
 
 const rootReducer = combineReducers({
   media,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   toast,
   templates,
   catalog,
+  navigation,
 });
 
 export default configureStore({
