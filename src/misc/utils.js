@@ -82,3 +82,19 @@ export const trapBetween = (root) => {
 
   return { first: firstTabbableNode, last: lastTabbableNode };
 };
+
+export const fullUrl = (location) => {
+  return `${location.pathname ?? ""}${location.hash ?? ""}`;
+};
+
+export const splitUrl = (url) => {
+  url = url ?? "";
+  if (!url.includes("#")) return { path: url, hash: null };
+  else {
+    const hashIdx = url.indexOf("#");
+    return {
+      path: url.substring(0, hashIdx),
+      hash: url.substring(hashIdx),
+    };
+  }
+};

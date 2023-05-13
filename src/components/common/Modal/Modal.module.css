@@ -4,13 +4,24 @@
   transform: translateY(-50%);
   right: calc(-100% - 1rem);
   width: 100vw;
-  z-index: 101;
   background-color: #414041;
   box-shadow: 0px 0px 25px 0px #000;
   color: #ddd;
   max-height: 80vh;
   display: flex;
   flex-direction: column;
+}
+
+.modal.layer0 {
+  z-index: 101;
+}
+
+.modal.layer1 {
+  z-index: 106;
+}
+
+.modal.layer2 {
+  z-index: 111;
 }
 
 .modal.enter {
