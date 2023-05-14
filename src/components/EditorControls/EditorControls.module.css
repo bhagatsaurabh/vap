@@ -6,6 +6,7 @@
   padding: 0.5rem;
   padding-bottom: 1rem;
   transform: translateX(-50%);
+  z-index: 1;
 }
 
 .controls button {

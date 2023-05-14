@@ -98,3 +98,5 @@ export const splitUrl = (url) => {
     };
   }
 };
+
+export const getSlug = (title) => `#pop-${title.toLowerCase().replace(" ", "-")}`;
