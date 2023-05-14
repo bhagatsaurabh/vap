@@ -1,16 +1,15 @@
 .controls {
   position: fixed;
-  bottom: 0;
+  bottom: 0.5rem;
   width: max-content;
   left: 50%;
   padding: 0.5rem;
-  padding-bottom: 1rem;
   transform: translateX(-50%);
   z-index: 1;
-}
-
-.controls button {
-  backdrop-filter: blur(5px);
+  background-color: #414040d4;
+  backdrop-filter: blur(2px);
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 5px 0 #414041;
 }
 
 .controls button:not(:last-child) {

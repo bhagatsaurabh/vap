@@ -119,12 +119,17 @@ body {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
+.pointer-events-none {
+  pointer-events: none;
+}
+.pointer-events-all {
+  pointer-events: all;
+}
 
 .docs {
   padding: 1rem 0.75rem;
   white-space: normal;
 }
-
 .docs h2 {
   font-weight: 100;
   margin: 1 0 0.5rem 0;

@@ -7,6 +7,18 @@
   box-sizing: border-box;
 }
 
+.main .spinner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+}
+
 .flow-controls {
   position: absolute;
   top: -1rem;
@@ -19,8 +31,19 @@
   align-items: end;
 }
 
-.flow-control button {
-  backdrop-filter: blur(5px);
+.flow-controls button {
+  background-color: #414040d4;
+  backdrop-filter: blur(1px);
+  pointer-events: all;
+}
+
+@media (hover: hover) {
+  .flow-controls button:hover {
+    background-color: rgb(91 91 91);
+  }
+  .flow-controls button:active:hover {
+    background-color: rgb(91 91 91);
+  }
 }
 
 @media (min-width: 768px) {

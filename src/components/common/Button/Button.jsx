@@ -16,6 +16,7 @@ const Button = ({
   children,
   fit,
   flat,
+  rect,
 }) => {
   const bSize = size || 1;
   const bAccent = styles[accent] ?? styles["dark"];
@@ -24,6 +25,7 @@ const Button = ({
   if (disabled) classes.push("disabled");
   if (fit) classes.push(styles.fit);
   if (flat) classes.push(styles.flat);
+  if (rect) classes.push(styles.rect);
 
   let content = [];
   const iconClasses = ["va-text-bottom"];
