@@ -1,8 +1,10 @@
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
+import { FlowConnect } from "flow-connect";
+import { Source, Destination } from "@flow-connect/audio";
 
 import styles from "./Editor.module.css";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { fetchFlow, initDatabase } from "@/store/actions/db";
 import Header from "@/components/Header/Header";
 import Brand from "@/components/common/Brand/Brand";
@@ -21,6 +23,8 @@ const Editor = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const dispatch = useDispatch();
+  const mainEl = useRef(null);
+  const flowRef = useRef(null);
 
   const loadAndUnwrap = async () => {
     await openDB();
@@ -36,12 +40,27 @@ const Editor = () => {
   const handleSave = () => {};
   const handleExport = () => {};
   const handleDelete = () => {};
-  const handlePlay = () => {};
-  const handleStop = () => {};
+  const handlePlay = () => {
+    flowRef.current.start();
+  };
+  const handleStop = () => {
+    flowRef.current.stop();
+  };
   const handleReplay = () => {};
+
+  const start = async () => {
+    const fc = new FlowConnect(mainEl.current);
+    await fc.setupAudioContext();
+    const flow = fc.createFlow({ name: "Test Flow" });
+    const source = new Source(flow);
+    const output = new Destination(flow);
+    fc.render(flow);
+    flowRef.current = flow;
+  };
 
   useEffect(() => {
     if (id !== "temp") loadAndUnwrap();
+    start();
   }, []);
 
   return (
@@ -70,6 +89,7 @@ const Editor = () => {
       <main className={styles.main}>
         <EditorControls onPlay={handlePlay} onStop={handleStop} onReplay={handleReplay} />
         <Library />
+        <canvas ref={mainEl}></canvas>
       </main>
     </>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import DOMPurify from "dompurify";
 import parse from "html-react-parser";
@@ -8,9 +8,11 @@ import Spinner from "../Spinner/Spinner";
 import { getDocs } from "@/store/actions/docs";
 
 const StaticHtml = ({ url }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
+  const [height, setHeight] = useState(0);
+  const el = useRef(null);
 
   const load = async () => {
     setLoading(true);
@@ -22,15 +24,23 @@ const StaticHtml = ({ url }) => {
   useEffect(() => {
     load();
   }, []);
+  useEffect(() => {
+    if (!loading) {
+      console.log(el.current.offsetHeight);
+      setHeight(el.current.offsetHeight);
+    }
+  }, [loading]);
 
   return (
-    <div className={styles.statichtml}>
+    <div className={styles.statichtml} style={{ height: `${height + 1}px` }}>
       {loading ? (
         <div className={styles.spinner}>
           <Spinner size={1.1}>Fetching Docs...</Spinner>
         </div>
       ) : (
-        parse(content)
+        <div className="docs" ref={el}>
+          {parse(content)}
+        </div>
       )}
     </div>
   );

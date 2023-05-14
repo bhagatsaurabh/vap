@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate, useNavigationType } from "react-router-dom";
 
 import styles from "./Library.module.css";
 import Backdrop from "../common/Backdrop/Backdrop";
-import { useLocation, useNavigate, useNavigationType } from "react-router-dom";
 import Button from "../common/Button/Button";
 import Icon from "../common/Icon/Icon";
-import { useDispatch, useSelector } from "react-redux";
 import { getCatalog } from "@/store/actions/catalog";
 import Accordion from "../common/Accordion/Accordion";
 import NodeList from "../common/NodeList/NodeList";
@@ -22,6 +22,7 @@ const Library = () => {
   let nodeGroups = useSelector((state) => state.catalog);
   const accordions = useRef([]);
   const prevPath = useSelector((state) => state.navigation.prev);
+  const prevModal = useSelector((state) => state.navigation.modal);
 
   useEffect(() => {
     const path = location.pathname;
@@ -31,11 +32,16 @@ const Library = () => {
     dispatch(getCatalog());
   }, []);
   useEffect(() => {
-    const { hash } = splitUrl(prevPath);
+    const prevHash = splitUrl(prevPath).hash;
+    const prevModalHash = splitUrl(prevModal).hash;
+    const currHash = location.hash === "#library";
     if (
       open &&
       action === "POP" &&
-      !(hash && location.hash === "#library" && location.hash !== hash)
+      !(
+        (prevHash && currHash && location.hash !== prevHash) ||
+        (prevModalHash && currHash && location.hash !== prevModalHash)
+      )
     ) {
       setOpen(false);
     }

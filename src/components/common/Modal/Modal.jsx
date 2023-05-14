@@ -5,43 +5,21 @@ import { CSSTransition } from "react-transition-group";
 import Backdrop from "../Backdrop/Backdrop";
 import styles from "./Modal.module.css";
 import Button from "../Button/Button";
-import { Constants, fullUrl, trapBetween } from "@/misc/utils";
-import { useDispatch } from "react-redux";
+import { Constants, fullUrl, getSlug, trapBetween } from "@/misc/utils";
+import { useDispatch, useSelector } from "react-redux";
 
 const Modal = ({ title, children, onDismiss, onAction, controls, className, overflow, layer }) => {
+  const layerLevel = layer ?? 0;
+  const pControls = controls ?? [];
+
   const [_show, set_Show] = useState(false);
   const [queuedAction, setQueuedAction] = useState(null);
   const dispatch = useDispatch();
-  const layerLevel = layer ?? 0;
-
-  useEffect(() => {
-    set_Show(true);
-  }, []);
-
-  const pControls = controls ?? [];
   const navigate = useNavigate();
+  const action = useNavigationType();
   const location = useLocation();
   const node = useRef(null);
-  const action = useNavigationType();
   const bound = useRef(null);
-
-  const handleDismiss = () => {
-    if (_show) {
-      navigate(-1);
-      dispatch({ type: "navigation/set-prev", payload: fullUrl(location) });
-      set_Show(false);
-    }
-  };
-  const handleAction = (text) => {
-    if (queuedAction === null) {
-      setQueuedAction(text);
-      handleDismiss();
-    }
-  };
-  const handleExited = () => {
-    queuedAction && onAction(queuedAction);
-    onDismiss();
-  };
 
   const trapFocus = useCallback((event) => {
     if (event.key === "Tab" || event.keyCode === Constants.KEYCODE_TAB) {
@@ -62,31 +40,50 @@ const Modal = ({ title, children, onDismiss, onAction, controls, className, over
       }
     }
   }, []);
+  useEffect(() => {
+    if (location.hash && history.state.idx === 0) {
+      const path = location.pathname;
+      navigate(path.substring(0, path.indexOf("#")), { replace: true });
+    }
+    const slug = getSlug(title);
+    dispatch({ type: "navigation/set-prev", payload: fullUrl(location) });
+    dispatch({ type: "navigation/set-modal", payload: `${location.pathname}${slug}` });
+    navigate(slug, { state: { popUp: true } });
+    document.activeElement?.blur();
+    bound.current = trapBetween(node.current);
+    window.addEventListener("keydown", trapFocus);
 
+    set_Show(true);
+
+    return () => {
+      dispatch({ type: "navigation/clear-modal" });
+    };
+  }, []);
   useEffect(() => {
     if (_show && action === "POP") {
+      window.removeEventListener("keydown", trapFocus);
       set_Show(false);
     }
   }, [location]);
 
-  useEffect(() => {
+  const handleDismiss = () => {
     if (_show) {
-      const slug = `#pop-${title.toLowerCase().replace(" ", "-")}`;
-      if (location.hash !== slug) {
-        dispatch({ type: "navigation/set-prev", payload: fullUrl(location) });
-        navigate(slug, { state: { popUp: true } });
-      } else if (history.state.idx === 0) {
-        dispatch({ type: "navigation/set-prev", payload: fullUrl(location) });
-        navigate(`${slug}-%F0%9F%98%A1`, { state: { popUp: true } });
-      }
-
-      document.activeElement?.blur();
-      bound.current = trapBetween(node.current);
-      window.addEventListener("keydown", trapFocus);
-    } else {
       window.removeEventListener("keydown", trapFocus);
+      set_Show(false);
+      dispatch({ type: "navigation/set-prev", payload: `${location.pathname}${getSlug(title)}` });
+      navigate(-1);
     }
-  }, [_show]);
+  };
+  const handleAction = (text) => {
+    if (queuedAction === null) {
+      setQueuedAction(text);
+      handleDismiss();
+    }
+  };
+  const handleExited = () => {
+    queuedAction && onAction(queuedAction);
+    onDismiss();
+  };
 
   return (
     <>

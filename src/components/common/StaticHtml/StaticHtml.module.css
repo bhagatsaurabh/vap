@@ -1,4 +1,6 @@
 .statichtml {
+  min-height: 5rem;
+  transition: height 0.15s ease-in-out;
 }
 
 .statichtml .spinner {
