@@ -5,6 +5,9 @@ button {
   padding: 0.5rem 1.5rem;
   transition: all 0.1s linear;
 }
+button.rect {
+  border-radius: 0;
+}
 button.fit {
   padding: 0;
 }
@@ -25,12 +28,20 @@ button.flat {
 }
 
 button.light:disabled {
+  opacity: 0.5;
   color: #6a6a6a;
   box-shadow: 2px 2px 5px 0px rgb(226, 226, 226);
 }
 button.dark:disabled {
+  opacity: 0.5;
   color: #909090;
   box-shadow: 2px 2px 5px 0px rgb(27, 27, 27);
+}
+button.flat.light:disabled {
+  box-shadow: 2px 2px 5px 0px rgb(226, 226, 226) inset;
+}
+button.flat.dark:disabled {
+  box-shadow: 2px 2px 5px 0px rgb(27, 27, 27) inset;
 }
 
 button.light:active {
@@ -63,5 +74,14 @@ button.dark:active {
   }
   button.dark:disabled:hover {
     box-shadow: 2px 2px 5px 0px #2c2c2c;
+  }
+  button.flat:disabled:hover {
+    background-color: transparent;
+  }
+  button.flat.light:disabled:hover {
+    box-shadow: 2px 2px 5px 0px rgb(226, 226, 226) inset;
+  }
+  button.flat.dark:disabled:hover {
+    box-shadow: 2px 2px 5px 0px rgb(27, 27, 27) inset;
   }
 }

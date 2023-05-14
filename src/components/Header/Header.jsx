@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./Header.module.css";
 
-const Header = ({ left, right, center, transparent, fixed, dynamic, reference }) => {
+const Header = ({ left, right, center, transparent, fixed, dynamic, reference, className }) => {
   const [shadow, setShadow] = useState(false);
   const headerEl = useRef(null);
   let classes = [styles.header];
@@ -10,6 +10,7 @@ const Header = ({ left, right, center, transparent, fixed, dynamic, reference })
   shadow && classes.push(styles.shadow);
   fixed && classes.push(styles.fixed);
   transparent && classes.push(styles.transparent);
+  className && classes.push(className);
 
   useEffect(() => {
     const ref = reference?.();

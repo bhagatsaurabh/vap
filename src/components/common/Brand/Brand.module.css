@@ -17,6 +17,13 @@
   color: #dddddd;
 }
 
+.brand.editor {
+  background-color: #414040d6;
+  backdrop-filter: blur(1px);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
 @media (min-width: 768px) {
   .brand span {
   }
