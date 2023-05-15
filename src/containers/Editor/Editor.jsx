@@ -28,6 +28,8 @@ const Editor = () => {
   const dispatch = useDispatch();
   const mainEl = useRef(null);
   const flowRef = useRef(null);
+  const fcRef = useRef(null);
+  const blobRef = useRef(null);
 
   const loadAndUnwrap = async () => {
     setState("loading");
@@ -55,8 +57,50 @@ const Editor = () => {
     await dispatch(initDatabase());
   };
 
-  const handleSave = () => {};
-  const handleExport = () => {};
+  const handleSave = () => {
+    const fc = fcRef.current;
+
+    const uploader = document.createElement("input");
+    uploader.type = "file";
+    uploader.accept = "application/json,.vap";
+    document.body.appendChild(uploader);
+    uploader.style.display = "none";
+    uploader.click();
+    uploader.onchange = async () => {
+      if (uploader.files.length > 0) {
+        const content = await (await fetch(URL.createObjectURL(uploader.files[0]))).text();
+        const flow = await fc.fromJson(content, async (id) => {
+          return blobRef.current;
+        });
+        fc.render(flow);
+        const testing = document.createElement("audio");
+        testing.autoplay = true;
+        testing.src = URL.createObjectURL(blobRef.current);
+        document.body.appendChild(testing);
+        testing.style.display = "none";
+        testing.play();
+      }
+    };
+  };
+  const handleExport = async () => {
+    const fc = fcRef.current;
+    const flow = flowRef.current;
+
+    const content = await fc.toJson(flow, (id, ref) => {
+      blobRef.current = ref;
+    });
+
+    const downloader = document.createElement("a");
+    document.body.appendChild(downloader);
+    downloader.style.display = "none";
+    const blob = new Blob([content], { type: "octet/stream" });
+    const url = URL.createObjectURL(blob);
+    downloader.href = url;
+    downloader.download = "exported.json";
+    downloader.click();
+    URL.revokeObjectURL(url);
+    downloader.remove();
+  };
   const handleDelete = () => {};
   const handlePlay = () => {
     flowRef.current.start();
@@ -72,11 +116,13 @@ const Editor = () => {
   };
 
   const start = async () => {
-    const fc = new FlowConnect(mainEl.current);
-    await fc.setupAudioContext();
+    const fc = await FlowConnect.create(mainEl.current);
+    fcRef.current = fc;
     const flow = fc.createFlow({ name: "Test Flow" });
     const source = new Source(flow);
     const output = new Destination(flow);
+    source.outputs[0].connect(output.inputs[0]);
+
     fc.render(flow);
     flowRef.current = flow;
   };
