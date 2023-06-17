@@ -29,7 +29,29 @@ const fetchPreviews = createAsyncThunk("db/previews", async (_, { dispatch, getS
   } catch (error) {
     dispatch({
       type: "toast/set",
-      payload: { type: "error", message: "Failed to load flows" },
+      payload: { type: "error", message: "Failed to fetch previews" },
+    });
+    return [];
+  }
+});
+
+const fetchPreview = createAsyncThunk("db/preview", async (id, { dispatch }) => {
+  dispatch({ type: "database/clear-error" });
+
+  try {
+    let previews = await getPreviews();
+    let preview = previews.find((p) => p.id === id);
+    preview = {
+      ...preview,
+      img: preview.img && URL.createObjectURL(preview.img),
+    };
+    dispatch({ type: "database/dirty", payload: false });
+
+    return preview;
+  } catch (error) {
+    dispatch({
+      type: "toast/set",
+      payload: { type: "error", message: "Failed to fetch preview" },
     });
     return [];
   }
@@ -90,4 +112,4 @@ const removeFlow = createAsyncThunk("db/remove-flow", async ({ id, name }, { dis
   }
 });
 
-export { initDatabase, fetchPreviews, saveFlow, fetchFlow, removeFlow };
+export { initDatabase, fetchPreviews, fetchPreview, saveFlow, fetchFlow, removeFlow };

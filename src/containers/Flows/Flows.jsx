@@ -8,12 +8,13 @@ import InteractiveLogo from "@/components/common/InteractiveLogo/InteractiveLogo
 import Brand from "@/components/common/Brand/Brand";
 import Button from "@/components/common/Button/Button";
 import Footnote from "@/components/Footnote/Footnote";
-import { fetchPreviews, initDatabase } from "@/store/actions/db";
+import { fetchPreviews, initDatabase, saveFlow } from "@/store/actions/db";
 import Spinner from "@/components/common/Spinner/Spinner";
 import Collapsible from "@/components/common/Collapsible/Collapsible";
 import Modal from "@/components/common/Modal/Modal";
 import FlowList from "@/components/FlowList/FlowList";
 import CreateDialog from "@/components/CreateDialog/CreateDialog";
+import JSZip from "jszip";
 
 const Flows = () => {
   const refEl = useRef(null);
@@ -32,11 +33,50 @@ const Flows = () => {
       setOpeningDB(false);
     }
   };
-
   const handleRefresh = async () => {
     setRefreshing(true);
     await dispatch(fetchPreviews());
     setRefreshing(false);
+  };
+  const handleImport = async () => {
+    const uploader = document.createElement("input");
+    uploader.type = "file";
+    uploader.accept = ".zip,.vap";
+    document.body.appendChild(uploader);
+    uploader.style.display = "none";
+    uploader.click();
+    uploader.onchange = async () => {
+      if (uploader.files.length > 0) {
+        const pack = await (await fetch(URL.createObjectURL(uploader.files[0]))).blob();
+        const flowName = await verifyPack(pack);
+        if (flowName) {
+          const packURL = URL.createObjectURL(pack);
+          await dispatch(saveFlow({ flow: packURL, preview: { name: flowName, img: null } }));
+          URL.revokeObjectURL(packURL);
+        } else {
+          dispatch({
+            type: "toast/set",
+            payload: { type: "error", message: "File is not a valid VAP pack" },
+          });
+        }
+      }
+      uploader.remove();
+    };
+  };
+  const verifyPack = async (pack) => {
+    let name = null;
+    try {
+      let zip = new JSZip();
+      zip = await zip.loadAsync(pack);
+      if (!Object.keys(zip.files).includes("flow.json")) return null;
+      let serializedFlow = await zip.file("flow.json").async("string");
+      serializedFlow = JSON.parse(serializedFlow);
+      name = serializedFlow.name;
+    } catch (_) {
+      return null;
+    }
+
+    return name;
   };
 
   useEffect(() => {
@@ -97,7 +137,14 @@ const Flows = () => {
             >
               Create
             </Button>
-            <Button disabled={openingDB} icon="import" accent="dark" iconLeft size={1}>
+            <Button
+              onClick={() => handleImport()}
+              disabled={openingDB}
+              icon="import"
+              accent="dark"
+              iconLeft
+              size={1}
+            >
               Import
             </Button>
             <Button
