@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
-import { FlowConnect } from "flow-connect";
-import { Source, Destination } from "@flow-connect/audio";
+import { FlowConnect, Vector } from "flow-connect";
+import "@flow-connect/audio";
 
 import styles from "./Editor.module.css";
 import { fetchFlow, initDatabase } from "@/store/actions/db";
@@ -119,8 +119,8 @@ const Editor = () => {
     const fc = await FlowConnect.create(mainEl.current);
     fcRef.current = fc;
     const flow = fc.createFlow({ name: "Test Flow" });
-    const source = new Source(flow);
-    const output = new Destination(flow);
+    const source = flow.createNode("audio/source", Vector.create(100, 100), {});
+    const output = flow.createNode("audio/destination", Vector.create(200, 200), {});
     source.outputs[0].connect(output.inputs[0]);
 
     fc.render(flow);
