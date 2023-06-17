@@ -1,14 +1,17 @@
 import { RouterProvider } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import router from "./router";
 import "@/App.css";
 import { closeDatabase } from "./misc/db";
 import Toast from "./components/common/Toast/Toast";
+import { FlowConnectContext } from "./contexts/flow-connect";
 
 const App = () => {
   const dispatch = useDispatch();
+  const [flowConnect, setFlowConnect] = useState(null);
+  const context = { flowConnect, setFlowConnect };
 
   useEffect(() => {
     dispatch({ type: "media/set" });
@@ -29,8 +32,10 @@ const App = () => {
 
   return (
     <div className="app">
-      <Toast />
-      <RouterProvider router={router} />
+      <FlowConnectContext.Provider value={context}>
+        <Toast />
+        <RouterProvider router={router} />
+      </FlowConnectContext.Provider>
     </div>
   );
 };
