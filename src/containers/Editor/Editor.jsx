@@ -2,7 +2,7 @@ import JSZip from "jszip";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { FlowConnect, Vector } from "flow-connect";
+import { FlowConnect, Node, Vector } from "flow-connect";
 import "@flow-connect/audio";
 
 import styles from "./Editor.module.css";
@@ -23,9 +23,10 @@ import Spinner from "@/components/common/Spinner/Spinner";
 import Modal from "@/components/common/Modal/Modal";
 import { FlowConnectContext } from "@/contexts/flow-connect";
 import FlowName from "@/components/common/FlowName/FlowName";
+import ContextMenu from "@/components/common/ContextMenu/ContextMenu";
+import Properties from "@/components/Properties/Properties";
 
 /*
-Context Menu
 Properties
 Node Docs
 Templates
@@ -45,6 +46,9 @@ const Editor = () => {
   const mainEl = useRef(null);
   const { flowConnect, setFlowConnect } = useContext(FlowConnectContext);
   const navigate = useNavigate();
+  const currContext = useRef(null);
+  const [ctxMenu, setCtxMenu] = useState(null);
+  const [showProps, setShowProps] = useState(null);
 
   const loadAndUnwrap = async (fc) => {
     let deSerializedFlow = null;
@@ -184,6 +188,29 @@ const Editor = () => {
     }
     dispatch(updatePreview({ id, preview: { ...preview, img, name: newName } }));
   };
+  const registerListeners = (fc) => {
+    fc = fc ?? flowConnect;
+
+    fc.on("context-menu", (e) => {
+      if (e.target instanceof Node && currContext.current !== e.target) {
+        currContext.current = e.target;
+        setCtxMenu(e.screenPos);
+      }
+    });
+
+    fc.on("dbl-press", (e) => {
+      if (e.target instanceof Node) {
+        setShowProps(e.target);
+      }
+    });
+  };
+  const handleCtxSelect = (option) => {
+    if (option === "Properties") {
+      setShowProps(currContext.current);
+    } else if (option === "Delete") {
+      flow.removeNode(currContext.current);
+    }
+  };
 
   const init = async () => {
     const fc = await FlowConnect.create(mainEl.current);
@@ -200,16 +227,36 @@ const Editor = () => {
         fc.render(newFlow);
       }
     }
+
+    registerListeners(fc);
   };
 
   useEffect(() => {
     init();
   }, []);
   useEffect(() => () => flow && handleStop(), [flow]);
-  useEffect(() => () => flowConnect?.detach(), [flowConnect]);
+  useEffect(
+    () => () => {
+      flowConnect?.detach();
+      flowConnect?.offAll();
+    },
+    [flowConnect]
+  );
 
   return (
     <>
+      {ctxMenu && (
+        <ContextMenu
+          options={["Properties", "Delete"]}
+          onSelect={handleCtxSelect}
+          position={ctxMenu}
+          onDismiss={() => {
+            currContext.current = null;
+            setCtxMenu(null);
+          }}
+          title={currContext.current.name}
+        />
+      )}
       {confirmDelete && (
         <Modal
           title="Are you sure ?"
@@ -273,6 +320,7 @@ const Editor = () => {
           onReplay={handleReplay}
         />
         <Library onSelect={handleSelect} onDrop={handleDrop} />
+        <Properties node={showProps} slide={!!showProps} onDismiss={() => setShowProps(null)} />
         <canvas ref={mainEl}></canvas>
       </main>
     </>

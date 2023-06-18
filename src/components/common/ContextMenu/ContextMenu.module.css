@@ -1,0 +1,36 @@
+.contextmenu {
+  position: fixed;
+  background-color: #000;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 4px 10px 0px #000;
+  opacity: 0;
+}
+.contextmenu.visible {
+  opacity: 1;
+}
+
+.contextmenu .option {
+  color: #e1e1e1;
+  border-radius: 0;
+  transition: background-color 0.1s linear;
+}
+
+.contextmenu .option:not(:last-child) {
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.contextmenu .title {
+  font-size: 0.8rem;
+  color: grey;
+  text-align: left;
+  border-bottom: 1px solid grey;
+  padding: 0.2rem 0.5rem;
+}
+
+@media (hover: hover) {
+  .contextmenu .option:hover {
+    background-color: #383838;
+  }
+}
