@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { v4 as uuid } from "uuid";
 
-import { deleteFlow, getFlow, getPreviews, openDatabase, putFlow } from "@/misc/db";
+import { deleteFlow, getFlow, getPreviews, openDatabase, putFlow, putPreview } from "@/misc/db";
 
 const initDatabase = createAsyncThunk("db/init", async (_, { dispatch, getState }) => {
   dispatch({ type: "database/clear-error" });
@@ -15,9 +15,6 @@ const fetchPreviews = createAsyncThunk("db/previews", async (_, { dispatch, getS
   dispatch({ type: "database/clear-error" });
 
   try {
-    const state = getState();
-    state.database.previews.forEach((preview) => URL.revokeObjectURL(preview.img));
-
     let previews = await getPreviews();
     previews = previews.map((preview) => ({
       ...preview,
@@ -76,6 +73,24 @@ const saveFlow = createAsyncThunk("db/save-flow", async ({ id, flow, preview }, 
   }
 });
 
+const updatePreview = createAsyncThunk(
+  "db/update-preview",
+  async ({ id, preview }, { dispatch }) => {
+    dispatch({ type: "database/clear-error" });
+    try {
+      await putPreview(id, preview);
+      dispatch({ type: "database/dirty", payload: true });
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: "toast/set",
+        payload: { type: "error", message: "Failed to update preview" },
+      });
+      return null;
+    }
+  }
+);
+
 const fetchFlow = createAsyncThunk("db/flow", async (id, { dispatch }) => {
   dispatch({ type: "database/clear-error" });
   try {
@@ -112,4 +127,12 @@ const removeFlow = createAsyncThunk("db/remove-flow", async ({ id, name }, { dis
   }
 });
 
-export { initDatabase, fetchPreviews, fetchPreview, saveFlow, fetchFlow, removeFlow };
+export {
+  initDatabase,
+  fetchPreviews,
+  fetchPreview,
+  updatePreview,
+  saveFlow,
+  fetchFlow,
+  removeFlow,
+};

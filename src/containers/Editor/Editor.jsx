@@ -2,11 +2,18 @@ import JSZip from "jszip";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { FlowConnect } from "flow-connect";
+import { FlowConnect, Vector } from "flow-connect";
 import "@flow-connect/audio";
 
 import styles from "./Editor.module.css";
-import { fetchFlow, fetchPreview, initDatabase, removeFlow, saveFlow } from "@/store/actions/db";
+import {
+  fetchFlow,
+  fetchPreview,
+  initDatabase,
+  removeFlow,
+  saveFlow,
+  updatePreview,
+} from "@/store/actions/db";
 import Header from "@/components/Header/Header";
 import Brand from "@/components/common/Brand/Brand";
 import Button from "@/components/common/Button/Button";
@@ -15,11 +22,14 @@ import Library from "@/components/Library/Library";
 import Spinner from "@/components/common/Spinner/Spinner";
 import Modal from "@/components/common/Modal/Modal";
 import { FlowConnectContext } from "@/contexts/flow-connect";
+import FlowName from "@/components/common/FlowName/FlowName";
 
 /*
 Context Menu
-Stats
 Properties
+Node Docs
+Templates
+Stats
 */
 
 const Editor = () => {
@@ -34,10 +44,10 @@ const Editor = () => {
   const dispatch = useDispatch();
   const mainEl = useRef(null);
   const { flowConnect, setFlowConnect } = useContext(FlowConnectContext);
-  const flowRef = useRef(null);
   const navigate = useNavigate();
 
   const loadAndUnwrap = async (fc) => {
+    let deSerializedFlow = null;
     setState("loading");
 
     setLoadMsg("Connecting to DB");
@@ -55,15 +65,16 @@ const Editor = () => {
       zip = await zip.loadAsync(pack);
       const serializedFlow = await zip.file("flow.json").async("string");
 
-      const raw = {};
-      for (let path of Object.keys(zip.files).filter((path) => path.startsWith("raw/"))) {
-        const id = path.replace("raw/", "");
-        raw[id] = await zip.file(path).async("blob");
-      }
-
-      const deSerializedFlow = await (fc ?? flowConnect).fromJson(serializedFlow, async (id) => {
-        return raw[id];
+      deSerializedFlow = await (fc ?? flowConnect).fromJson(serializedFlow, async (meta) => {
+        const blob = await zip.file(`raw/${meta.id}`).async("blob");
+        if (meta.rawType === "file") {
+          return new File([blob], meta.name, { type: meta.type });
+        } else {
+          return blob;
+        }
       });
+      setFlow(deSerializedFlow);
+
       setLoadMsg("Rendering");
       (fc ?? flowConnect).render(deSerializedFlow);
     }
@@ -71,7 +82,7 @@ const Editor = () => {
     setLoadMsg(null);
     setState("stopped");
 
-    return preview.payload;
+    return { prw: preview.payload, flw: deSerializedFlow };
   };
 
   const openDB = async () => {
@@ -105,8 +116,13 @@ const Editor = () => {
   };
   const handleExport = async (fc, inFlow) => {
     const raw = {};
-    const serializedFlow = await (fc ?? flowConnect).toJson(inFlow ?? flow, (id, blob) => {
-      raw[id] = blob;
+    const serializedFlow = await (fc ?? flowConnect).toJson(inFlow ?? flow, (id, rw) => {
+      let meta = {};
+      raw[id] = rw;
+      if (rw instanceof File) {
+        meta = { name: rw.name, type: rw.type, rawType: "file" };
+      }
+      return meta;
     });
     const flowBlob = new Blob([serializedFlow], { type: "application/json" });
 
@@ -137,34 +153,51 @@ const Editor = () => {
     }
   };
   const handlePlay = () => {
-    flowRef.current.start();
+    flow.start();
     setState("playing");
   };
   const handleStop = () => {
-    flowRef.current.stop();
+    flow.stop();
     setState("stopped");
   };
   const handleReplay = () => {
     handleStop();
     handlePlay();
   };
+  const handleSelect = (node, pos) => {
+    flow.createNode(
+      node.type,
+      Vector.create(
+        pos?.x ?? flowConnect.canvas.width * 0.4,
+        pos?.y ?? flowConnect.canvas.height * 0.4
+      ),
+      {}
+    );
+  };
+  const handleDrop = (data, pos) => {
+    handleSelect({ type: data }, flowConnect.screenToReal(Vector.create(pos)));
+  };
+  const handleNameUpdate = async (newName) => {
+    let img = null;
+    if (preview.img) {
+      img = await (await fetch(preview.img)).blob();
+    }
+    dispatch(updatePreview({ id, preview: { ...preview, img, name: newName } }));
+  };
 
   const init = async () => {
-    let newFc;
-    if (!flowConnect) {
-      newFc = await FlowConnect.create(mainEl.current);
-      setFlowConnect(newFc);
-    } else {
-      newFc = flowConnect;
-    }
+    const fc = await FlowConnect.create(mainEl.current);
+    setFlowConnect(fc);
 
     if (id !== "temp") {
-      const prw = await loadAndUnwrap(newFc);
-      if (!flow) {
-        const newFlow = newFc.createFlow({ name: "New Flow", rules: {} });
-        const pack = await handleExport(newFc, newFlow);
-        await dispatch(saveFlow({ id, flow: URL.createObjectURL(pack), preview: prw }));
+      const { prw, flw } = await loadAndUnwrap(fc);
+      if (!flw) {
+        const newFlow = fc.createFlow({ name: "New Flow", rules: {} });
+        const pack = await handleExport(fc, newFlow);
+        const flwUrl = URL.createObjectURL(pack);
+        await dispatch(saveFlow({ id, flow: flwUrl, preview: prw }));
         setFlow(newFlow);
+        fc.render(newFlow);
       }
     }
   };
@@ -172,6 +205,8 @@ const Editor = () => {
   useEffect(() => {
     init();
   }, []);
+  useEffect(() => () => flow && handleStop(), [flow]);
+  useEffect(() => () => flowConnect?.detach(), [flowConnect]);
 
   return (
     <>
@@ -190,6 +225,7 @@ const Editor = () => {
       <Header
         className="pointer-events-none"
         left={<Brand size={1} fixed editor />}
+        center={<FlowName value={preview.name} onUpdate={handleNameUpdate} />}
         right={
           <div className={styles["flow-controls"]}>
             <Button
@@ -236,7 +272,7 @@ const Editor = () => {
           onStop={handleStop}
           onReplay={handleReplay}
         />
-        <Library />
+        <Library onSelect={handleSelect} onDrop={handleDrop} />
         <canvas ref={mainEl}></canvas>
       </main>
     </>

@@ -6,7 +6,7 @@ import styles from "./NodeList.module.css";
 import Modal from "../Modal/Modal";
 import StaticHtml from "../StaticHtml/StaticHtml";
 
-const NodeList = ({ name, nodes }) => {
+const NodeList = ({ name, nodes, onSelect }) => {
   const handleInfo = (node) => {
     setSelected(node);
     setShowDocs(true);
@@ -16,6 +16,15 @@ const NodeList = ({ name, nodes }) => {
   };
   const [showDocs, setShowDocs] = useState(false);
   const [selected, setSelected] = useState(null);
+  const [dragged, setDragged] = useState("");
+
+  const handleDragStart = (e, type) => {
+    e.dataTransfer.setData("text/plain", type);
+    setDragged(type);
+  };
+  const handleDragEnd = () => {
+    setDragged(null);
+  };
 
   return (
     <>
@@ -35,7 +44,17 @@ const NodeList = ({ name, nodes }) => {
         )}
       <div className={styles.nodelist}>
         {nodes.map((node) => (
-          <button key={node.name} className="d-flex flex-center jc-space-between">
+          <button
+            key={node.type}
+            className={[
+              "d-flex flex-center jc-space-between",
+              dragged === node.type ? styles.dragged : "",
+            ].join(" ")}
+            onClick={() => onSelect(node)}
+            draggable={true}
+            onDragStart={(e) => handleDragStart(e, node.type)}
+            onDragEnd={handleDragEnd}
+          >
             <div className="d-flex flex-center">
               <Icon size={1} name={node.icon} className="fs-0 mr-1" />
               <span>{node.name}</span>

@@ -18,6 +18,15 @@
   border-radius: unset;
 }
 
+.nodelist button.dragged {
+  animation-name: dragged;
+  animation-timing-function: linear;
+  animation-duration: 1.2s;
+  animation-fill-mode: forwards;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+
 .nodelist button > img {
   border-radius: 1rem;
   transition: box-shadow 0.1s linear;
@@ -28,6 +37,18 @@
 
 .nodelist button:not(:first-child) {
   margin-top: 0.5rem;
+}
+
+@keyframes dragged {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: #3d6d3d;
+  }
+  100% {
+    background-color: #539253;
+  }
 }
 
 @media (hover: hover) {

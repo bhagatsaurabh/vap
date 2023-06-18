@@ -7,27 +7,28 @@
       {
         "name": "File",
         "icon": "file",
-        "docs": "/docs/audio-source-file.html"
+        "docs": "/docs/audio-source-file.html",
+        "type": "audio/source"
       },
       {
         "name": "Noise",
-        "icon": "noise"
+        "icon": "noise",
+        "type": "audio/noise"
       },
       {
         "name": "Oscillator",
-        "icon": "oscillator"
+        "icon": "oscillator",
+        "type": "audio/oscillator"
       },
       {
         "name": "Metronome",
-        "icon": "metronome"
+        "icon": "metronome",
+        "type": "audio/metronome"
       },
       {
         "name": "Microphone",
-        "icon": "microphone"
-      },
-      {
-        "name": "Drum Sequencer",
-        "icon": "drumSequencer"
+        "icon": "microphone",
+        "type": "audio/microphone"
       }
     ]
   },
@@ -38,11 +39,13 @@
     "nodes": [
       {
         "name": "Sound Output",
-        "icon": "soundOutput"
+        "icon": "soundOutput",
+        "type": "audio/destination"
       },
       {
         "name": "File Output",
-        "icon": "file"
+        "icon": "file",
+        "type": "audio/record"
       }
     ]
   },
@@ -53,35 +56,43 @@
     "nodes": [
       {
         "name": "ADSR",
-        "icon": "adsr"
+        "icon": "adsr",
+        "type": "audio/adsr"
       },
       {
         "name": "Channel Merger",
-        "icon": "channelMerger"
+        "icon": "channelMerger",
+        "type": "audio/channel-merger"
       },
       {
         "name": "Channel Splitter",
-        "icon": "channelSplitter"
+        "icon": "channelSplitter",
+        "type": "audio/channel-splitter"
       },
       {
         "name": "Delay",
-        "icon": "delay"
+        "icon": "delay",
+        "type": "audio/delay"
       },
       {
         "name": "Stereo Panner",
-        "icon": "stereoPanner"
+        "icon": "stereoPanner",
+        "type": "audio/stereo-panner"
       },
       {
         "name": "Spatial Panner",
-        "icon": "spatialPanner"
+        "icon": "spatialPanner",
+        "type": "audio/spatial-panner"
       },
       {
         "name": "Envelope",
-        "icon": "envelope"
+        "icon": "envelope",
+        "type": "audio/envelope"
       },
       {
         "name": "Gain",
-        "icon": "gain"
+        "icon": "gain",
+        "type": "audio/gain"
       }
     ]
   },
@@ -92,47 +103,58 @@
     "nodes": [
       {
         "name": "Distorter",
-        "icon": "distorter"
+        "icon": "distorter",
+        "type": "audio/distorter"
       },
       {
         "name": "Overdrive",
-        "icon": "overdrive"
+        "icon": "overdrive",
+        "type": "audio/overdrive"
       },
       {
         "name": "Biquad Filter",
-        "icon": "biquadFilter"
+        "icon": "biquadFilter",
+        "type": "audio/biquad"
       },
       {
         "name": "Dynamics Compressor",
-        "icon": "dynamicsCompressor"
+        "icon": "dynamicsCompressor",
+        "type": "audio/dynamics-compressor"
       },
       {
         "name": "PingPong Delay",
-        "icon": "pingPongDelay"
+        "icon": "pingPongDelay",
+        "type": "audio/pingpong"
       },
       {
         "name": "Bitcrusher",
-        "icon": "bitcrusher"
+        "icon": "bitcrusher",
+        "type": "audio/bitcrusher"
       },
       {
         "name": "Equalizer",
-        "icon": "equalizer"
+        "icon": "equalizer",
+        "type": "audio/equalizer"
       },
       {
         "name": "Chorus",
-        "icon": "chorus"
+        "icon": "chorus",
+        "type": "audio/chorus"
       },
       {
         "name": "Convolver",
-        "icon": "convolver"
+        "icon": "convolver",
+        "type": "audio/convolver"
       },
       {
         "name": "Tremolo",
-        "icon": "tremolo"
+        "icon": "tremolo",
+        "type": "audio/tremolo"
       },
       {
         "name": "Moog",
-        "icon": "moog"
+        "icon": "moog",
+        "type": "audio/moog"
       }
     ]
   },
@@ -143,15 +165,18 @@
     "nodes": [
       {
         "name": "Frequency",
-        "icon": "frequencyAnalyzer"
+        "icon": "frequencyAnalyzer",
+        "type": "audio/frequency"
       },
       {
         "name": "Spectrogram",
-        "icon": "spectrogramAnalyzer"
+        "icon": "spectrogramAnalyzer",
+        "type": "audio/spectrogram"
       },
       {
         "name": "Waveform",
-        "icon": "waveformAnalyzer"
+        "icon": "waveformAnalyzer",
+        "type": "audio/waveform"
       }
     ]
   }

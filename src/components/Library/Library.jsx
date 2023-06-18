@@ -11,7 +11,7 @@ import Accordion from "../common/Accordion/Accordion";
 import NodeList from "../common/NodeList/NodeList";
 import { fullUrl, splitUrl } from "@/misc/utils";
 
-const Library = () => {
+const Library = ({ onSelect, onDrop }) => {
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const [query, setQuery] = useState("");
@@ -79,6 +79,10 @@ const Library = () => {
   const handleInput = (e) => {
     setQuery(e.target.value);
   };
+  const handleDrop = (data, pos) => {
+    onDrop(data, pos);
+    handleDismiss();
+  };
 
   if (query) {
     nodeGroups = nodeGroups
@@ -96,7 +100,12 @@ const Library = () => {
 
   return (
     <>
-      <Backdrop show={show} onDismiss={handleDismiss} clear />
+      <Backdrop
+        show={show}
+        onDismiss={handleDismiss}
+        clear
+        onDrop={(data, pos) => handleDrop(data, pos)}
+      />
       <aside onTransitionEnd={handleEnd} className={classes.join(" ")}>
         <button onClick={handleOpen} className={styles.control}>
           <p>Library</p>
@@ -131,7 +140,11 @@ const Library = () => {
                   }
                   ref={(e) => (accordions.current[idx] = e)}
                 >
-                  <NodeList name={group.name} nodes={group.nodes} />
+                  <NodeList
+                    name={group.name}
+                    nodes={group.nodes}
+                    onSelect={(node) => onSelect(node)}
+                  />
                 </Accordion>
               ))}
             </section>
