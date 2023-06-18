@@ -3,13 +3,20 @@ import { CSSTransition } from "react-transition-group";
 import { useRef } from "react";
 import styles from "./Backdrop.module.css";
 
-const Backdrop = ({ show, onDismiss, clear, layer }) => {
+const Backdrop = ({ show, onDismiss, clear, layer, onDrop }) => {
   const node = useRef(null);
   const classes = [styles.backdrop];
   const layerLevel = layer ?? 0;
 
   if (clear) classes.push(styles.clear);
   classes.push(styles[`layer${layerLevel}`]);
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const data = e.dataTransfer.getData("text/plain");
+    const pos = { x: e.clientX, y: e.clientY };
+    onDrop(data, pos);
+  };
 
   return (
     <CSSTransition
@@ -20,7 +27,13 @@ const Backdrop = ({ show, onDismiss, clear, layer }) => {
       timeout={150}
       classNames={{ ...styles }}
     >
-      <div onPointerUp={onDismiss} ref={node} className={classes.join(" ")}></div>
+      <div
+        onPointerUp={onDismiss}
+        ref={node}
+        className={classes.join(" ")}
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={(e) => handleDrop(e)}
+      ></div>
     </CSSTransition>
   );
 };

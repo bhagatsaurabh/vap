@@ -1,0 +1,39 @@
+.flow-name-input {
+  position: absolute;
+  left: 1rem;
+  width: 50vw;
+  pointer-events: all;
+  top: calc(var(--header-height) / 2 - 0.9rem);
+
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 100;
+  text-align: left;
+  outline: none;
+  backdrop-filter: blur(1px);
+  background-color: #414041cc;
+  padding: 0.2rem 0.5rem;
+  transition: box-shadow 0.1s linear, border-bottom 0.1s linear;
+  box-sizing: border-box;
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 0 0 0px rgb(27, 27, 27);
+}
+
+.flow-name-input:focus {
+  box-shadow: 4px 4px 10px 0px rgb(27, 27, 27);
+  border-bottom: 1px solid white;
+}
+
+@media (min-width: 768px) {
+  .flow-name-input {
+    left: 50%;
+    transform: translateX(-50%);
+    width: unset;
+    text-align: center;
+  }
+}
+
+@media (min-width: 1024px) {
+}

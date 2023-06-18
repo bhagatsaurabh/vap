@@ -26,7 +26,6 @@ const StaticHtml = ({ url }) => {
   }, []);
   useEffect(() => {
     if (!loading) {
-      console.log(el.current.offsetHeight);
       setHeight(el.current.offsetHeight);
     }
   }, [loading]);
