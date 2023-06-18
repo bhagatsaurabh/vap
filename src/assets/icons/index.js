@@ -57,3 +57,5 @@ export { default as moog } from "./moog.png";
 export { default as frequencyAnalyzer } from "./frequency-analyzer.png";
 export { default as waveformAnalyzer } from "./waveform-analyzer.png";
 export { default as spectrogramAnalyzer } from "./spectrogram-analyzer.png";
+export { default as minimize } from "./minimize.png";
+export { default as maximize } from "./maximize.png";
