@@ -15,7 +15,7 @@ const Backdrop = ({ show, onDismiss, clear, layer, onDrop }) => {
     e.preventDefault();
     const data = e.dataTransfer.getData("text/plain");
     const pos = { x: e.clientX, y: e.clientY };
-    onDrop(data, pos);
+    onDrop?.(data, pos);
   };
 
   return (

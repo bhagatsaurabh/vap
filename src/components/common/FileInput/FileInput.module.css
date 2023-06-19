@@ -1,0 +1,13 @@
+.fileinput button {
+  padding: 0.5rem 0.75rem;
+}
+.fileinput img {
+  margin-right: 0.5rem;
+}
+
+.fileinput input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  display: none;
+}

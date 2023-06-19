@@ -54,6 +54,9 @@ body {
 .ml-1 {
   margin-left: 1rem;
 }
+.mt-0p5 {
+  margin-top: 0.5rem !important;
+}
 .ws-no-wrap {
   white-space: nowrap;
 }
@@ -80,6 +83,9 @@ body {
 }
 .d-flex {
   display: flex;
+}
+.align-items-end {
+  align-items: end;
 }
 .flex-center {
   justify-content: center;
@@ -139,4 +145,16 @@ body {
 
 button {
   user-select: none;
+}
+
+.font-weight-lighter {
+  font-weight: lighter;
+}
+
+.m-0 {
+  margin: 0;
+}
+.my-0 {
+  margin-top: 0;
+  margin-bottom: 0;
 }

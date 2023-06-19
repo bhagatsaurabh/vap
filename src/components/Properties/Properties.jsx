@@ -7,6 +7,8 @@ import styles from "./Properties.module.css";
 import { fullUrl, splitUrl } from "@/misc/utils";
 import Button from "../common/Button/Button";
 import { NodeState } from "flow-connect";
+import Toggle from "../common/Toggle/Toggle";
+import FileInput from "../common/FileInput/FileInput";
 
 const Properties = ({ slide, onDismiss, node }) => {
   const [show, setShow] = useState(false);
@@ -20,13 +22,25 @@ const Properties = ({ slide, onDismiss, node }) => {
   const [forceRender, setForceRender] = useState(false);
   const [nodeName, setNodeName] = useState(node?.name ?? "");
   const state = useRef([]);
+  const controls = useRef([]);
 
   useEffect(() => {
     if (node?.name) {
       const stateUI = [];
-      stateUI.push(...node.ui.query("core/toggle"), ...node.ui.query("core/source"));
+      const controlsUI = [];
+      stateUI.push(
+        ...node.ui.query("core/toggle"),
+        ...node.ui.query("core/source"),
+        ...node.ui.query("core/select"),
+        ...node.ui.query("core/slider"),
+        ...node.ui.query("core/v-slider"),
+        ...node.ui.query("core/radio-group")
+      );
+      controlsUI.push(...node.ui.query("core/button"));
 
       state.current = stateUI.filter((ui) => ui.propName);
+      controls.current = controlsUI;
+
       setNodeName(node.name);
     }
   }, [node]);
@@ -113,6 +127,18 @@ const Properties = ({ slide, onDismiss, node }) => {
       setForceRender(!forceRender);
     }
   };
+  const changeSelect = (value, propName) => {
+    node.state[propName] = value;
+    setForceRender(!forceRender);
+  };
+  const changeSlider = (value, propName) => {
+    node.state[propName] = value;
+    setForceRender(!forceRender);
+  };
+  const changeRadioGroup = (value, propName) => {
+    node.state[propName] = value;
+    setForceRender(!forceRender);
+  };
 
   const classes = [styles.properties];
   if (open) classes.push(styles.open);
@@ -175,17 +201,16 @@ const Properties = ({ slide, onDismiss, node }) => {
                   </span>
                 </div>
                 <h3>State</h3>
+                {state.current.length === 0 && <p>No State</p>}
                 {state.current.map((ui) => {
                   switch (ui.type) {
                     case "core/toggle": {
                       return (
                         <div key={ui.id} className={styles.prop}>
                           <span className={styles.name}>{ui.propName}</span>
-                          <span className={styles.value}>
-                            <input
-                              value={node.state[ui.propName]?.name}
+                          <span className={[styles.value, "d-flex"].join(" ")}>
+                            <Toggle
                               checked={node.state[ui.propName]}
-                              type="checkbox"
                               onChange={() => changeToggle(!node.state[ui.propName], ui.propName)}
                             />
                           </span>
@@ -197,11 +222,71 @@ const Properties = ({ slide, onDismiss, node }) => {
                         <div key={ui.id} className={styles.prop}>
                           <span className={styles.name}>{ui.propName}</span>
                           <span className={styles.value}>
-                            <input
-                              checked={node.state[ui.propName]}
-                              type="file"
+                            <FileInput
+                              fileName={node.state[ui.propName]?.name}
                               onChange={(e) => changeSource(e.target.files[0], ui.propName)}
                             />
+                          </span>
+                        </div>
+                      );
+                    }
+                    case "core/select": {
+                      return (
+                        <div key={ui.id} className={styles.prop}>
+                          <span className={styles.name}>{ui.propName}</span>
+                          <span className={styles.value}>
+                            <select
+                              value={ui.selected}
+                              onChange={(e) => changeSelect(e.target.value, ui.propName)}
+                            >
+                              {ui.values.map((val) => (
+                                <option key={val} value={val}>
+                                  {val}
+                                </option>
+                              ))}
+                            </select>
+                          </span>
+                        </div>
+                      );
+                    }
+                    case "core/slider":
+                    case "core/v-slider": {
+                      return (
+                        <div key={ui.id} className={styles.prop}>
+                          <span className={styles.name}>{ui.propName}</span>
+                          <span className={styles.value}>
+                            <input
+                              type="range"
+                              min={ui.min}
+                              max={ui.max}
+                              value={ui.value}
+                              onChange={(e) => changeSlider(e.target.value, ui.propName)}
+                            />
+                            <h6 className="my-0 font-weight-lighter mt-0p5">{ui.value}</h6>
+                          </span>
+                        </div>
+                      );
+                    }
+                    case "core/radio-group": {
+                      return (
+                        <div key={ui.id} className={styles.prop}>
+                          <span className={styles.name}>{ui.propName}</span>
+                          <span className={styles.value}>
+                            <fieldset>
+                              {ui.values.map((val) => (
+                                <div key={val} className={styles.rgoption}>
+                                  <input
+                                    onChange={(e) => changeRadioGroup(e.target.value, ui.propName)}
+                                    type="radio"
+                                    value={val}
+                                    name={ui.propName}
+                                    checked={ui.selected === val}
+                                  />
+                                  <label>{val}</label>
+                                  <br />
+                                </div>
+                              ))}
+                            </fieldset>
                           </span>
                         </div>
                       );
@@ -210,6 +295,28 @@ const Properties = ({ slide, onDismiss, node }) => {
                       break;
                   }
                 })}
+                <h3>Controls</h3>
+                {controls.current.length === 0 && <p>No Controls</p>}
+                <div className={styles.propcontrols}>
+                  {controls.current.map((ui) => {
+                    switch (ui.type) {
+                      case "core/button": {
+                        return (
+                          <Button
+                            key={ui.id}
+                            size={0.75}
+                            rect
+                            onClick={() => ui.sendEvent("click")}
+                          >
+                            {ui.label.text}
+                          </Button>
+                        );
+                      }
+                      default:
+                        break;
+                    }
+                  })}
+                </div>
               </section>
             )}
           </>

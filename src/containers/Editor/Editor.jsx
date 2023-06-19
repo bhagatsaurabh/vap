@@ -27,7 +27,6 @@ import ContextMenu from "@/components/common/ContextMenu/ContextMenu";
 import Properties from "@/components/Properties/Properties";
 
 /*
-Properties
 Node Docs
 Templates
 Stats
