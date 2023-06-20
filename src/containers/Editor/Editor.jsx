@@ -33,6 +33,7 @@ Stats
 Tutorial
 Unit Tests
 CICD
+Publish
 */
 
 const Editor = () => {
