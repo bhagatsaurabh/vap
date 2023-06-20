@@ -6,7 +6,7 @@ import Backdrop from "../Backdrop/Backdrop";
 import styles from "./Modal.module.css";
 import Button from "../Button/Button";
 import { Constants, fullUrl, getSlug, trapBetween } from "@/misc/utils";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Modal = ({ title, children, onDismiss, onAction, controls, className, overflow, layer }) => {
   const layerLevel = layer ?? 0;

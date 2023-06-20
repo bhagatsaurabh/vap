@@ -132,6 +132,11 @@ body {
   pointer-events: all;
 }
 
+.docs-modal img {
+  position: relative;
+  z-index: -1;
+}
+
 .docs {
   padding: 1rem 0.75rem;
   white-space: normal;
@@ -141,6 +146,49 @@ body {
   margin: 1 0 0.5rem 0;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid #777777;
+}
+.docs .input,
+.docs .output {
+  margin-bottom: 2rem;
+}
+.docs .input span,
+.docs .output span {
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.docs div[data-term] {
+  width: 0.75rem;
+  height: 0.75rem;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+.docs div[data-term="event"] {
+  background-color: #9e64e8;
+  transform: rotateZ(45deg);
+}
+.docs div[data-term="audioparam"] {
+  background-color: #ff0f50;
+  border-radius: 1rem;
+}
+.docs div[data-term="audio"] {
+  background-color: #ffd154;
+  border-radius: 1rem;
+}
+
+.docs .prop {
+  margin-bottom: 1rem;
+}
+.docs .prop .name {
+  display: block;
+  font-weight: 500;
+}
+.docs .prop .desc {
+  font-size: 0.9rem;
+}
+
+.docs .no-content {
+  color: grey;
 }
 
 button {

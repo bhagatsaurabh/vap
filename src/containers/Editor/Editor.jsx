@@ -30,6 +30,9 @@ import Properties from "@/components/Properties/Properties";
 Node Docs
 Templates
 Stats
+Tutorial
+Unit Tests
+CICD
 */
 
 const Editor = () => {
@@ -174,7 +177,7 @@ const Editor = () => {
         pos?.x ?? flowConnect.canvas.width * 0.4,
         pos?.y ?? flowConnect.canvas.height * 0.4
       ),
-      {}
+      node.type === "audio/waveform" ? { style: { waveColor: "#fff" } } : {}
     );
   };
   const handleDrop = (data, pos) => {
@@ -214,6 +217,7 @@ const Editor = () => {
   const init = async () => {
     const fc = await FlowConnect.create(mainEl.current);
     setFlowConnect(fc);
+    setDefaultStyles(fc);
 
     if (id !== "temp") {
       const { prw, flw } = await loadAndUnwrap(fc);
@@ -327,3 +331,78 @@ const Editor = () => {
 };
 
 export default Editor;
+
+const setDefaultStyles = (fc) => {
+  fc.setDefaultStyle("ui", "core/container", {
+    backgroundColor: "#111111",
+    shadowColor: "#222222",
+    shadowBlur: 5,
+    shadowOffset: Vector.create(5, 5),
+  });
+  fc.setDefaultStyle("ui", "core/v-slider", {
+    color: "#fff",
+    thumbColor: "grey",
+  });
+  fc.setDefaultStyle("ui", "core/toggle", {
+    color: "#fff",
+    backgroundColor: "grey",
+  });
+  fc.setDefaultStyle("ui", "core/source", {
+    borderColor: "#fff",
+  });
+  fc.setDefaultStyle("ui", "core/slider", {
+    color: "#fff",
+    thumbColor: "grey",
+  });
+  fc.setDefaultStyle("ui", "core/2d-slider", {
+    backgroundColor: "#999",
+    thumbColor: "#fff",
+    borderColor: "#fff",
+  });
+  fc.setDefaultStyle("ui", "core/select", {
+    arrowColor: "#fff",
+  });
+  fc.setDefaultStyle("ui", "core/radio-group", {
+    color: "#fff",
+    backgroundColor: "transparent",
+    selectedColor: "#fff",
+    selectedBackgroundColor: "#555",
+    borderColor: "#fff",
+  });
+  fc.setDefaultStyle("ui", "core/label", {
+    color: "#fff",
+    backgroundColor: "transparent",
+  });
+  fc.setDefaultStyle("ui", "core/input", {
+    color: "#fff",
+    backgroundColor: "#000",
+    border: "#fff",
+  });
+  fc.setDefaultStyle("ui", "core/envelope", {
+    borderColor: "#fff",
+  });
+  fc.setDefaultStyle("ui", "core/display", {
+    borderColor: "#fff",
+  });
+  fc.setDefaultStyle("ui", "core/dial", {
+    borderColor: "#fff",
+  });
+  fc.setDefaultStyle("ui", "core/button", {
+    backgroundColor: "#fff",
+    color: "#000",
+  });
+  fc.setDefaultStyle("node", {
+    color: "#fff",
+    titleColor: "#fff",
+    maximizeButtonColor: "darkgrey",
+    expandButtonColor: "#fff",
+    minimizedTerminalColor: "green",
+    outlineColor: "#fff",
+  });
+  fc.setDefaultStyle("connector", {
+    width: 2,
+    color: "#fff",
+    border: true,
+    borderColor: "grey",
+  });
+};

@@ -7,7 +7,7 @@ import styles from "./StaticHtml.module.css";
 import Spinner from "../Spinner/Spinner";
 import { getDocs } from "@/store/actions/docs";
 
-const StaticHtml = ({ url }) => {
+const StaticHtml = ({ url, className }) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
@@ -31,7 +31,7 @@ const StaticHtml = ({ url }) => {
   }, [loading]);
 
   return (
-    <div className={styles.statichtml} style={{ height: `${height + 1}px` }}>
+    <div className={[styles.statichtml, className].join(" ")} style={{ height: `${height + 1}px` }}>
       {loading ? (
         <div className={styles.spinner}>
           <Spinner size={1.1}>Fetching Docs...</Spinner>
