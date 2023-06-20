@@ -38,7 +38,7 @@ const NodeList = ({ name, nodes, onSelect }) => {
             layer={1}
             overflow
           >
-            <StaticHtml url={selected.docs} />
+            <StaticHtml className="docs-modal" url={selected.docs} />
           </Modal>,
           document.body
         )}
