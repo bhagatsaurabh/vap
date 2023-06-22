@@ -7,32 +7,32 @@
   },
   {
     "id": 2,
-    "name": "Template Two",
-    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
-    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/test.vap"
+    "name": "Channel Mix",
+    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template-2.png",
+    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template-2.vap"
   },
   {
     "id": 3,
-    "name": "Template Three",
-    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
-    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/test.vap"
+    "name": "Analysis",
+    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template-3.png",
+    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template-3.vap"
   },
   {
     "id": 4,
-    "name": "Template Four",
-    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
-    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/test.vap"
+    "name": "Automation",
+    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template-4.png",
+    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template-4.vap"
   },
   {
     "id": 5,
-    "name": "Template Five",
-    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
-    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/test.vap"
+    "name": "Effects",
+    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template-5.png",
+    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template-5.vap"
   },
   {
     "id": 6,
-    "name": "Template Six",
-    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
-    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/test.vap"
+    "name": "Record",
+    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template-6.png",
+    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template-6.vap"
   }
 ]
