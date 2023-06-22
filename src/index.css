@@ -175,6 +175,10 @@ body {
   background-color: #ffd154;
   border-radius: 1rem;
 }
+.docs div[data-term="audio-buffer"] {
+  background-color: #c3d4c2;
+  border-radius: 1rem;
+}
 
 .docs .prop {
   margin-bottom: 1rem;
@@ -191,6 +195,10 @@ body {
   color: grey;
 }
 
+.docs img {
+  max-width: calc(100vw - 3rem);
+}
+
 button {
   user-select: none;
 }
@@ -205,4 +213,12 @@ button {
 .my-0 {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .docs img {
+    max-width: 25vw;
+  }
+}
+@media (min-width: 1024px) {
 }

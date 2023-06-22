@@ -9,8 +9,8 @@ const Icon = ({ size, accent, name, className, onClick, focusable }) => {
   if (className) {
     classes.push(className);
   }
-  const handleClick = () => {
-    if (onClick) onClick();
+  const handleClick = (e) => {
+    if (onClick) onClick(e);
   };
 
   return (

@@ -7,7 +7,8 @@ import Modal from "../Modal/Modal";
 import StaticHtml from "../StaticHtml/StaticHtml";
 
 const NodeList = ({ name, nodes, onSelect }) => {
-  const handleInfo = (node) => {
+  const handleInfo = (e, node) => {
+    e.stopPropagation();
     setSelected(node);
     setShowDocs(true);
   };
@@ -63,7 +64,7 @@ const NodeList = ({ name, nodes, onSelect }) => {
               name="info"
               size={1}
               className="fs-0"
-              onClick={() => handleInfo(node)}
+              onClick={(e) => handleInfo(e, node)}
               focusable
             />
           </button>

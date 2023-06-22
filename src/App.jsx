@@ -7,6 +7,7 @@ import "@/App.css";
 import { closeDatabase } from "./misc/db";
 import Toast from "./components/common/Toast/Toast";
 import { FlowConnectContext } from "./contexts/flow-connect";
+import "./custom-nodes/record";
 
 const App = () => {
   const dispatch = useDispatch();

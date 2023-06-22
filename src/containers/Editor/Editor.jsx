@@ -27,11 +27,7 @@ import ContextMenu from "@/components/common/ContextMenu/ContextMenu";
 import Properties from "@/components/Properties/Properties";
 
 /*
-Node Docs
-Templates
-Stats
 Tutorial
-Unit Tests
 CICD
 Publish
 */
@@ -53,7 +49,7 @@ const Editor = () => {
   const [ctxMenu, setCtxMenu] = useState(null);
   const [showProps, setShowProps] = useState(null);
 
-  const loadAndUnwrap = async (fc) => {
+  const load = async (fc) => {
     let deSerializedFlow = null;
     setState("loading");
 
@@ -67,19 +63,7 @@ const Editor = () => {
 
     setLoadMsg("Unwrapping");
     if (result.payload) {
-      const pack = await (await fetch(result.payload)).blob();
-      let zip = new JSZip();
-      zip = await zip.loadAsync(pack);
-      const serializedFlow = await zip.file("flow.json").async("string");
-
-      deSerializedFlow = await (fc ?? flowConnect).fromJson(serializedFlow, async (meta) => {
-        const blob = await zip.file(`raw/${meta.id}`).async("blob");
-        if (meta.rawType === "file") {
-          return new File([blob], meta.name, { type: meta.type });
-        } else {
-          return blob;
-        }
-      });
+      deSerializedFlow = await unwrap(fc ?? flowConnect, result.payload);
       setFlow(deSerializedFlow);
 
       setLoadMsg("Rendering");
@@ -90,6 +74,21 @@ const Editor = () => {
     setState("stopped");
 
     return { prw: preview.payload, flw: deSerializedFlow };
+  };
+  const unwrap = async (fc, vapPack) => {
+    const pack = await (await fetch(vapPack)).blob();
+    let zip = new JSZip();
+    zip = await zip.loadAsync(pack);
+    const serializedFlow = await zip.file("flow.json").async("string");
+
+    return await fc.fromJson(serializedFlow, async (meta) => {
+      const blob = await zip.file(`raw/${meta.id}`).async("blob");
+      if (meta.rawType === "file") {
+        return new File([blob], meta.name, { type: meta.type });
+      } else {
+        return blob;
+      }
+    });
   };
 
   const openDB = async () => {
@@ -113,8 +112,9 @@ const Editor = () => {
 
     const pack = await handleExport();
     const packURL = URL.createObjectURL(pack);
+    const prw = await dispatch(fetchPreview(id));
     await dispatch(
-      saveFlow({ id, flow: packURL, preview: { name: preview.name, img: prwBlobUrl } })
+      saveFlow({ id, flow: packURL, preview: { name: prw.payload.name, img: prwBlobUrl } })
     );
     prwBlobUrl && URL.revokeObjectURL(prwBlobUrl);
     URL.revokeObjectURL(packURL);
@@ -148,7 +148,9 @@ const Editor = () => {
     downloader.style.display = "none";
     const url = URL.createObjectURL(pack);
     downloader.href = url;
-    downloader.download = `${preview.name.toLowerCase().replace(" ", "-")}.vap`;
+    downloader.download = `${
+      id !== "temp" ? preview.name.toLowerCase().replace(" ", "-") : "temp"
+    }.vap`;
     downloader.click();
     URL.revokeObjectURL(url);
     downloader.remove();
@@ -172,7 +174,7 @@ const Editor = () => {
     handlePlay();
   };
   const handleSelect = (node, pos) => {
-    flow.createNode(
+    const n = flow.createNode(
       node.type,
       Vector.create(
         pos?.x ?? flowConnect.canvas.width * 0.4,
@@ -180,11 +182,14 @@ const Editor = () => {
       ),
       node.type === "audio/waveform" ? { style: { waveColor: "#fff" } } : {}
     );
+    console.log(n);
   };
   const handleDrop = (data, pos) => {
     handleSelect({ type: data }, flowConnect.screenToReal(Vector.create(pos)));
   };
   const handleNameUpdate = async (newName) => {
+    if (id === "temp") return;
+
     let img = null;
     if (preview.img) {
       img = await (await fetch(preview.img)).blob();
@@ -221,13 +226,29 @@ const Editor = () => {
     setDefaultStyles(fc);
 
     if (id !== "temp") {
-      const { prw, flw } = await loadAndUnwrap(fc);
+      const { prw, flw } = await load(fc);
       if (!flw) {
         const newFlow = fc.createFlow({ name: "New Flow", rules: {} });
         const pack = await handleExport(fc, newFlow);
         const flwUrl = URL.createObjectURL(pack);
         await dispatch(saveFlow({ id, flow: flwUrl, preview: prw }));
         setFlow(newFlow);
+        fc.render(newFlow);
+      }
+    } else {
+      if (location.state) {
+        try {
+          const flow = await unwrap(fc, location.state.url);
+          setFlow(flow);
+          setPreview({ name: location.state.name });
+          fc.render(flow);
+        } catch (error) {
+          navigate("/flows");
+        }
+      } else {
+        const newFlow = fc.createFlow({ name: "New Flow", rules: {} });
+        setFlow(newFlow);
+        setPreview({ name: "Empty" });
         fc.render(newFlow);
       }
     }
@@ -281,7 +302,7 @@ const Editor = () => {
           <div className={styles["flow-controls"]}>
             <Button
               busy={saving}
-              disabled={saving || state === "loading"}
+              disabled={saving || state === "loading" || id === "temp"}
               onClick={handleSave}
               icon="save"
               iconLeft
