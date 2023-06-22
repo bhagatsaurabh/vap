@@ -44,7 +44,7 @@ const CreateDialog = () => {
     } else {
       if (dbStatus !== "open") {
         // 3. Template Flow, Internet Up, Database Down
-        navigate(`/flows/temp`, { state: blobUrl });
+        navigate(`/flows/temp`, { state: { url: blobUrl, name: template.name } });
       } else {
         // 4. Template Flow, Internet Up, Database Up
         // Save new template flow in database and switch to Editor
