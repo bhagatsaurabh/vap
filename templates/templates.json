@@ -1,9 +1,9 @@
 [
   {
     "id": 1,
-    "name": "Template One",
-    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template.png",
-    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/test.vap"
+    "name": "Sample",
+    "img": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template-1.png",
+    "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/templates/templates/template-1.vap"
   },
   {
     "id": 2,
