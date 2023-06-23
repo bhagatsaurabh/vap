@@ -4,11 +4,15 @@ import Spinner from "../Spinner/Spinner";
 import { useDispatch } from "react-redux";
 import { getTemplate } from "@/store/actions/templates";
 
-const Template = ({ template, onSelect }) => {
+const Template = ({ template, onBusy, onUnlock, onSelect, disabled }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const classes = [styles.template];
+  if (disabled) classes.push(styles.disabled);
 
   const fetchTemplate = async () => {
+    onBusy(true);
+
     if (!template.url) {
       onSelect(template, null);
       return;
@@ -19,12 +23,14 @@ const Template = ({ template, onSelect }) => {
     if (result.payload) {
       const blobUrl = URL.createObjectURL(result.payload);
       onSelect(template, blobUrl);
+    } else {
+      onBusy(false);
     }
     setLoading(false);
   };
 
   return (
-    <button onClick={() => fetchTemplate()} className={styles.template}>
+    <button disabled={disabled} onClick={() => fetchTemplate()} className={classes.join(" ")}>
       {loading && (
         <div className={styles.spinner}>
           <Spinner size={1.5} accent="dark" className="fs-0">
