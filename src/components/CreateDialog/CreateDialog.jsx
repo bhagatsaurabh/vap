@@ -15,6 +15,7 @@ const CreateDialog = () => {
   const templates = useSelector((state) => state.templates);
   const navigate = useNavigate();
   const dbStatus = useSelector((state) => state.database.status);
+  const [busy, setBusy] = useState(false);
 
   const fetchTemplates = async () => {
     setLoadingTemps(true);
@@ -60,14 +61,25 @@ const CreateDialog = () => {
 
   return (
     <div className={styles.createdialog}>
-      <Template template={{ id: 0, name: "Empty Flow", img: empty }} onSelect={handleCreate} />
+      <Template
+        template={{ id: 0, name: "Empty Flow", img: empty }}
+        onBusy={(isBusy) => setBusy(isBusy)}
+        onSelect={handleCreate}
+        disabled={busy}
+      />
       {loadingTemps ? (
         <div className={styles.spinner}>
           <Spinner size={2} accent="dark" />
         </div>
       ) : (
         templates.map((template) => (
-          <Template key={template.id} template={template} onSelect={handleCreate} />
+          <Template
+            key={template.id}
+            template={template}
+            onBusy={(isBusy) => setBusy(isBusy)}
+            onSelect={handleCreate}
+            disabled={busy}
+          />
         ))
       )}
     </div>

@@ -4,6 +4,7 @@ button {
   border-radius: 999px;
   padding: 0.5rem 1.5rem;
   transition: all 0.1s linear;
+  white-space: nowrap;
 }
 button.rect {
   border-radius: 0;

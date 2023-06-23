@@ -59,3 +59,6 @@ export { default as waveformAnalyzer } from "./waveform-analyzer.png";
 export { default as spectrogramAnalyzer } from "./spectrogram-analyzer.png";
 export { default as minimize } from "./minimize.png";
 export { default as maximize } from "./maximize.png";
+export { default as crash } from "./crash.png";
+export { default as back } from "./back.png";
+export { default as bug } from "./bug.png";
