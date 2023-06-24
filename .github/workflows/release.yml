@@ -75,9 +75,10 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_VAP1_8D6C5 }}"
           channelId: live
           projectId: vap1-8d6c5
+
   Cleanup:
     needs: [Deploy-ghpages, Deploy-Firebase]
     if: always()
