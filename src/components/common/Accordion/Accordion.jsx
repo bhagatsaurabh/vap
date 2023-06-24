@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import PropTypes from "prop-types";
 
 import styles from "./Accordion.module.css";
 
@@ -53,5 +54,12 @@ const Accordion = forwardRef(({ title, children, className }, ref) => {
     </section>
   );
 });
+
+Accordion.displayName = "Accordion";
+Accordion.propTypes = {
+  title: PropTypes.object,
+  children: PropTypes.node,
+  className: PropTypes.string,
+};
 
 export default Accordion;

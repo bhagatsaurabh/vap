@@ -63,3 +63,6 @@ export { default as crash } from "./crash.png";
 export { default as back } from "./back.png";
 export { default as bug } from "./bug.png";
 export { default as tour } from "./tour.png";
+export { default as buffer } from "./buffer.png";
+export { default as use } from "./use.png";
+export { default as download } from "./download.png";

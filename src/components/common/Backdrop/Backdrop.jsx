@@ -1,6 +1,7 @@
-import { CSSTransition } from "react-transition-group";
-
 import { useRef } from "react";
+import { CSSTransition } from "react-transition-group";
+import PropTypes from "prop-types";
+
 import styles from "./Backdrop.module.css";
 
 const Backdrop = ({ show, onDismiss, clear, layer, onDrop }) => {
@@ -36,6 +37,14 @@ const Backdrop = ({ show, onDismiss, clear, layer, onDrop }) => {
       ></div>
     </CSSTransition>
   );
+};
+
+Backdrop.propTypes = {
+  show: PropTypes.bool,
+  onDismiss: PropTypes.func,
+  clear: PropTypes.bool,
+  layer: PropTypes.number,
+  onDrop: PropTypes.func,
 };
 
 export default Backdrop;

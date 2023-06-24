@@ -109,11 +109,14 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.mh-75 {
+.minh-75 {
   min-height: 75%;
 }
-.mw-75 {
+.minw-75 {
   min-width: 75%;
+}
+.maxh-75 {
+  max-height: 75%;
 }
 .a-reset {
   color: inherit;
@@ -139,6 +142,13 @@ body {
 }
 .pointer-events-all {
   pointer-events: all;
+}
+
+.absolute-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .c-grey {
@@ -227,6 +237,12 @@ button {
   margin-top: 0;
   margin-bottom: 0;
 }
+.mb-0p5 {
+  margin-bottom: 0.5rem;
+}
+.mb-1 {
+  margin-bottom: 1rem;
+}
 
 input[type="checkbox"] {
   appearance: none;
@@ -255,6 +271,10 @@ input[type="checkbox"]:checked::before {
 input[type="checkbox"]:disabled {
   color: grey;
   cursor: not-allowed;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {

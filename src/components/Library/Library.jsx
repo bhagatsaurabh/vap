@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useNavigationType } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import styles from "./Library.module.css";
 import Backdrop from "../common/Backdrop/Backdrop";
@@ -130,7 +131,9 @@ const Library = ({ onSelect, onDrop }) => {
             </header>
             <section className={styles.content}>
               {nodeGroups.length === 0 && (
-                <span className="c-grey">Cannot find nodes with name matching '{query}'</span>
+                <span className="c-grey">
+                  Cannot find nodes with name matching &apos;{query}&apos;
+                </span>
               )}
               {nodeGroups.map((group, idx) => (
                 <Accordion
@@ -156,6 +159,11 @@ const Library = ({ onSelect, onDrop }) => {
       </aside>
     </>
   );
+};
+
+Library.propTypes = {
+  onSelect: PropTypes.func,
+  onDrop: PropTypes.func,
 };
 
 export default Library;

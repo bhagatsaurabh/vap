@@ -1,4 +1,6 @@
 import { useRef, useState } from "react";
+import PropTypes from "prop-types";
+
 import Button from "../Button/Button";
 import styles from "./FileInput.module.css";
 
@@ -21,4 +23,8 @@ const FileInput = ({ fileName, onChange }) => {
   );
 };
 
+FileInput.propTypes = {
+  fileName: PropTypes.string,
+  onChange: PropTypes.func,
+};
 export default FileInput;

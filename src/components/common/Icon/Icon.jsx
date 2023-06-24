@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import styles from "./Icon.module.css";
 import * as icons from "@/assets/icons";
 
@@ -25,4 +27,12 @@ const Icon = ({ size, accent, name, className, onClick, focusable }) => {
   );
 };
 
+Icon.propTypes = {
+  size: PropTypes.number,
+  accent: PropTypes.string,
+  name: PropTypes.string,
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+  focusable: PropTypes.bool,
+};
 export default Icon;

@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
+
 import styles from "./Template.module.css";
 import Spinner from "../Spinner/Spinner";
-import { useDispatch } from "react-redux";
 import { getTemplate } from "@/store/actions/templates";
 
-const Template = ({ template, onBusy, onUnlock, onSelect, disabled }) => {
+const Template = ({ template, onBusy, onSelect, disabled }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const classes = [styles.template];
@@ -47,6 +49,17 @@ const Template = ({ template, onBusy, onUnlock, onSelect, disabled }) => {
       <h4>{template.name}</h4>
     </button>
   );
+};
+
+Template.propTypes = {
+  template: PropTypes.shape({
+    url: PropTypes.string,
+    name: PropTypes.string,
+    img: PropTypes.string,
+  }),
+  onBusy: PropTypes.func,
+  onSelect: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 export default Template;

@@ -15,6 +15,7 @@ import Collapsible from "@/components/common/Collapsible/Collapsible";
 import Modal from "@/components/common/Modal/Modal";
 import FlowList from "@/components/FlowList/FlowList";
 import CreateDialog from "@/components/CreateDialog/CreateDialog";
+import { useNavigate } from "react-router-dom";
 
 const Flows = () => {
   const refEl = useRef(null);
@@ -27,6 +28,9 @@ const Flows = () => {
   const [showTourDialog, setShowTourDialog] = useState(isTour !== false);
   const error = useSelector((state) => state.database.error);
   const [tourPref, setTourPref] = useState(false);
+  const createModal = useRef(null);
+  const navigate = useNavigate();
+  const [qNav, setQNav] = useState(null);
 
   const handleOpenDB = async () => {
     try {
@@ -89,6 +93,17 @@ const Flows = () => {
       dispatch({ type: "preference/set", payload: { tour: false } });
     }
   };
+  const handleCreate = (navData) => {
+    setQNav(navData);
+    createModal.current?.close();
+  };
+  const handleCreateModalDismiss = () => {
+    setShowCreateDialog(false);
+    if (qNav) {
+      setQNav(null);
+      navigate(qNav.path, qNav.options);
+    }
+  };
 
   useEffect(() => {
     handleOpenDB();
@@ -110,13 +125,14 @@ const Flows = () => {
       {showCreateDialog && (
         <Modal
           title="Create"
-          onDismiss={() => setShowCreateDialog(false)}
+          onDismiss={() => handleCreateModalDismiss()}
           controls={["Close"]}
           onAction={() => {}}
-          className="mh-75 mw-75"
+          className="minh-75 minw-75"
           overflow
+          ref={(e) => (createModal.current = e)}
         >
-          <CreateDialog />
+          <CreateDialog onSelect={(navData) => handleCreate(navData)} />
         </Modal>
       )}
       {showTourDialog && (
@@ -150,7 +166,12 @@ const Flows = () => {
               icon="tour"
               size={1}
             />
-            <a className="o-0p6 fs-0" href="https://github.com/saurabh-prosoft/vap" target="_blank">
+            <a
+              className="o-0p6 fs-0"
+              href="https://github.com/saurabh-prosoft/vap"
+              target="_blank"
+              rel="noreferrer"
+            >
               <Button className="fs-0" icon="github" size={2} iconLeft accent="dark" fit />
             </a>
           </div>

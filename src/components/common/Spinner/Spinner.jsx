@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import styles from "./Spinner.module.css";
 import { spinner } from "@/assets/icons";
 
@@ -23,6 +25,13 @@ const Spinner = ({ size, accent, className, children }) => {
       )}
     </>
   );
+};
+
+Spinner.propTypes = {
+  size: PropTypes.number,
+  accent: PropTypes.string,
+  className: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default Spinner;

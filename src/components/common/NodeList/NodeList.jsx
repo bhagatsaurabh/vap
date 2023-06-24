@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
+import PropTypes from "prop-types";
 
 import Icon from "../Icon/Icon";
 import styles from "./NodeList.module.css";
@@ -74,4 +75,9 @@ const NodeList = ({ name, nodes, onSelect }) => {
   );
 };
 
+NodeList.propTypes = {
+  name: PropTypes.string,
+  nodes: PropTypes.array,
+  onSelect: PropTypes.func,
+};
 export default NodeList;

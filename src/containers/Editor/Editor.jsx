@@ -2,7 +2,7 @@ import JSZip from "jszip";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { FlowConnect, Node, Vector } from "flow-connect";
+import { Flow, FlowConnect, Node, Vector } from "flow-connect";
 import "@flow-connect/audio";
 
 import styles from "./Editor.module.css";
@@ -25,11 +25,7 @@ import { FlowConnectContext } from "@/contexts/flow-connect";
 import FlowName from "@/components/common/FlowName/FlowName";
 import ContextMenu from "@/components/common/ContextMenu/ContextMenu";
 import Properties from "@/components/Properties/Properties";
-
-/*
-CICD
-Publish
-*/
+import SourceSelector from "@/components/SourceSelector/SourceSelector";
 
 const Editor = () => {
   const { id } = useParams();
@@ -47,6 +43,9 @@ const Editor = () => {
   const currContext = useRef(null);
   const [ctxMenu, setCtxMenu] = useState(null);
   const [showProps, setShowProps] = useState(null);
+  const [srcNode, setSrcNode] = useState(null);
+  const uploaderEl = useRef(null);
+  const srcSelectorModal = useRef(null);
 
   const load = async (fc) => {
     let deSerializedFlow = null;
@@ -64,6 +63,7 @@ const Editor = () => {
     if (result.payload) {
       deSerializedFlow = await unwrap(fc ?? flowConnect, result.payload);
       setFlow(deSerializedFlow);
+      processNodes(deSerializedFlow);
 
       setLoadMsg("Rendering");
       (fc ?? flowConnect).render(deSerializedFlow);
@@ -99,7 +99,7 @@ const Editor = () => {
 
     let prwBlobUrl = null;
     if (flow?.nodes.size !== 0) {
-      const ratio = 4 / 3;
+      const ratio = 1385 / 895;
       const height = flowConnect.canvas.width / ratio;
       const prwCanvas = new OffscreenCanvas(flowConnect.canvas.width, height);
       prwCanvas
@@ -181,6 +181,8 @@ const Editor = () => {
       ),
       node.type === "audio/waveform" ? { style: { waveColor: "#fff" } } : {}
     );
+
+    processNodes(n);
   };
   const handleDrop = (data, pos) => {
     handleSelect({ type: data }, flowConnect.screenToReal(Vector.create(pos)));
@@ -217,6 +219,25 @@ const Editor = () => {
       flow.removeNode(currContext.current);
     }
   };
+  const processNodes = (input) => {
+    const nodes = [];
+    if (input instanceof Flow) {
+      [...input.nodes].forEach(([_, val]) => nodes.push(val));
+    } else if (input instanceof Node) {
+      nodes.push(input);
+    }
+
+    nodes
+      .filter((node) => ["audio/source", "audio/buffer-source"].includes(node.type))
+      .forEach((node) => {
+        node.fileInput.actionOverride = true;
+        node.fileInput.label.on("click", () => setSrcNode(node));
+      });
+  };
+  const handleSourceSelect = (file) => {
+    srcNode.state.file = file;
+    srcSelectorModal.current?.close();
+  };
 
   const init = async () => {
     const fc = await FlowConnect.create(mainEl.current);
@@ -238,6 +259,7 @@ const Editor = () => {
         try {
           const flow = await unwrap(fc, location.state.url);
           setFlow(flow);
+          processNodes(flow);
           setPreview({ name: location.state.name });
           fc.render(flow);
         } catch (error) {
@@ -268,6 +290,15 @@ const Editor = () => {
 
   return (
     <>
+      <input
+        accept="audio/*"
+        onChange={(e) => {
+          handleSourceSelect(e.target.files[0]);
+        }}
+        ref={uploaderEl}
+        type="file"
+        style={{ display: "none" }}
+      />
       {ctxMenu && (
         <ContextMenu
           options={["Properties", "Delete"]}
@@ -290,6 +321,24 @@ const Editor = () => {
           <span>
             Delete flow <em>{preview.name}</em> ?
           </span>
+        </Modal>
+      )}
+      {srcNode && (
+        <Modal
+          className="minw-75 minh-75 maxh-75"
+          title="Select Source File"
+          titleExtras={
+            <Button onClick={() => uploaderEl.current?.click()} icon="import" rect size={0.9}>
+              Upload
+            </Button>
+          }
+          onDismiss={() => setSrcNode(null)}
+          controls={[]}
+          onAction={(action) => handleTourAction(action)}
+          layer={2}
+          ref={(e) => (srcSelectorModal.current = e)}
+        >
+          <SourceSelector onSelect={(file) => handleSourceSelect(file)} />
         </Modal>
       )}
       <Header

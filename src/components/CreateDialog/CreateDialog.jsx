@@ -9,7 +9,7 @@ import Spinner from "../common/Spinner/Spinner";
 import empty from "@/assets/images/empty.png";
 import { saveFlow } from "@/store/actions/db";
 
-const CreateDialog = () => {
+const CreateDialog = ({ onSelect }) => {
   const [loadingTemps, setLoadingTemps] = useState(false);
   const dispatch = useDispatch();
   const templates = useSelector((state) => state.templates);
@@ -31,7 +31,7 @@ const CreateDialog = () => {
     if (template.id === 0) {
       if (dbStatus !== "open") {
         // 1. Empty Flow, Database Down, Internet Up/Down (Irrelevant)
-        navigate(`/flows/temp`, { state: null });
+        onSelect({ path: `/flows/temp`, options: { state: null } });
       } else {
         // 2. Empty Flow, Database Up, Internet Up/Down (Irrelevant)
         // Save new empty flow in database and switch to Editor
@@ -39,13 +39,16 @@ const CreateDialog = () => {
           saveFlow({ flow: null, preview: { name: "Untitled", img: null } })
         );
         if (result.payload) {
-          navigate(`/flows/${result.payload}`);
+          onSelect({ path: `/flows/${result.payload}` });
         }
       }
     } else {
       if (dbStatus !== "open") {
         // 3. Template Flow, Internet Up, Database Down
-        navigate(`/flows/temp`, { state: { url: blobUrl, name: template.name } });
+        onSelect({
+          path: `/flows/temp`,
+          options: { state: { url: blobUrl, name: template.name } },
+        });
       } else {
         // 4. Template Flow, Internet Up, Database Up
         // Save new template flow in database and switch to Editor
@@ -53,7 +56,7 @@ const CreateDialog = () => {
           saveFlow({ flow: blobUrl, preview: { name: template.name, img: template.img } })
         );
         if (result.payload) {
-          navigate(`/flows/${result.payload}`);
+          onSelect({ path: `/flows/${result.payload}` });
         }
       }
     }

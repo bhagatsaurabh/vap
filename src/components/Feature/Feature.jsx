@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import styles from "./Feature.module.css";
 
 const Feature = ({ left, right }) => {
@@ -8,6 +10,11 @@ const Feature = ({ left, right }) => {
       {right}
     </div>
   );
+};
+
+Feature.propTypes = {
+  left: PropTypes.node,
+  right: PropTypes.node,
 };
 
 export default Feature;

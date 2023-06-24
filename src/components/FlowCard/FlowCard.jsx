@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
+
 import { Link } from "react-router-dom";
 import styles from "./FlowCard.module.css";
-
 import defaultPreview from "@/assets/images/default-preview.png";
 import Button from "../common/Button/Button";
 
@@ -22,6 +23,15 @@ const FlowCard = ({ preview, onDelete }) => {
       </div>
     </Link>
   );
+};
+
+FlowCard.propTypes = {
+  preview: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    img: PropTypes.string,
+  }),
+  onDelete: PropTypes.func,
 };
 
 export default FlowCard;

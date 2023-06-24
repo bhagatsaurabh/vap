@@ -11,7 +11,7 @@ const initDatabase = createAsyncThunk("db/init", async (_, { dispatch, getState 
   }
 });
 
-const fetchPreviews = createAsyncThunk("db/previews", async (_, { dispatch, getState }) => {
+const fetchPreviews = createAsyncThunk("db/previews", async (_, { dispatch }) => {
   dispatch({ type: "database/clear-error" });
 
   try {

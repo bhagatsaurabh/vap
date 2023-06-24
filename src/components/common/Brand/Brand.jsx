@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 import styles from "./Brand.module.css";
 import vapLight from "@/assets/images/logo-light-transparent.png";
@@ -25,6 +26,13 @@ const Brand = ({ size, fixed, editor, className }) => {
       <span style={{ fontSize: `${bSize}rem` }}>vAP</span>
     </div>
   );
+};
+
+Brand.propTypes = {
+  size: PropTypes.number,
+  fixed: PropTypes.bool,
+  editor: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default Brand;

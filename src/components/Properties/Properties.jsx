@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useNavigationType } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { NodeState } from "flow-connect";
+import PropTypes from "prop-types";
 
 import Backdrop from "../common/Backdrop/Backdrop";
 import styles from "./Properties.module.css";
 import { fullUrl, splitUrl } from "@/misc/utils";
 import Button from "../common/Button/Button";
-import { NodeState } from "flow-connect";
 import Toggle from "../common/Toggle/Toggle";
 import FileInput from "../common/FileInput/FileInput";
 
@@ -324,6 +325,12 @@ const Properties = ({ slide, onDismiss, node }) => {
       </aside>
     </>
   );
+};
+
+Properties.propTypes = {
+  slide: PropTypes.bool,
+  onDismiss: PropTypes.func,
+  node: PropTypes.any,
 };
 
 export default Properties;
