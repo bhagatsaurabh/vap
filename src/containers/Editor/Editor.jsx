@@ -181,7 +181,6 @@ const Editor = () => {
       ),
       node.type === "audio/waveform" ? { style: { waveColor: "#fff" } } : {}
     );
-    console.log(n);
   };
   const handleDrop = (data, pos) => {
     handleSelect({ type: data }, flowConnect.screenToReal(Vector.create(pos)));
@@ -298,7 +297,7 @@ const Editor = () => {
         left={<Brand size={1} fixed editor />}
         center={<FlowName value={preview.name} onUpdate={handleNameUpdate} />}
         right={
-          <div className={styles["flow-controls"]}>
+          <div data-tour="6" className={styles["flow-controls"]}>
             <Button
               busy={saving}
               disabled={saving || state === "loading" || id === "temp"}

@@ -30,7 +30,12 @@ const Template = ({ template, onBusy, onUnlock, onSelect, disabled }) => {
   };
 
   return (
-    <button disabled={disabled} onClick={() => fetchTemplate()} className={classes.join(" ")}>
+    <button
+      data-tour="3"
+      disabled={disabled}
+      onClick={() => fetchTemplate()}
+      className={classes.join(" ")}
+    >
       {loading && (
         <div className={styles.spinner}>
           <Spinner size={1.5} accent="dark" className="fs-0">

@@ -107,7 +107,7 @@ const Library = ({ onSelect, onDrop }) => {
         onDrop={(data, pos) => handleDrop(data, pos)}
       />
       <aside onTransitionEnd={handleEnd} className={classes.join(" ")}>
-        <button onClick={handleOpen} className={styles.control}>
+        <button data-tour="4" onClick={handleOpen} className={styles.control}>
           <p>Library</p>
         </button>
         {show && (
@@ -129,6 +129,9 @@ const Library = ({ onSelect, onDrop }) => {
               </section>
             </header>
             <section className={styles.content}>
+              {nodeGroups.length === 0 && (
+                <span className="c-grey">Cannot find nodes with name matching '{query}'</span>
+              )}
               {nodeGroups.map((group, idx) => (
                 <Accordion
                   key={group.name}

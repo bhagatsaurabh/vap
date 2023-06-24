@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import JSZip from "jszip";
 
 import Header from "@/components/Header/Header";
 import styles from "./Flows.module.css";
@@ -14,7 +15,6 @@ import Collapsible from "@/components/common/Collapsible/Collapsible";
 import Modal from "@/components/common/Modal/Modal";
 import FlowList from "@/components/FlowList/FlowList";
 import CreateDialog from "@/components/CreateDialog/CreateDialog";
-import JSZip from "jszip";
 
 const Flows = () => {
   const refEl = useRef(null);
@@ -22,8 +22,11 @@ const Flows = () => {
   const dispatch = useDispatch();
   const [openingDB, setOpeningDB] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [showDialog, setShowDialog] = useState(false);
+  const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const isTour = useSelector((state) => state.preferences.tour);
+  const [showTourDialog, setShowTourDialog] = useState(isTour !== false);
   const error = useSelector((state) => state.database.error);
+  const [tourPref, setTourPref] = useState(false);
 
   const handleOpenDB = async () => {
     try {
@@ -78,6 +81,14 @@ const Flows = () => {
 
     return name;
   };
+  const handleTourAction = (action) => {
+    if (action === "Okay") {
+      dispatch({ type: "tour/set-state", payload: "open" });
+    }
+    if (tourPref) {
+      dispatch({ type: "preference/set", payload: { tour: false } });
+    }
+  };
 
   useEffect(() => {
     handleOpenDB();
@@ -96,10 +107,10 @@ const Flows = () => {
           <Collapsible summary="More Details">{error.details}</Collapsible>
         </Modal>
       )}
-      {showDialog && (
+      {showCreateDialog && (
         <Modal
           title="Create"
-          onDismiss={() => setShowDialog(false)}
+          onDismiss={() => setShowCreateDialog(false)}
           controls={["Close"]}
           onAction={() => {}}
           className="mh-75 mw-75"
@@ -108,13 +119,41 @@ const Flows = () => {
           <CreateDialog />
         </Modal>
       )}
+      {showTourDialog && (
+        <Modal
+          title="Walkthrough ?"
+          onDismiss={() => setShowTourDialog(false)}
+          controls={["Skip", "Okay"]}
+          onAction={(action) => handleTourAction(action)}
+        >
+          <>
+            How about a quick walkthrough ?
+            <div className="mt-2">
+              <input
+                onChange={(e) => setTourPref(e.target.checked)}
+                className="ml-0 mr-0p5"
+                type="checkbox"
+              />
+              <span>Do not ask me again</span>
+            </div>
+          </>
+        </Modal>
+      )}
       <Header
         left={<InteractiveLogo />}
         center={<Brand size={2} fixed />}
         right={
-          <a className="o-0p6" href="https://github.com/saurabh-prosoft/vap" target="_blank">
-            <Button className="fs-0" icon="github" size={2} iconLeft accent="dark" fit />
-          </a>
+          <div className="d-flex flex-center">
+            <Button
+              onClick={() => setShowTourDialog(true)}
+              className="fs-0 mr-0p5 p-0p5"
+              icon="tour"
+              size={1}
+            />
+            <a className="o-0p6 fs-0" href="https://github.com/saurabh-prosoft/vap" target="_blank">
+              <Button className="fs-0" icon="github" size={2} iconLeft accent="dark" fit />
+            </a>
+          </div>
         }
         fixed
         dynamic
@@ -123,12 +162,15 @@ const Flows = () => {
       <main className={styles.main}>
         <section ref={refEl} className={styles.title}>
           <div className="d-flex flex-center">
-            <h1 className={["mr-2", styles["title-name"]].join(" ")}>My Flows</h1>
+            <h1 data-tour="1" className={["mr-2", styles["title-name"]].join(" ")}>
+              My Flows
+            </h1>
             {openingDB && <Spinner accent="dark" size={2} />}
           </div>
           <div className={styles.controls}>
             <Button
-              onClick={() => setShowDialog(true)}
+              attr={{ "data-tour": "2" }}
+              onClick={() => setShowCreateDialog(true)}
               disabled={openingDB}
               icon="create"
               accent="dark"
