@@ -1,7 +1,72 @@
 [
   {
     "name": "Bass",
-    "samples": [{ "name": "Bass 1", "url": "" }]
+    "samples": [
+      {
+        "name": "Bass 1",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%201.wav"
+      },
+      {
+        "name": "Bass Berserk 1",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20Berserk%201.wav"
+      },
+      {
+        "name": "Bass Berserk 2",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20Berserk%202.wav"
+      },
+      {
+        "name": "Bass Berserk 3",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20Berserk%203.wav"
+      },
+      {
+        "name": "Bass Dubstep 1",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20Dubstep%201.wav"
+      },
+      {
+        "name": "Bass Dubstep 2",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20Dubstep%202.wav"
+      },
+      {
+        "name": "Bass Dubstep 3",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20Dubstep%203.wav"
+      },
+      {
+        "name": "Bass Dubstep 4",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20Dubstep%204.wav"
+      },
+      {
+        "name": "Bass Dubstep 5",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20Dubstep%205.wav"
+      },
+      {
+        "name": "Bass PsyTrance 1",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20PsyTrance%201.wav"
+      },
+      {
+        "name": "Bass PsyTrance 2",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20PsyTrance%202.wav"
+      },
+      {
+        "name": "Bass PsyTrance 3",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20PsyTrance%203.wav"
+      },
+      {
+        "name": "Bass Tech 1",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20Tech%201.wav"
+      },
+      {
+        "name": "Bass Tech 2",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20Tech%202.wav"
+      },
+      {
+        "name": "Bass Tech 3",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20Tech%203.wav"
+      },
+      {
+        "name": "Bass Tech 4",
+        "url": "https://raw.githubusercontent.com/saurabh-prosoft/vap/samples/samples/Bass/Bass%20Tech%204.wav"
+      }
+    ]
   },
   {
     "name": "Drum",
