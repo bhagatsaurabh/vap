@@ -6,6 +6,8 @@ import toast from "./reducers/toast";
 import templates from "./reducers/templates";
 import catalog from "./reducers/catalog";
 import navigation from "./reducers/navigation";
+import preferences from "./reducers/preferences";
+import tour from "./reducers/tour";
 
 const rootReducer = combineReducers({
   media,
@@ -14,6 +16,8 @@ const rootReducer = combineReducers({
   templates,
   catalog,
   navigation,
+  preferences,
+  tour,
 });
 
 export default configureStore({

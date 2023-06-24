@@ -24,7 +24,7 @@ const Modal = ({ title, children, onDismiss, onAction, controls, className, over
   const trapFocus = useCallback((event) => {
     if (event.key === "Tab" || event.keyCode === Constants.KEYCODE_TAB) {
       if (!node.current.contains(document.activeElement)) {
-        bound.current.first.focus();
+        bound.current.first?.focus();
         return;
       }
       if (event.shiftKey) {

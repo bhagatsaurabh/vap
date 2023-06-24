@@ -17,6 +17,7 @@ const Button = ({
   fit,
   flat,
   rect,
+  attr,
 }) => {
   const bSize = size || 1;
   const bAccent = styles[accent] ?? styles["dark"];
@@ -54,6 +55,7 @@ const Button = ({
 
   return (
     <button
+      {...attr}
       disabled={disabled}
       className={classes.join(" ")}
       style={{ fontSize: `${bSize}rem` }}

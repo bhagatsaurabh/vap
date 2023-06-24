@@ -51,6 +51,12 @@ body {
 .mr-2 {
   margin-right: 2rem;
 }
+.mt-2 {
+  margin-top: 2rem;
+}
+.ml-0 {
+  margin-left: 0;
+}
 .ml-1 {
   margin-left: 1rem;
 }
@@ -125,11 +131,18 @@ body {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
+.p-0p5 {
+  padding: 0.5rem;
+}
 .pointer-events-none {
   pointer-events: none;
 }
 .pointer-events-all {
   pointer-events: all;
+}
+
+.c-grey {
+  color: grey;
 }
 
 .docs-modal img {
@@ -213,6 +226,35 @@ button {
 .my-0 {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  background-color: transparent;
+  font: inherit;
+  color: currentColor;
+  width: 1rem;
+  height: 1rem;
+  display: inline-grid;
+  place-content: center;
+  box-shadow: 0 0 5px 0 inset #000;
+  cursor: pointer;
+}
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.6rem;
+  height: 0.6rem;
+  transform: scale(0);
+  transition: 0.12s transform ease-in-out;
+  box-shadow: inset 1em 1em grey;
+}
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="checkbox"]:disabled {
+  color: grey;
+  cursor: not-allowed;
 }
 
 @media (min-width: 768px) {
