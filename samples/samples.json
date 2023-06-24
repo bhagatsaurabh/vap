@@ -1,1 +1,18 @@
-{}
+[
+  {
+    "name": "Bass",
+    "samples": [{ "name": "Bass 1", "url": "" }]
+  },
+  {
+    "name": "Drum",
+    "samples": [{ "name": "Bass 1", "url": "" }]
+  },
+  {
+    "name": "Synth",
+    "samples": [{ "name": "Bass 1", "url": "" }]
+  },
+  {
+    "name": "Voice",
+    "samples": [{ "name": "Bass 1", "url": "" }]
+  }
+]
