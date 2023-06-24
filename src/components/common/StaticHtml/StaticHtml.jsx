@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import DOMPurify from "dompurify";
 import parse from "html-react-parser";
+import PropTypes from "prop-types";
 
 import styles from "./StaticHtml.module.css";
 import Spinner from "../Spinner/Spinner";
@@ -43,6 +44,11 @@ const StaticHtml = ({ url, className }) => {
       )}
     </div>
   );
+};
+
+StaticHtml.propTypes = {
+  url: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default StaticHtml;

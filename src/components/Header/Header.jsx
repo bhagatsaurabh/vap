@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
+
 import styles from "./Header.module.css";
 
 const Header = ({ left, right, center, transparent, fixed, dynamic, reference, className }) => {
@@ -34,6 +36,17 @@ const Header = ({ left, right, center, transparent, fixed, dynamic, reference, c
       <div className={styles.right}>{right}</div>
     </header>
   );
+};
+
+Header.propTypes = {
+  left: PropTypes.node,
+  right: PropTypes.node,
+  center: PropTypes.node,
+  transparent: PropTypes.bool,
+  fixed: PropTypes.bool,
+  dynamic: PropTypes.bool,
+  reference: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default Header;

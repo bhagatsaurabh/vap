@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+
 import styles from "./FlowName.module.css";
 
 const FlowName = ({ value, onUpdate }) => {
@@ -27,6 +29,11 @@ const FlowName = ({ value, onUpdate }) => {
       placeholder={value}
     />
   );
+};
+
+FlowName.propTypes = {
+  value: PropTypes.string,
+  onUpdate: PropTypes.func,
 };
 
 export default FlowName;

@@ -14,7 +14,7 @@ export class Particle {
     this.amplitude = amp;
   }
 
-  update(w, h) {
+  update(w) {
     /* this.x -= this.vx;
     if (this.x < -w / 2) this.x = 1.5 * w;
 

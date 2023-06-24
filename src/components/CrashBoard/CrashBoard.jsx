@@ -51,7 +51,12 @@ const CrashBoard = () => {
       </main>
       <Footer
         left={
-          <a className="o-0p6" href="https://github.com/saurabh-prosoft/vap" target="_blank">
+          <a
+            className="o-0p6"
+            href="https://github.com/saurabh-prosoft/vap"
+            target="_blank"
+            rel="noreferrer"
+          >
             <Button className="fs-0" icon="github" size={2} iconLeft accent="dark" fit />
           </a>
         }

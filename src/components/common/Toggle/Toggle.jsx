@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import styles from "./Toggle.module.css";
 
 const Toggle = ({ checked, onChange }) => {
@@ -7,6 +9,11 @@ const Toggle = ({ checked, onChange }) => {
       <span className={styles.slider}></span>
     </label>
   );
+};
+
+Toggle.propTypes = {
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
 };
 
 export default Toggle;

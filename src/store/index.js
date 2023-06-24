@@ -8,6 +8,7 @@ import catalog from "./reducers/catalog";
 import navigation from "./reducers/navigation";
 import preferences from "./reducers/preferences";
 import tour from "./reducers/tour";
+import samples from "./reducers/samples";
 
 const rootReducer = combineReducers({
   media,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   navigation,
   preferences,
   tour,
+  samples,
 });
 
 export default configureStore({

@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import Button from "../common/Button/Button";
 import styles from "./EditorControls.module.css";
 
@@ -13,6 +15,13 @@ const EditorControls = ({ state, onPlay, onStop, onReplay }) => {
       <Button disabled={loading} onClick={onReplay} icon="replay" size={1} flat rect />
     </aside>
   );
+};
+
+EditorControls.propTypes = {
+  state: PropTypes.string,
+  onPlay: PropTypes.func,
+  onStop: PropTypes.func,
+  onReplay: PropTypes.func,
 };
 
 export default EditorControls;

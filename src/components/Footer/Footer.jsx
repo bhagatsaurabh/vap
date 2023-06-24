@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import styles from "./Footer.module.css";
 
 const Footer = ({ left, right, center, transparent, fixed }) => {
@@ -16,6 +18,14 @@ const Footer = ({ left, right, center, transparent, fixed }) => {
       <div className={styles.right}>{right}</div>
     </footer>
   );
+};
+
+Footer.propTypes = {
+  left: PropTypes.node,
+  right: PropTypes.node,
+  center: PropTypes.node,
+  transparent: PropTypes.bool,
+  fixed: PropTypes.bool,
 };
 
 export default Footer;

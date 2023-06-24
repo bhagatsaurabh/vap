@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import Tour from "reactour";
+import PropTypes from "prop-types";
 
-import styles from "./Walkthrough.module.css";
 import { tourSteps } from "@/misc/tour";
-import { useNavigationType } from "react-router-dom";
 
 const Walkthrough = ({ show }) => {
   const [currStep, setCurrStep] = useState(0);
@@ -63,6 +62,10 @@ const Walkthrough = ({ show }) => {
       lastStepNextButton={<span className="tourclose">Close</span>}
     />
   );
+};
+
+Walkthrough.propTypes = {
+  show: PropTypes.bool,
 };
 
 export default Walkthrough;

@@ -49,6 +49,11 @@
   padding: 1rem;
   padding-bottom: 0;
 }
+.modal .title .right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
 .modal .title h2 {
   margin-top: 0;

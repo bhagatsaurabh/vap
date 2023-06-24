@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import Button from "../Button/Button";
 import styles from "./ScrollToTop.module.css";
 
@@ -18,4 +20,8 @@ const ScrollToTop = ({ anchor, show }) => {
   );
 };
 
+ScrollToTop.propTypes = {
+  anchor: PropTypes.func,
+  show: PropTypes.bool,
+};
 export default ScrollToTop;

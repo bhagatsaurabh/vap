@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import styles from "./ScrollHint.module.css";
 
 const ScrollHint = ({ show }) => {
@@ -7,6 +9,10 @@ const ScrollHint = ({ show }) => {
   }
 
   return <div className={classes.join(" ")}></div>;
+};
+
+ScrollHint.propTypes = {
+  show: PropTypes.bool,
 };
 
 export default ScrollHint;

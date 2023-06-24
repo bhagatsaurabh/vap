@@ -11,6 +11,12 @@
         "type": "audio/source"
       },
       {
+        "name": "File Buffer",
+        "icon": "buffer",
+        "docs": "/docs/source/file-buffer.html",
+        "type": "audio/buffer-source"
+      },
+      {
         "name": "Noise",
         "icon": "noise",
         "docs": "/docs/source/noise.html",

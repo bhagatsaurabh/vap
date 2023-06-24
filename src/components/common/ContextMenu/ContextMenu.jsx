@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
+
 import styles from "./ContextMenu.module.css";
 
 const ContextMenu = ({ title, options, position, onSelect, onDismiss }) => {
@@ -51,6 +53,17 @@ const ContextMenu = ({ title, options, position, onSelect, onDismiss }) => {
       ))}
     </div>
   );
+};
+
+ContextMenu.propTypes = {
+  title: PropTypes.string,
+  options: PropTypes.arrayOf(PropTypes.string),
+  position: PropTypes.shape({
+    x: PropTypes.number,
+    y: PropTypes.number,
+  }),
+  onSelect: PropTypes.func,
+  onDismiss: PropTypes.func,
 };
 
 export default ContextMenu;
