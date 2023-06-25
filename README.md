@@ -14,7 +14,7 @@
 
 An online easy to use webapp for audio synthesis, processing, manipulation and visualization
 
-Check it out live [here](https://process-audio.herokuapp.com/) !
+Check it out live [here](https://vap.saurabhagat.me/) !
 
 <br/>
 

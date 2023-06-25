@@ -4,4 +4,10 @@
 .tourclose {
   border: 1px solid grey;
   padding: 0.5rem 1rem;
+  color: #000;
+}
+.tournext {
+  border: 1px solid grey;
+  padding: 0.5rem 1rem;
+  color: #000;
 }

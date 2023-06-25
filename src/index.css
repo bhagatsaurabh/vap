@@ -277,6 +277,11 @@ input[type="checkbox"]:disabled {
   cursor: pointer;
 }
 
+.tourstep-content {
+  color: #000;
+  margin-top: 1rem;
+}
+
 @media (min-width: 768px) {
   .docs img {
     max-width: 25vw;
