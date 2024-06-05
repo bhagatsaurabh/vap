@@ -12,7 +12,7 @@
 </a>
 </p>
 
-An online easy to use webapp for audio synthesis, processing, manipulation and visualization
+An online easy to use webapp for audio synthesis, processing and visualization
 
 Check it out live [here](https://vap.saurabhagat.me/) !
 
