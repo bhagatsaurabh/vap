@@ -32,7 +32,7 @@ const CrashBoard = () => {
             </Button>
           </Link>
           <Link
-            to="https://github.com/saurabh-prosoft/vap/issues/new?title=The%20app%20crashed%20!&body=Please%20add%20details%20here..."
+            to="https://github.com/bhagatsaurabh/vap/issues/new?title=The%20app%20crashed%20!&body=Please%20add%20details%20here..."
             target="_blank"
           >
             <Button icon="bug" iconLeft rect>
@@ -40,7 +40,7 @@ const CrashBoard = () => {
             </Button>
           </Link>
           <Link
-            to="https://github.com/saurabh-prosoft/flow-connect/issues/new?title=The%20app%20crashed%20!&body=Please%20add%20details%20here..."
+            to="https://github.com/bhagatsaurabh/flow-connect/issues/new?title=The%20app%20crashed%20!&body=Please%20add%20details%20here..."
             target="_blank"
           >
             <Button icon="bug" iconLeft rect>
@@ -53,7 +53,7 @@ const CrashBoard = () => {
         left={
           <a
             className="o-0p6"
-            href="https://github.com/saurabh-prosoft/vap"
+            href="https://github.com/bhagatsaurabh/vap"
             target="_blank"
             rel="noreferrer"
           >
