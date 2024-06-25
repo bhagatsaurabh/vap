@@ -143,7 +143,7 @@ const Home = () => {
         left={
           <a
             className="o-0p6"
-            href="https://github.com/saurabh-prosoft/vap"
+            href="https://github.com/bhagatsaurabh/vap"
             target="_blank"
             rel="noreferrer"
           >
