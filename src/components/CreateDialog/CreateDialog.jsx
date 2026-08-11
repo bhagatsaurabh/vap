@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import Template from "../common/Template/Template";
@@ -13,7 +12,6 @@ const CreateDialog = ({ onSelect }) => {
   const [loadingTemps, setLoadingTemps] = useState(false);
   const dispatch = useDispatch();
   const templates = useSelector((state) => state.templates);
-  const navigate = useNavigate();
   const dbStatus = useSelector((state) => state.database.status);
   const [busy, setBusy] = useState(false);
 
@@ -36,7 +34,7 @@ const CreateDialog = ({ onSelect }) => {
         // 2. Empty Flow, Database Up, Internet Up/Down (Irrelevant)
         // Save new empty flow in database and switch to Editor
         const result = await dispatch(
-          saveFlow({ flow: null, preview: { name: "Untitled", img: null } })
+          saveFlow({ flow: null, preview: { name: "Untitled", img: null } }),
         );
         if (result.payload) {
           onSelect({ path: `/flows/${result.payload}` });
@@ -53,7 +51,7 @@ const CreateDialog = ({ onSelect }) => {
         // 4. Template Flow, Internet Up, Database Up
         // Save new template flow in database and switch to Editor
         const result = await dispatch(
-          saveFlow({ flow: blobUrl, preview: { name: template.name, img: template.img } })
+          saveFlow({ flow: blobUrl, preview: { name: template.name, img: template.img } }),
         );
         if (result.payload) {
           onSelect({ path: `/flows/${result.payload}` });

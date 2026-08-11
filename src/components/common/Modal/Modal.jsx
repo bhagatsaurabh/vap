@@ -12,7 +12,7 @@ import { Constants, fullUrl, getSlug, trapBetween } from "@/misc/utils";
 const Modal = forwardRef(
   (
     { title, titleExtras, children, onDismiss, onAction, controls, className, overflow, layer },
-    ref
+    ref,
   ) => {
     const layerLevel = layer ?? 0;
     const pControls = controls ?? [];
@@ -144,7 +144,7 @@ const Modal = forwardRef(
         </CSSTransition>
       </>
     );
-  }
+  },
 );
 
 Modal.propTypes = {

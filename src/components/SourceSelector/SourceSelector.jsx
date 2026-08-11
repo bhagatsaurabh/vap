@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import Tabs from "../common/Tabs/Tabs";
@@ -37,7 +36,7 @@ const SourceSelector = ({ onSelect }) => {
     onSelect(
       new File([blob], decodeURI(sample.url.substring(sample.url.lastIndexOf("/") + 1)), {
         type: blob.type,
-      })
+      }),
     );
   };
 
