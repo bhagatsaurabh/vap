@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://vap.saurabhagat.me">
+<a href="https://vap.saurabhagat.dev">
 <img width="50%" alt="vAP Cover" src="https://raw.githubusercontent.com/bhagatsaurabh/vap/main/src/assets/images/cover.png" />
 </a>
 </p>
@@ -14,7 +14,7 @@
 
 An online easy to use webapp for audio synthesis, processing and visualization
 
-Check it out live [here](https://vap.saurabhagat.me/) !
+Check it out live [here](https://vap.saurabhagat.dev/) !
 
 <br/>
 

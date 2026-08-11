@@ -7,8 +7,8 @@ import vapLight from "@/assets/images/logo-light-transparent.png";
 const Brand = ({ size, fixed, editor, className }) => {
   let bSize = size;
 
+  const media = useSelector((state) => state.media.value);
   if (!fixed) {
-    const media = useSelector((state) => state.media.value);
     if (media === "tab") {
       bSize = (2 / 3) * bSize;
     } else if (media === "mobile") {

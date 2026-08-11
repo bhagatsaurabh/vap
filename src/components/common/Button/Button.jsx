@@ -2,6 +2,7 @@ import { flip, noop } from "@/misc/utils";
 import Icon from "../Icon/Icon";
 import Spinner from "../Spinner/Spinner";
 import styles from "./Button.module.css";
+import { uuid } from "flow-connect/flow-connect.js";
 
 const Button = ({
   busy,
@@ -38,14 +39,20 @@ const Button = ({
     content.push(
       !busy ? (
         <Icon
+          key={uuid()}
           className={iconClasses.join(" ")}
           size={bSize}
           accent={accent ?? "dark"}
           name={icon}
         />
       ) : (
-        <Spinner className={iconClasses.join(" ")} size={bSize} accent={accent ?? "dark"} />
-      )
+        <Spinner
+          key={uuid()}
+          className={iconClasses.join(" ")}
+          size={bSize}
+          accent={accent ?? "dark"}
+        />
+      ),
     );
 
     if (iconLeft && !iconRight) {

@@ -113,7 +113,7 @@ const Editor = () => {
     const packURL = URL.createObjectURL(pack);
     const prw = await dispatch(fetchPreview(id));
     await dispatch(
-      saveFlow({ id, flow: packURL, preview: { name: prw.payload.name, img: prwBlobUrl } })
+      saveFlow({ id, flow: packURL, preview: { name: prw.payload.name, img: prwBlobUrl } }),
     );
     prwBlobUrl && URL.revokeObjectURL(prwBlobUrl);
     URL.revokeObjectURL(packURL);
@@ -177,9 +177,9 @@ const Editor = () => {
       node.type,
       Vector.create(
         pos?.x ?? flowConnect.canvas.width * 0.4,
-        pos?.y ?? flowConnect.canvas.height * 0.4
+        pos?.y ?? flowConnect.canvas.height * 0.4,
       ),
-      node.type === "audio/waveform" ? { style: { waveColor: "#fff" } } : {}
+      node.type === "audio/waveform" ? { style: { waveColor: "#fff" } } : {},
     );
 
     processNodes(n);
@@ -285,7 +285,7 @@ const Editor = () => {
       flowConnect?.detach();
       flowConnect?.offAll();
     },
-    [flowConnect]
+    [flowConnect],
   );
 
   return (
