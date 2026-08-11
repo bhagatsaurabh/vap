@@ -11,23 +11,23 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [24.x]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7.0.1
 
       - name: Use Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7.0.0
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Build
         run: |
-          npm i
+          npm ci
           npm run build
 
       - name: Upload dist artifacts
-        uses: actions/upload-artifact@v4.3.3
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: vap-dist
           path: dist
@@ -37,18 +37,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
 
       - name: Download dist artifacts
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v8.0.1
         with:
           name: vap-dist
           path: dist
 
       - name: Deploy to GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v2
+        uses: crazy-max/ghaction-github-pages@v5.0.0
         with:
           target_branch: gh-pages
           build_dir: dist
@@ -59,20 +59,20 @@ jobs:
     needs: [Build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7.0.1
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7.0.0
         with:
           node-version: 18
 
       - name: Download dist artifacts
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v8.0.1
         with:
           name: vap-dist
           path: dist
 
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - uses: FirebaseExtended/action-hosting-deploy@v0.11.0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_VAP1_8D6C5 }}"
@@ -85,6 +85,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete dist artifacts
-        uses: geekyeggo/delete-artifact@v1
+        uses: geekyeggo/delete-artifact@v6.0.0
         with:
           name: vap-dist
