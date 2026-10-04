@@ -15,7 +15,7 @@
   "dependencies": {
     "@flow-connect/audio": "^2.0.3",
     "@reduxjs/toolkit": "^1.9.5",
-    "dompurify": "^3.0.3",
+    "dompurify": "^3.4.16",
     "flow-connect": "^2.0.7",
     "html-react-parser": "^3.0.16",
     "jszip": "^3.10.1",
